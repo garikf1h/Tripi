@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TripiProjN.iml" filepath="$PROJECT_DIR$/.idea/TripiProjN.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Tripi.iml" filepath="$PROJECT_DIR$/.idea/Tripi.iml" />
     </modules>
   </component>
 </project>

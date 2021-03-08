@@ -10,7 +10,6 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
-
 @app.route('/signup', methods=["GET", "POST"])
 def first():
     if request.method == "POST":
@@ -36,7 +35,16 @@ def first():
 
 @app.route('/', methods=["GET", "POST"])
 def login():
-    return render_template("/login_page.html")
+    if request.method == 'POST':
+        cur = mysql.connection.cursor()
+        id_form = request.form['input_id'];
+        email_form = request.form['input_email']
+        cur.execute('''SELECT * FROM EXAM1 WHERE ID = %s''',(id_form,))
+        a = cur.fetchall()
+        print(a)
+        return redirect('/')
+    else:
+        return render_template("/login_page.html")
 
 
 if __name__ == '__main__':

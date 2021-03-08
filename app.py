@@ -25,7 +25,6 @@ def first():
         print(full_name, email, id1, number_of_child, activity_level, relationship_stat)
         cur.execute("INSERT INTO EXAM1(ID, email, full_name, activity_level, number_of_child, relationship_status) VALUES(%s, %s,%s,%s,%s, %s)", (id1, email, full_name, activity_level, number_of_child, relationship_stat))
         mysql.connection.commit()
-
         return redirect("/")
     else:
         cur = mysql.connection.cursor()

@@ -1,0 +1,25 @@
+article {
+  background-color: #fffbf3;
+        width: 500px;
+        height: 630px;
+        margin: 6em auto;
+        border-radius: 1.5em;
+        box-shadow: 1px 11px 35px 2px rgba(0, 0, 0, 0.14);
+  font-family: 'Ubuntu', sans-serif;
+  position: relative;
+  top: -90px;
+}
+body {
+  background-image: url("landscape.jpg"); !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  margin: 1rem;
+}
+#logo{
+    width: 420px;
+  height: 140px;
+  position: relative;
+  top: 10px;
+  left: 20px
+}

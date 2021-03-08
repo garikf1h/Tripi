@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>Sign Up</title>
+    <link href="/static/Tripi_page_1.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+<form method="POST" action="/">
+ <article>
+    <div class="container">
+        <img src="/static/logo.PNG" id="logo" alt="Trulli">
+        <p class="container_title">Your Basic info</p>
+        <p class="container_title_description">Please fill in this form to get the most of our services.</p>
+        <div class="container_param">
+        <div class="email">
+        <label for="email"><b>Email</b></label>
+        <label>
+            <input type="text" placeholder="Enter Email" name = "email" id = "email" required>
+        </label><br><br>
+        </div>
+         <div class="fname">
+             <label for="full_name"><b>Full Name</b></label>
+             <label>
+                 <input type="text" placeholder="Enter Full Name" name="full_name" id = "full_name" required>
+             </label><br><br>
+         </div>
+        <div class="ID">
+            <label for="psw"><b>ID</b></label>
+        <label>
+            <input type="number" placeholder="Enter ID" name="ID_N" name="ID_N" required>
+        </label><br><br>
+        </div>
+        <div class="range-wrap" style="width: 55%;">
+            <label for="Activity_level"><b>Activity Level</b>
+                <input type="range" class="range" name="active"  id="active" min="0" max="5">
+            </label>
+            <output class="bubble"></output>
+        </div>
+        <h2>Relationship Status:</h2>
+        <ul>
+            <li>
+                <input type="radio" id="f-option" name="selector">
+                <label for="f-option">Married</label>
+                <div class="check"></div>
+            </li>
+            <li>
+                <input type="radio" id="s-option" name="selector">
+                <label for="s-option">Partnered</label>
+                <div class="check"><div class="inside"></div></div></li>
+            <li>
+                <input type="radio" id="t-option" name="selector">
+                <label for="t-option">Single</label>
+                <div class="check"><div class="inside"></div></div>
+            </li>
+        </ul>
+        <br><br>
+        <h2>Number of Children:</h2>
+        <select id="select-number" name = "select-number">
+            <option value="" >Select Number</option>
+            <option value="0" >0</option>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5+</option>
+        </select>
+
+        <br><br>
+        <input type="submit" name="next" class="next action-button" value="Next" />
+    </div>
+         </div>
+     </article>
+<script src="../../../PycharmProjects/TripiProjN/static/script.js">
+</script>
+    </form>
+{% endblock %}

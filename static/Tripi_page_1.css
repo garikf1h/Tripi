@@ -1,0 +1,258 @@
+body {
+  background-image: url("landscape.jpg"); !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  margin: 1rem;
+}
+#logo{
+  width: 420px;
+  height: 140px;
+  position: relative;
+  top: 10px;
+  left: 20px
+}
+article {
+  background-color: #fffbf3;
+        width: 500px;
+        height: 630px;
+        margin: 6em auto;
+        border-radius: 1.5em;
+        box-shadow: 1px 11px 35px 2px rgba(0, 0, 0, 0.14);
+  font-family: 'Ubuntu', sans-serif;
+  position: relative;
+  top: -90px;
+}
+
+.fname {
+  text-align: center;
+  position: relative;
+  left: -12px;
+}
+
+.email {
+  text-align: center;
+  position: relative;
+  left: 5px;
+}
+
+.ID {
+  text-align: center;
+  position: relative;
+  left: 16px;
+}
+
+.range-wrap {
+  position: relative;
+  margin: 0 auto 3rem;
+}
+.range {
+  width: 100%;
+}
+.bubble {
+  background: red;
+  color: white;
+  padding: 4px 12px;
+  position: absolute;
+  border-radius: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: red;
+  top: -1px;
+  left: 50%;
+}
+
+
+#l_b {
+  transition-duration: 0.4s;
+}
+
+#l_b:hover {
+  background-color: #1f3dab;
+  color: white;
+}
+
+.container_title_description{
+  text-align: center;
+   position: relative;
+  top: -46px;
+}
+.container_title {
+  padding-top: 1px;
+  color: #013487;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+  position: relative;
+  top: -20px;
+}
+
+
+h2 {
+	color: #2a2727;
+	font-size: 17px;
+	position: relative;
+	 text-align: center;
+	 left:-55px;
+	top: -15px;
+}
+
+.container ul{
+  position:relative;
+}
+
+ul li{
+  color: #171616;
+  display: block;
+  position: relative;
+  float: left;
+  width: 25%;
+  font-size: 15px;
+  height: 50px;
+  top: -50px;
+  left: 20px;
+}
+
+ul li input[type=radio]{
+  position: absolute;
+  visibility: hidden;
+}
+
+ul li label{
+  display: block;
+  position: relative;
+  font-weight: 300;
+  font-size: 1em;
+  padding: 25px 25px 25px 80px;
+  margin: 10px auto;
+  height: 30px;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+ul li:hover label{
+	color: #FFFFFF;
+}
+
+ul li .check{
+  display: block;
+  position: absolute;
+  border: 5px solid #AAAAAA;
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  top: 30px;
+  left:40px;
+	z-index: 5;
+	transition: border .25s linear;
+	-webkit-transition: border .25s linear;
+}
+
+ul li:hover .check {
+  border: 5px solid #FFFFFF;
+}
+
+ul li .check::before {
+  display: block;
+  position: absolute;
+	content: '';
+  border-radius: 100%;
+  height: 10px;
+  width: 10px;
+  top: 5px;
+	left: 5px;
+  margin: auto;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+}
+
+input[type=radio]:checked ~ .check {
+  border: 5px solid #1fab53;
+}
+
+input[type=radio]:checked ~ .check::before{
+  background: #1fab53;
+}
+
+input[type=radio]:checked ~ label{
+  color: #1fab53;
+}
+
+.custom-select {
+    width: 600px;
+    height: 60px;
+    background: #eee;
+    position: relative;
+}
+
+.custom-select select {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0 10px;
+    appearance: none;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.custom-select::after {
+    content: "\f078";
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 5px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #00f;
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+#select-number {
+   text-align: center;
+  position: relative;
+  top: -25px;
+  left: 128px;
+}
+
+/*buttons*/
+.action-button {
+	width: 100px;
+	background: #1f3dab;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+	text-align: center;
+    position: relative;
+    top: -25px;
+    left:200px;
+}
+.action-button:hover,.action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1f3dab;
+}button:hover,.action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #1f3dab;
+}
+
+ .container_param{
+     position: relative;
+     top: -50px;
+ }

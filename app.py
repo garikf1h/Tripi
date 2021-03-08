@@ -8,10 +8,10 @@ app.config['MYSQL_HOST'] = 'bjgckwqx0c8k9fsiwtja-mysql.services.clever-cloud.com
 app.config['MYSQL_DB'] = 'bjgckwqx0c8k9fsiwtja'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-
 mysql = MySQL(app)
 
-@app.route('/', methods=["GET", "POST"])
+
+@app.route('/signup', methods=["GET", "POST"])
 def first():
     if request.method == "POST":
         cur = mysql.connection.cursor()
@@ -22,7 +22,8 @@ def first():
         number_of_child = request.form['select-number']
         activity_level = request.form['active']
         print(full_name, email, id1, number_of_child, activity_level)
-        cur.execute("INSERT INTO EXAM1(ID, email, full_name, activity_level, number_of_child) VALUES(%s, %s,%s,%s,%s)", (id1, email, full_name, activity_level, number_of_child))
+        cur.execute("INSERT INTO EXAM1(ID, email, full_name, activity_level, number_of_child) VALUES(%s, %s,%s,%s,%s)",
+                    (id1, email, full_name, activity_level, number_of_child))
         mysql.connection.commit()
 
         return redirect("/")
@@ -33,9 +34,11 @@ def first():
         print(a)
         return render_template("/Tripi_page_1.html")
 
-@app.route('/login', methods=["GET", "POST"])
+
+@app.route('/', methods=["GET", "POST"])
 def login():
     return render_template("/login_page.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

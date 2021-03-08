@@ -21,9 +21,9 @@ def first():
         id1 = request.form['ID_N']
         number_of_child = request.form['select-number']
         activity_level = request.form['active']
-        print(full_name, email, id1, number_of_child, activity_level)
-        cur.execute("INSERT INTO EXAM1(ID, email, full_name, activity_level, number_of_child) VALUES(%s, %s,%s,%s,%s)",
-                    (id1, email, full_name, activity_level, number_of_child))
+        relationship_stat = request.form.getlist("selector")[0]
+        print(full_name, email, id1, number_of_child, activity_level, relationship_stat)
+        cur.execute("INSERT INTO EXAM1(ID, email, full_name, activity_level, number_of_child, relationship_status) VALUES(%s, %s,%s,%s,%s, %s)", (id1, email, full_name, activity_level, number_of_child, relationship_stat))
         mysql.connection.commit()
 
         return redirect("/")

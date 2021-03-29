@@ -39,11 +39,18 @@ def login():
         cur = mysql.connection.cursor()
         id_form = request.form['input_id'];
         email_form = request.form['input_email']
-        cur.execute('''SELECT * FROM EXAM1 WHERE ID = %s''',(id_form,))
+        cur.execute('''SELECT * FROM EXAM1 WHERE ID = %s AND email = %s''', (id_form, email_form))
         a = cur.fetchall()
         print(a)
-        return redirect('/')
+        if len(a) == 0:
+            return render_template("/login_page.html", status = False)
+        else:
+            return render_template("/login_page.html", status = True)
     else:
+        cur = mysql.connection.cursor()
+        cur.execute('''SELECT * FROM EXAM1''')
+        a = cur.fetchall()
+        print(a)
         return render_template("/login_page.html")
 
 

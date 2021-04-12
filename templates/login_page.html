@@ -22,7 +22,7 @@
             {% if status is sameas True %}
             <p>Login succeeded</p>
             {% elif status is defined%}
-                <p>Login failed</p>
+                <p class="login_fail" align="right">Login failed, wrong email/id.</p>
             {% endif  %}
 
         </div>

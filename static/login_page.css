@@ -118,3 +118,14 @@ form.form1 {
 }button:hover,.action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1f3dab;
 }
+
+
+ .login_fail{
+       position: relative;
+      top: -67px;
+      color: #de0303;
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: bold;
+      font-size: 13px;
+      left: -165px;
+ }

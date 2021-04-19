@@ -1,0 +1,73 @@
+{% extends "base.html"%}
+{% block title %}
+ <title>Make Your Trip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/static/Tripi_page_2.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+<form>
+ <article>
+    <div class="container">
+        <img src="/static/logo.PNG" id="logo" alt="Trulli">
+           <div class="container_param">
+       <div class="free_search_input">
+        <label for="free_search_input"><b>Free Search</b></label>
+        <label>
+            <input type="text" placeholder="Enter KeyWord" name = "free_search_input" id = "free_search_input">
+        </label><br><br>
+    </div>
+               <h2>Region:</h2>
+        <select id="select-region" name = "select-region">
+            <option value="" >Select Region</option>
+            <option value="0" >North</option>
+            <option value="1" >Centre</option>
+            <option value="2" >South</option>
+            <option value="3" >Judea and Samaria</option>
+            <option value="4" >All</option>
+        </select>
+
+        <br><br>
+            <h2>Trip length:</h2>
+        <select id="select-trip-length" name = "select-trip-length">
+            <option value="" >Select Trip Length</option>
+            <option value="0" >half day</option>
+            <option value="1" >full day</option>
+            <option value="2" >more than a day</option>
+        </select>
+
+        <br><br>
+               <h2>Accessibility:</h2>
+        <ul>
+            <li>
+                <input type="radio" id="f-option" name="selector" value="yes">
+                <label for="f-option">yes</label>
+                <div class="check"></div>
+            </li>
+            <li>
+                <input type="radio" id="s-option" name="selector" value="no">
+                <label for="s-option">no</label>
+                <div class="check"><div class="inside"></div></div></li>
+        </ul>
+               <br><br>
+               <h2>Water trail:</h2>
+        <ul>
+            <li>
+                <input type="radio" id="f-option" name="selector" value="yes">
+                <label for="f-option">yes</label>
+                <div class="check"></div>
+            </li>
+            <li>
+                <input type="radio" id="s-option" name="selector" value="no">
+                <label for="s-option">no</label>
+                <div class="check"><div class="inside"></div></div></li>
+        </ul>
+        <br><br>
+                <input type="submit" name="next" class="next action-button" value="Search" />
+    </div>
+
+</div>
+ </article>
+    </form>
+{% endblock %}

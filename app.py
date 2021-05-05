@@ -45,7 +45,7 @@ def login():
         if len(a) == 0:
             return render_template("/login_page.html", status = False)
         else:
-            return render_template("/login_page.html", status = True)
+            return render_template("/Tripi_page_2.html", status = True)
     else:
         cur = mysql.connection.cursor()
         cur.execute('''SELECT * FROM EXAM1''')
@@ -54,5 +54,44 @@ def login():
         return render_template("/login_page.html")
 
 
+@app.route('/routeSearch', methods=["GET", "POST"])
+def searchRoute():
+    if request.method == 'POST':
+
+        cur = mysql.connection.cursor()
+    #     ## change to real name#
+        free_text= request.form['free_search_input']
+        region = request.form['select-region']
+        accesability = request.form['selector']
+        water = request.form['selector1']
+        length = request.form['select-trip-length']
+        print(free_text, region, accesability,water, length)
+        cur.execute(
+            '''SELECT name, shortDescription, Product_url,Starting_point_x,Starting_point_y  FROM TRACKS limit 100''')
+        a = cur.fetchall()
+
+
+#         cur.execute('''select TRACKS.* from TRACKS
+# where (%s = false
+# or TRACKS.Accessibility in ('כן','נגישות חלקית'))
+# and (%s is null or MATCH (Name,ShortDescription,FullDescription) AGAINST (convert( %s to text) IN NATURAL LANGUAGE MODE))
+# and %s = TRACKS.Region
+# and (%s 'לא משנה' or TRACKS.Bathing_Waters = %s )
+# and ( %s = Trail_Duration)''', (accesability, free_text,free_text,region,water,water,length))
+#         a = cur.fetchall()
+
+
+        print(a)
+#         if len(a) == 0:
+#             return render_template("/login_page.html", status = False)
+#         else:
+        return render_template("/Tripi_page_2.html", list_of_paths = a)
+    else:
+        cur = mysql.connection.cursor()
+        cur.execute('''SELECT name, shortDescription, Product_url,Starting_point_x,Starting_point_y  FROM TRACKS limit 100''')
+        a = cur.fetchall()
+        for route in a:
+            print(route)
+        return render_template("/Tripi_page_2.html")
 if __name__ == '__main__':
     app.run(debug=True)

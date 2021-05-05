@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-<form>
+<form method="POST" action ="/routeSearch">
  <article>
     <div class="container">
         <img src="/static/logo.PNG" id="logo" alt="Trulli">
@@ -54,12 +54,12 @@
                <h2>Water trail:</h2>
         <ul>
             <li>
-                <input type="radio" id="f-option" name="selector" value="yes">
+                <input type="radio" id="f-option" name="selector1" value="yes">
                 <label for="f-option">yes</label>
                 <div class="check"></div>
             </li>
             <li>
-                <input type="radio" id="s-option" name="selector" value="no">
+                <input type="radio" id="s-option" name="selector1" value="no">
                 <label for="s-option">no</label>
                 <div class="check"><div class="inside"></div></div></li>
         </ul>
@@ -72,13 +72,18 @@
                        <th>Starting point x</th>
                        <th>Starting point y</th>
                    </tr>
-                   <tr>
-                       <td></td>
-                       <td></td>
-                       <td></td>
-                       <td></td>
-                       <td></td>
-                   </tr>
+
+                       {% for path in list_of_paths %}
+                           <tr>
+                           <td>{{ path['name'] }}</td>
+                           <td>{{ path['shortDescription'] }}  </td>
+                           <td>{{ path['Product_url'] }}</td>
+                           <td>{{ path['Starting_point_x'] }}</td>
+                           <td>{{ path['Starting_point_y'] }}</td>
+                           </tr>
+                       {% endfor %}
+
+
                </table>
            <br><br>
                 <input type="submit" name="next" class="next action-button" value="Search" />

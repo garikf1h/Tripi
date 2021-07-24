@@ -1,7 +1,16 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,send_from_directory
 from flask_mysqldb import MySQL
+from flask_restful import Api, Resource, reqparse
 
-app = Flask(__name__)
+from flask_cors import CORS  # comment this on deployment
+from api.helloApi import HelloApiHandler
+
+app = Flask(__name__, static_url_path='', static_folder='frontend/build')
+
+CORS(app)  # comment this on deployment
+api = Api(app)
+
+
 app.config['MYSQL_USER'] = 'ufpe0xnpo9blexdh'
 app.config['MYSQL_PASSWORD'] = 'Yr7thNuzm2UvJHWDjb23'
 app.config['MYSQL_HOST'] = 'bjgckwqx0c8k9fsiwtja-mysql.services.clever-cloud.com'
@@ -10,21 +19,30 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
+
+@app.route("/", defaults={'path': ''})
+def serve(path):
+    return send_from_directory(app.static_folder, 'index.html')
+
+
+api.add_resource(HelloApiHandler, '/flask', ['hello','signup' ])
+
 @app.route('/signup', methods=["GET", "POST"])
 def first():
     if request.method == "POST":
-        cur = mysql.connection.cursor()
-        # cur.execute("CREATE TABLE EXAM1(ID INT PRIMARY KEY not null , email VARCHAR(255),   full_name VARCHAR(255), activity_level VARCHAR(2), number_of_child VARCHAR(2))")
-        full_name = request.form['full_name']
-        email = request.form['email']
-        id1 = request.form['ID_N']
-        number_of_child = request.form['select-number']
-        activity_level = request.form['active']
-        relationship_stat = request.form.getlist("selector")[0]
-        print(full_name, email, id1, number_of_child, activity_level, relationship_stat)
-        cur.execute("INSERT INTO EXAM1(ID, email, full_name, activity_level, number_of_child, relationship_status) VALUES(%s, %s,%s,%s,%s, %s)", (id1, email, full_name, activity_level, number_of_child, relationship_stat))
-        mysql.connection.commit()
-        return redirect("/")
+        print(request.)
+        # cur = mysql.connection.cursor()
+        # # cur.execute("CREATE TABLE EXAM1(ID INT PRIMARY KEY not null , email VARCHAR(255),   full_name VARCHAR(255), activity_level VARCHAR(2), number_of_child VARCHAR(2))")
+        # full_name = request.form['full_name']
+        # email = request.form['email']
+        # id1 = request.form['ID_N']
+        # number_of_child = request.form['select-number']
+        # activity_level = request.form['active']
+        # relationship_stat = request.form.getlist("selector")[0]
+        # print(full_name, email, id1, number_of_child, activity_level, relationship_stat)
+        # cur.execute("INSERT INTO EXAM1(ID, email, full_name, activity_level, number_of_child, relationship_status) VALUES(%s, %s,%s,%s,%s, %s)", (id1, email, full_name, activity_level, number_of_child, relationship_stat))
+        # mysql.connection.commit()
+        # return redirect("/")
     else:
         cur = mysql.connection.cursor()
         cur.execute('''SELECT * FROM EXAM1''')
@@ -93,5 +111,7 @@ def searchRoute():
         for route in a:
             print(route)
         return render_template("/Tripi_page_2.html")
+
+
 if __name__ == '__main__':
     app.run(debug=True)

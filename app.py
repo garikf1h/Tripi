@@ -61,25 +61,25 @@ def searchRoute():
         cur = mysql.connection.cursor()
     #     ## change to real name#
         free_text= request.form['free_search_input']
+        free_text_for_search = "%"+free_text+"%"
         region = request.form['select-region']
         accesability = request.form['selector']
         water = request.form['selector1']
         length = request.form['select-trip-length']
         print(free_text, region, accesability,water, length)
-        cur.execute(
-            '''SELECT name, shortDescription, Product_url,Starting_point_x,Starting_point_y  FROM TRACKS limit 100''')
+
+        query = ("select name, shortDescription, Product_url,Starting_point_x,Starting_point_y FROM TRACKS"
+                 " where (%s = 'no' or TRACKS.Accessibility in ('כן','נגישות חלקית'))"
+                 " and (%s ='' or Name like %s or ShortDescription like %s or FullDescription like %s)"
+                 " and (%s = TRACKS.Region or %s = 'הכל' or %s = '')"
+                 " and ( TRACKS.Bathing_Waters=%s)"
+                 " and (%s = '' or (%s = '0' and cast(Trail_Duration as unsigned) <5)"
+                 " or (%s = '1' and cast(Trail_Duration as unsigned) >= 5 and cast(Trail_Duration as unsigned) <9)"
+                 " or (%s = '2' and cast(Trail_Duration as unsigned) <= 9))"
+                 )
+        cur.execute(query,[accesability,free_text,free_text_for_search,free_text_for_search,free_text_for_search,region,region,region,water,length,length,length,length])
         a = cur.fetchall()
-
-
-#         cur.execute('''select TRACKS.* from TRACKS
-# where (%s = false
-# or TRACKS.Accessibility in ('כן','נגישות חלקית'))
-# and (%s is null or MATCH (Name,ShortDescription,FullDescription) AGAINST (convert( %s to text) IN NATURAL LANGUAGE MODE))
-# and %s = TRACKS.Region
-# and (%s 'לא משנה' or TRACKS.Bathing_Waters = %s )
-# and ( %s = Trail_Duration)''', (accesability, free_text,free_text,region,water,water,length))
-#         a = cur.fetchall()
-
+#
 
         print(a)
 #         if len(a) == 0:

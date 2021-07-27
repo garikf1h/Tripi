@@ -80,6 +80,7 @@ def searchRoute():
         cur.execute(query,[accesability,free_text,free_text_for_search,free_text_for_search,free_text_for_search,region,region,region,water,length,length,length,length])
         a = cur.fetchall()
 #
+        # TODO: just small change
 
         print(a)
 #         if len(a) == 0:

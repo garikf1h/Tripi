@@ -80,7 +80,7 @@ def searchRoute():
 # and ( %s = Trail_Duration)''', (accesability, free_text,free_text,region,water,water,length))
 #         a = cur.fetchall()
 
-
+    # try to reverse to old
         print(a)
 #         if len(a) == 0:
 #             return render_template("/login_page.html", status = False)

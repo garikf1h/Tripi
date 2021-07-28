@@ -22,7 +22,7 @@ class MapApiHandler(Resource):
         parser.add_argument('data', type=str)
         args = parser.parse_args()
         # note, the post req from frontend needs to match the strings here (e.g. 'type and 'message')
-        request_json = args['data']
+        request_json = (args['data'])
         print(request_json)
         data = (get_trips(request_json))
         print(data)

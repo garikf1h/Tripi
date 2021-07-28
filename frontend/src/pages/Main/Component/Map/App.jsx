@@ -12,20 +12,26 @@ import {useMapFacade} from "./facade";
 import mapStyles from "./mapStyles";
 import axios from "axios";
 
-const NewMap = (props) => {
-  const {state} = props;
+// let res = {free_text:"",region:'', access:"" , with_water:'', length:''}
+
+
+const NewMap = (res) => {
   const [data, setData] = useState([]);
 
   useEffect(()=>{
-    console.log(state);
-    axios.post('http://localhost:5000/map', {type: 'aa', data:state}).then(response => {
+    console.log(res);
+    if (Object(res.res) === undefined) {
+        console.log('aaa');
+    } else {
+      axios.post('http://localhost:5000/map', {type: 'aa', data:res}).then(response => {
       console.log(response);
       setData(response.data.data);
     }).catch(error => {
       console.log(error);
     })
+    }
 
-  }, [state])
+  }, [res])
 
     return (
     <GoogleMap
@@ -54,9 +60,7 @@ const MapWrapped = withScriptjs(withGoogleMap(NewMap));
 
 export default class TheMap extends React.Component {
 
-  constructor(props) {
-        super(props);
-    }
+  res = this.props.searchParams
 
   render()
   {
@@ -67,7 +71,7 @@ export default class TheMap extends React.Component {
                   loadingElement={<div style={{height: `100%`}}/>}
                   containerElement={<div style={{height: `100%`}}/>}
                   mapElement={<div style={{height: `50%`}}/>}
-                  props={this.props}
+                  res={this.res}
               />
           </div>
     );

@@ -27,55 +27,87 @@ const handleDropDownSelectTrip = (event, data) => {
 
 
 
-const TripForm = (props) => {
-    const {handleChange} = props
-    const onSubmit = () => {
-        console.log(res);
-        handleChange(res);
-    }
-    return (
-    <Form>
-        <Form.Field>
-          <label>חיפוש חופשי</label>
-          <input placeholder='free text' />
-        </Form.Field>
-        <Dropdown
-            placeholder='Select Friend'
-            fluid
-            onChange={handleDropDownSelect}
-            selection
-            options={options}
-        />
-        <Form.Field>
-            {/*// TODO: need to active this field*/}
-          <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'כן' : 'לא'}/>
-        </Form.Field>
-         <Form.Field>
-            {/*// TODO: need to active this field*/}
-          <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
-        </Form.Field>
-        <Dropdown
-            placeholder='Select Friend'
-            fluid
-            onChange={handleDropDownSelectTrip}
-            selection
-            options={tripLevel}
-        />
-        <Button type='submit' >Submit</Button>
-  </Form>
-    )
-}
+// const TripForm = (props) => {
+//     console.log(props);
+//     const {sendData} = props;
+//     const onSubmit = () => {
+//         props.props();
+//     }
+//
+//     return (
+//     <Form>
+//         <Form.Field>
+//           <label>חיפוש חופשי</label>
+//           <input placeholder='free text' />
+//         </Form.Field>
+//         <Dropdown
+//             placeholder='Select Friend'
+//             fluid
+//             onChange={handleDropDownSelect}
+//             selection
+//             options={options}
+//         />
+//         <Form.Field>
+//             {/*// TODO: need to active this field*/}
+//           <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'כן' : 'לא'}/>
+//         </Form.Field>
+//          <Form.Field>
+//             {/*// TODO: need to active this field*/}
+//           <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
+//         </Form.Field>
+//         <Dropdown
+//             placeholder='Select Friend'
+//             fluid
+//             onChange={handleDropDownSelectTrip}
+//             selection
+//             options={tripLevel}
+//         />
+//         <Button type='submit' onClick={onSubmit}>Submit</Button>
+//   </Form>
+//     )
+// }
 
 export default class FormTrip extends React.Component {
-    constructor(props) {
-        super(props);
+    sendData = () => {
+        this.props.callBack(res)
+    }
+    onSubmit = () => {
+        this.sendData();
     }
 
   render()
   {
     return (
           <div>
-              <TripForm props={this.props}/>
+            <Form>
+                <Form.Field>
+                  <label>חיפוש חופשי</label>
+                  <input placeholder='free text' />
+                </Form.Field>
+                <Dropdown
+                    placeholder='Select Friend'
+                    fluid
+                    onChange={handleDropDownSelect}
+                    selection
+                    options={options}
+                />
+                <Form.Field>
+                    {/*// TODO: need to active this field*/}
+                  <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'כן' : 'לא'}/>
+                </Form.Field>
+                 <Form.Field>
+                    {/*// TODO: need to active this field*/}
+                  <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
+                </Form.Field>
+                <Dropdown
+                    placeholder='Select Friend'
+                    fluid
+                    onChange={handleDropDownSelectTrip}
+                    selection
+                    options={tripLevel}
+                />
+                <Button type='submit' onClick={this.onSubmit}>Submit</Button>
+          </Form>
           </div>
     );
   }

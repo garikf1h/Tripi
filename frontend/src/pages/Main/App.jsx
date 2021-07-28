@@ -6,18 +6,24 @@ import '../../styles/Tripi_page_2.css'
 
 
 export default class MainPage extends React.Component {
-    state = {free_text:"",region:'', access:"" , with_water:'', length:''};
-    handleChange = (e) => this.setState(this.state);
+
+    searchParams = {free_text:"",region:'', access:"" , with_water:'', length:''};
+
+    updateSearchParams = (inputParams) => {
+        console.log('Im in main');
+        this.searchParams = inputParams;
+        console.log(this.searchParams);
+    };
 
   render()
   {
     return (
         <div className="body">
             <div>
-                <FormTrip props={{props: this.handleChange}}/>
+                <FormTrip callBack={this.updateSearchParams}/>
             </div>
             <div key="map" className="article">
-                <TheMap props={this.state}/>
+                <TheMap searchParams={this.searchParams}/>
             </div>
         </div>
     );

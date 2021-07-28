@@ -1,19 +1,23 @@
 import React, {useState} from 'react';
 import {Segment} from "semantic-ui-react";
 import TheMap from "./Component/Map/App";
-import FormTrip from "./Component/PreferenceBar/App"
+import FormTrip, {A} from "./Component/PreferenceBar/App"
 import '../../styles/Tripi_page_2.css'
+
+
 
 
 export default class MainPage extends React.Component {
 
-    searchParams = {free_text:"",region:'', access:"" , with_water:'', length:''};
-
+    searchParams = {free_text:"",region:'test', access:"" , with_water:'', length:''};
     updateSearchParams = (inputParams) => {
-        console.log('Im in main');
-        this.searchParams = inputParams;
-        console.log(this.searchParams);
+        this.setState( {},() => {
+            this.searchParams = inputParams;
+            console.log(inputParams);
+            console.log(this.searchParams);
+        })
     };
+
 
   render()
   {

@@ -1,5 +1,5 @@
 .body {
-  background-image: url("../frontend/src/styles/landscape.jpg"); !important;
+  background-image: url("./landscape.jpg") !important;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -12,9 +12,9 @@
   top: 10px;
   left: 20px
 }
-article {
+.article {
   background-color: #fffbf3;
-        width: 500px;
+        width: 1000px;
         height: 800px;
         margin: 6em auto;
         border-radius: 1.5em;

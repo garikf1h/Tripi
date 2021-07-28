@@ -8,29 +8,29 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
-import * as parkData from "./data/skateboard-parks.json";
 import {useMapFacade} from "./facade";
 import mapStyles from "./mapStyles";
 import axios from "axios";
 
 const NewMap = (props) => {
-  const {selectedPark, setSelectedPark} = useMapFacade();
+  const {state} = props;
   const [data, setData] = useState([]);
 
   useEffect(()=>{
-    axios.get('http://localhost:5000/map').then(response => {
-      setData(response.data.data[1])
+    console.log(state);
+    axios.post('http://localhost:5000/map', {type: 'aa', data:state}).then(response => {
+      console.log(response);
+      setData(response.data.data);
     }).catch(error => {
-      console.log(error)
+      console.log(error);
     })
 
-  }, [])
+  }, [state])
 
     return (
     <GoogleMap
       defaultZoom={10}
       defaultCenter={{ lat: 32.085300, lng: 34.781769 }}
-      defaultOptions={{ styles: mapStyles }}
     >
       {data.map(trip => (
         <Marker
@@ -53,15 +53,21 @@ const NewMap = (props) => {
 const MapWrapped = withScriptjs(withGoogleMap(NewMap));
 
 export default class TheMap extends React.Component {
+
+  constructor(props) {
+        super(props);
+    }
+
   render()
   {
     return (
-          <div textAlign='center' style={{ height: '200vh', width: '200vh' }} verticalAlign='middle'>
+          <div textAlign='center' style={{ height: '150vh', width: '50vh' ,paddingTop:"20px"}} verticalAlign='middle'>
               <MapWrapped
                   googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAVA4A4vIJ2dOrqQtcx69tMdKBDZWE0l4I`}
                   loadingElement={<div style={{height: `100%`}}/>}
                   containerElement={<div style={{height: `100%`}}/>}
                   mapElement={<div style={{height: `50%`}}/>}
+                  props={this.props}
               />
           </div>
     );

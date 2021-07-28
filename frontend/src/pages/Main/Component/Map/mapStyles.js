@@ -12,9 +12,9 @@ export default [
     featureType: "landscape",
     elementType: "geometry",
     stylers: [
-      {
-        color: "#1f8a70"
-      }
+       {
+         color: "#ffebbd"
+       }
     ]
   },
   {

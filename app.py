@@ -1,6 +1,6 @@
 from utils import app
 from flask import send_from_directory
-from api.helloApi import HelloApiHandler
+from api.helloApi import MapApiHandler
 from flask_cors import CORS  # comment this on deployment
 from flask_restful import Api
 
@@ -9,8 +9,8 @@ CORS(app)  # comment this on deployment
 api = Api(app)
 
 # TODO: need to think how to handle the diffrenet cases for the routes
-map = HelloApiHandler()
-signup = HelloApiHandler()
+map = MapApiHandler()
+# signup = HelloApiHandler()
 # signup = HelloApiHandler()
 
 
@@ -20,7 +20,7 @@ def serve(path):
 
 
 api.add_resource(map, '/map', endpoint='map')
-api.add_resource(signup, '/signup', endpoint='signup')
+# api.add_resource(signup, '/signup', endpoint='signup')
 
 
 

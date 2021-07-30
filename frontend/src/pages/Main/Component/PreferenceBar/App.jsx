@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button } from "semantic-ui-react";
+import '../../../../styles/button.css'
 import axios from "axios";
 
 const options = [{Key:'north',value:'צפון', text:"צפון"},
@@ -12,7 +13,7 @@ const options = [{Key:'north',value:'צפון', text:"צפון"},
             {Key:'all',value:'הכל', text:"הכל"}];
 
 //TODO: update correct fields
-const tripLevel = [{Key:'0',value:'0', text:"חצי יום"},
+const tripLevel = [
             {Key:'1',value:'1', text:"יום"},
             {Key:'2',value:'2', text:"יותר מיום"},
             {Key:'3',value:'הכל', text:"הכל"}];
@@ -83,9 +84,10 @@ export default class FormTrip extends React.Component {
   render()
   {
     return (
-          <div>
+          <div style={{textAlign:"right"}}>
             <Form>
                 <Form.Field>
+
                   <input type = "text" placeholder='הכנס טקסט חופשי'  onChange={(e,data) => res.free_text = e.target.value}/>
                 </Form.Field>
                 <Dropdown
@@ -101,7 +103,7 @@ export default class FormTrip extends React.Component {
                 </Form.Field>
                  <Form.Field>
                     {/*// TODO: need to active this field*/}
-                  <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
+                  <Checkbox label='מסלול נגיש'  style={{textAlign:"left"}} onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
                 </Form.Field>
                 <Dropdown
                     placeholder='בחר אורך מסלול'
@@ -110,7 +112,7 @@ export default class FormTrip extends React.Component {
                     selection
                     options={tripLevel}
                 />
-                <Button type='submit' onClick={this.onSubmit}>Submit</Button>
+                <a className="BUTTON_SZM" type='submit' onClick={this.onSubmit}>חפש</a>
           </Form>
           </div>
     );

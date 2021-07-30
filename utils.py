@@ -24,12 +24,6 @@ def get_trips(searchInfo):
     water = searchInfo['with_water']
     length = searchInfo['length'] #0/1/2
 
-    cur.execute("select  * FROM TRACKS limit 5")
-    a = cur.fetchall()
-    print(a)
-
-
-
     query = ("select name, shortDescription, Product_url,cast(Starting_point_x as char(10)) as Starting_point_x,cast(Starting_point_y as char(10)) as Starting_point_y FROM TRACKS"
              " where (%s = 'לא' or TRACKS.Accessibility in ('כן','נגישות חלקית'))"
              " and (%s ='' or Name like %s or ShortDescription like %s or FullDescription like %s)"

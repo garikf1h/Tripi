@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button } from "semantic-ui-react";
+import '../../../../styles/button.css'
 import axios from "axios";
 
 const options = [{Key:'north',value:'צפון', text:"צפון"},
@@ -9,9 +10,9 @@ const options = [{Key:'north',value:'צפון', text:"צפון"},
             {Key:'all',value:'הכל', text:"הכל"}];
 
 //TODO: update correct fields
-const tripLevel = [{Key:'0',value:'0', text:"0"},
-            {Key:'1',value:'1', text:"1"},
-            {Key:'2',value:'2', text:"2"}];
+const tripLevel = [{Key:'0',value:'0', text:"חצי יום"},
+            {Key:'1',value:'1', text:"יום מלא"},
+            {Key:'2',value:'2', text:"מעל יום"}];
 
 let res = {free_text:"",region:'', access:"" , with_water:'', length:''}
 
@@ -79,14 +80,15 @@ export default class FormTrip extends React.Component {
   render()
   {
     return (
-          <div>
+          <div style={{textAlign:"right"}}>
             <Form>
                 <Form.Field>
-                  <label>חיפוש חופשי</label>
-                  <input placeholder='free text' />
+                  <label>מצא את המסלול שלך</label>
+                  <input  placeholder='מילות חיפוש' style={{textAlign:"right"}} />
                 </Form.Field>
                 <Dropdown
-                    placeholder='Select Friend'
+                    placeholder='איזור בארץ'
+                    style={{textAlign:"right"}}
                     fluid
                     onChange={handleDropDownSelect}
                     selection
@@ -98,16 +100,17 @@ export default class FormTrip extends React.Component {
                 </Form.Field>
                  <Form.Field>
                     {/*// TODO: need to active this field*/}
-                  <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
+                  <Checkbox label='מסלול נגיש'  style={{textAlign:"left"}} onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
                 </Form.Field>
                 <Dropdown
-                    placeholder='Select Friend'
+                    style={{textAlign:"right"}}
+                    placeholder='אורך מסלול'
                     fluid
                     onChange={handleDropDownSelectTrip}
                     selection
                     options={tripLevel}
                 />
-                <Button type='submit' onClick={this.onSubmit}>Submit</Button>
+                <a className="BUTTON_SZM" type='submit' onClick={this.onSubmit}>חפש</a>
           </Form>
           </div>
     );

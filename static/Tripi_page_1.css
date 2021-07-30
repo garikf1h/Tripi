@@ -1,5 +1,5 @@
 body {
-  background-image: url("landscape.jpg"); !important;
+  background-image: url("../frontend/src/styles/landscape.jpg"); !important;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;

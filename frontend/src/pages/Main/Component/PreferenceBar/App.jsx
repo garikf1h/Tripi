@@ -4,17 +4,21 @@ import '../../../../styles/button.css'
 import axios from "axios";
 
 const options = [{Key:'north',value:'צפון', text:"צפון"},
+            {Key:'center',value:'תל אביב והמרכז', text:"תל אביב והמרכז"},
+            {Key:'jerusalem',value:'ירושלים והסביבה', text:"ירושלים והסביבה"},
+            {Key:'shomron',value:'יהודה והשומרון', text:"יהודה והשומרון"},
+            {Key:'deadSea',value:'ים המלח', text:"ים המלח"},
             {Key:'south',value:'דרום', text:"דרום"},
-            {Key:'shomron',value:'שומרון', text:"שומרון"},
-            {Key:'center',value:'מרכז', text:"מרכז"},
+            {Key:'eilat',value:'אילת', text:"אילת"},
             {Key:'all',value:'הכל', text:"הכל"}];
 
 //TODO: update correct fields
-const tripLevel = [{Key:'0',value:'0', text:"חצי יום"},
-            {Key:'1',value:'1', text:"יום מלא"},
-            {Key:'2',value:'2', text:"מעל יום"}];
+const tripLevel = [
+            {Key:'1',value:'1', text:"יום"},
+            {Key:'2',value:'2', text:"יותר מיום"},
+            {Key:'3',value:'הכל', text:"הכל"}];
 
-let res = {free_text:"",region:'', access:"" , with_water:'', length:''}
+let res = {free_text:"",region:'הכל', access:"לא" , with_water:'לא', length:'הכל'}
 
 const handleDropDownSelect = (event, data) => {
    res.region = data.value;
@@ -50,14 +54,14 @@ const handleDropDownSelectTrip = (event, data) => {
 //         />
 //         <Form.Field>
 //             {/*// TODO: need to active this field*/}
-//           <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'כן' : 'לא'}/>
+//           <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'לא' : 'כן'}/>
 //         </Form.Field>
 //          <Form.Field>
 //             {/*// TODO: need to active this field*/}
-//           <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
+//           <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'לא' : 'כן'}/>
 //         </Form.Field>
 //         <Dropdown
-//             placeholder='Select Friend'
+//             placeholder='בחר אורך טיול'
 //             fluid
 //             onChange={handleDropDownSelectTrip}
 //             selection
@@ -83,12 +87,11 @@ export default class FormTrip extends React.Component {
           <div style={{textAlign:"right"}}>
             <Form>
                 <Form.Field>
-                  <label>מצא את המסלול שלך</label>
-                  <input  placeholder='מילות חיפוש' style={{textAlign:"right"}} />
+
+                  <input type = "text" placeholder='הכנס טקסט חופשי'  onChange={(e,data) => res.free_text = e.target.value}/>
                 </Form.Field>
                 <Dropdown
-                    placeholder='איזור בארץ'
-                    style={{textAlign:"right"}}
+                    placeholder='בחר אזור בארץ'
                     fluid
                     onChange={handleDropDownSelect}
                     selection
@@ -103,8 +106,7 @@ export default class FormTrip extends React.Component {
                   <Checkbox label='מסלול נגיש'  style={{textAlign:"left"}} onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
                 </Form.Field>
                 <Dropdown
-                    style={{textAlign:"right"}}
-                    placeholder='אורך מסלול'
+                    placeholder='בחר אורך מסלול'
                     fluid
                     onChange={handleDropDownSelectTrip}
                     selection

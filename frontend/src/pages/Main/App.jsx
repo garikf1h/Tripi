@@ -9,7 +9,7 @@ import '../../styles/Tripi_page_2.css'
 
 export default class MainPage extends React.Component {
 
-    searchParams = {free_text:"",region:'test', access:"" , with_water:'', length:''};
+    searchParams = {free_text:"",region:'הכל', access:"לא" , with_water:'לא', length:'הכל'};
     updateSearchParams = (inputParams) => {
         this.setState( {},() => {
             this.searchParams = inputParams;

@@ -69,7 +69,7 @@ export default class TheMap extends React.Component {
   render()
   {
     return (
-          <div textAlign='center' style={{ height: '150vh', width: '70vh' ,paddingTop:"20px"}} verticalAlign='middle'>
+          <div style={{ position:"relative", height: '120vh', width: '100vh' , top:"-90px", right:"-100px"}} >
               <MapWrapped
                   googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAVA4A4vIJ2dOrqQtcx69tMdKBDZWE0l4I`}
                   loadingElement={<div style={{height: `100%`}}/>}

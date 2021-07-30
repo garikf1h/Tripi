@@ -21,14 +21,20 @@ export default class MainPage extends React.Component {
   render()
   {
     return (
+
         <div className="body">
-            <div>
+
+            <div className="search_area" >
                 <FormTrip callBack={this.updateSearchParams}/>
             </div>
-            <div key="map" className="article">
+
+            <article>
+                <div key="map">
                 <TheMap searchParams={this.searchParams}/>
             </div>
+            </article>
         </div>
+
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Grid} from "semantic-ui-react";
+import {Button, Checkbox} from "semantic-ui-react";
 import render from 'react-dom';
 import {
   withGoogleMap,
@@ -9,24 +9,14 @@ import {
   InfoWindow
 } from "react-google-maps";
 import {useMapFacade} from "./facade";
-import mapStyles from "./mapStyles";
-import axios from "axios";
+import {Divider} from "@material-ui/core";
+
 
 // let res = {free_text:"",region:'', access:"" , with_water:'', length:''}
 
 
 export const NewMap = (res) => {
-  const [data, setData] = useState([]);
-
-  useEffect(()=>{
-      axios.post('http://localhost:5000/map', {type: 'aa', data:res.res}).then(response => {
-      console.log(response);
-      setData(response.data.data);
-    }).catch(error => {
-      console.log(error);
-    })
-
-  }, [res])
+    const {data, selectedTrip, setSelectedTrip, getTrip} = useMapFacade(res);
 
     return (
     <GoogleMap
@@ -43,10 +33,31 @@ export const NewMap = (res) => {
           style
           name={trip.name}
           onClick={() => {
-            console.log(trip.name);
+            setSelectedTrip(trip);
+            console.log(`clicked ${trip.name}`)
           }}
         />
       ))}
+        {selectedTrip !== undefined && (
+        <InfoWindow
+            position={{
+            lat: Number(selectedTrip.Starting_point_y),
+            lng: Number(selectedTrip.Starting_point_x)
+          }}
+            onCloseClick={() => setSelectedTrip(undefined)}
+        >
+            <div>
+                <p>{selectedTrip.name}</p>
+                <Divider />
+                <p>{`${selectedTrip.shortDescription}`}</p>
+                <Divider />
+                <p>{selectedTrip.Product_url}</p>
+                <Divider />
+                <Button primary onClick={() => getTrip()}>בחר את המסלול והתקדם</Button>
+                <Divider />
+            </div>
+        </InfoWindow>
+      )}
     </GoogleMap>
   );
 }

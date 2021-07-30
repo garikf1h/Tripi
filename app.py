@@ -1,6 +1,7 @@
 from utils import app
 from flask import send_from_directory
 from api.helloApi import MapApiHandler
+from api.googleApi import GoogleApiHandler
 from flask_cors import CORS  # comment this on deployment
 from flask_restful import Api
 
@@ -10,6 +11,7 @@ api = Api(app)
 
 # TODO: need to think how to handle the diffrenet cases for the routes
 map = MapApiHandler()
+google = GoogleApiHandler()
 # signup = HelloApiHandler()
 # signup = HelloApiHandler()
 
@@ -20,6 +22,7 @@ def serve(path):
 
 
 api.add_resource(map, '/map', endpoint='map')
+api.add_resource(google, '/trip', endpoint='trip')
 # api.add_resource(signup, '/signup', endpoint='signup')
 
 

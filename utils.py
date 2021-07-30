@@ -46,8 +46,12 @@ def get_trips(searchInfo):
     data = {"data": a}
     return data
 
-def get_restaurants(cordinates,radius = '1500'):
-    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cordinates[0] + "," + cordinates[1] + "&radius=" + radius + "&type=restaurant&key=" + google_api_key
+def get_restaurants(params,radius = '1500'):
+    cor_x = params['coordinates']['x']
+    cor_y = params['coordinates']['y']
+    print(cor_y)
+    print(cor_x)
+    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&radius=" + radius + "&type=restaurant&key=" + google_api_key
     res = requests.get(get_url)
     parsed_list = res.json()['results']
     return parsed_list

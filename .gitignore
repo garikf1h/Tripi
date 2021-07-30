@@ -1623,4 +1623,4 @@
 /.idea/*
 /frontend/node_modules
 /venv/*
-
+.idea/*

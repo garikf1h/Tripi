@@ -18,7 +18,7 @@ export const useMapFacade = (res) => {
 
        const getTrip = () => {
            console.log(selectedTrip);
-           const dataTrip = {coridnates: {x : selectedTrip.Starting_point_x, y: selectedTrip.Starting_point_y}}
+           const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}}
           axios.post('http://localhost:5000/trip', {type: 'aa', data: dataTrip}).then(response => {
           console.log(response);
           console.log(selectedTrip);

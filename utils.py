@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, send_from_directory
 from flask_mysqldb import MySQL
-
+import requests
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 
@@ -12,6 +12,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
+google_api_key = 'AIzaSyAesDybIrVwbCEsSm0rGbwlB06zSIdxpgc'
 
 def get_trips(searchInfo):
     cur = mysql.connection.cursor()
@@ -24,18 +25,35 @@ def get_trips(searchInfo):
     length = searchInfo['length'] #0/1/2
 
     query = ("select name, shortDescription, Product_url,cast(Starting_point_x as char(10)) as Starting_point_x,cast(Starting_point_y as char(10)) as Starting_point_y FROM TRACKS"
-             " where (%s = 'no' or TRACKS.Accessibility in ('כן','נגישות חלקית'))"
+             " where (%s = 'לא' or TRACKS.Accessibility in ('כן','נגישות חלקית'))"
              " and (%s ='' or Name like %s or ShortDescription like %s or FullDescription like %s)"
              " and (%s = TRACKS.Region or %s = 'הכל' or %s = '')"
-             " and ( TRACKS.Bathing_Waters=%s)"
-             " and (%s = '' or (%s = '0' and cast(Trail_Duration as unsigned) <5)"
+             " and (%s='לא' or TRACKS.Bathing_Waters='כן')"
+             " and (%s = 'הכל' or (%s = '0' and cast(Trail_Duration as unsigned) <5)"
              " or (%s = '1' and cast(Trail_Duration as unsigned) >= 5 and cast(Trail_Duration as unsigned) <9)"
              " or (%s = '2' and cast(Trail_Duration as unsigned) <= 9))"
              )
     cur.execute(query,
-                [accesability, free_text, free_text_for_search, free_text_for_search, free_text_for_search, region,
-                 region, region, water, length, length, length, length])
+                [
+                accesability,
+                free_text, free_text_for_search, free_text_for_search, free_text_for_search,
+                 region, region, region,
+                 water,
+                 length, length, length, length
+                     ])
     a = cur.fetchall()
     print(a)
     data = {"data": a}
     return data
+
+def get_restaurants(cordinates,radius = '1500'):
+    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cordinates[0] + "," + cordinates[1] + "&radius=" + radius + "&type=restaurant&key=" + google_api_key
+    res = requests.get(get_url)
+    parsed_list = res.json()['results']
+    return parsed_list
+
+def get_accom(cordinates,radius = '1500'):
+    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cordinates[0] + "," + cordinates[1] + "&radius=" + radius + "&type=accomodation&key=" + google_api_key
+    res = requests.get(get_url)
+    parsed_list = res.json()['results']
+    return parsed_list

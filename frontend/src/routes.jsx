@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
  * Import all page components here
  */
 // import App from './pages/';
-import MainPage from './pages/Main/App';
+import {MainPage} from './pages/Main/App';
 import Login from './pages/Login/App';
 // import LoginPage from './pages/Login';
 

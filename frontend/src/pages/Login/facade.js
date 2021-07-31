@@ -20,7 +20,6 @@ export const useLoginFacade = () => {
     const doLogin = async () => {
         try {
             const res = await axios.post('http://localhost:5000/signup', {type: 'obj',data: formData})
-            console.log(res)
             if(res.status === 200) {
                 setValidEmail(true);
             } else {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button } from "semantic-ui-react";
-import '../../../../styles/button.css'
+import '../../../../styles/button.css';
+import { cloneDeep } from 'lodash';
 import axios from "axios";
 
 const options = [{Key:'north',value:'צפון', text:"צפון"},
@@ -74,8 +75,8 @@ const handleDropDownSelectTrip = (event, data) => {
 
 export default class FormTrip extends React.Component {
     sendData = () => {
-        console.log(res);
-        this.props.callBack(res)
+        const clone = cloneDeep(res);
+        this.props.callBack(clone)
     }
     onSubmit = () => {
         this.sendData();

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useMapFacade = (res) => {
+export const useMapFacade = (res, openSidebar, setTripExtraData) => {
     const [data, setData] = useState([]);
     const [selectedTrip, setSelectedTrip] = useState(undefined);
     const [showPopUp, setShowPopUp] = useState(false);
-
       useEffect(()=>{
-          axios.post('http://localhost:5000/map', {type: 'aa', data:res.res}).then(response => {
-          console.log(response);
+          axios.post('http://localhost:5000/map', {type: 'aa', data:res}).then(response => {
           setData(response.data.data);
         }).catch(error => {
           console.log(error);
@@ -17,14 +15,12 @@ export const useMapFacade = (res) => {
       }, [res]);
 
        const getTrip = () => {
-           console.log(selectedTrip);
            const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}}
           axios.post('http://localhost:5000/trip', {type: 'aa', data: dataTrip}).then(response => {
-          console.log(response);
-          console.log(selectedTrip);
           setSelectedTrip(undefined);
+          setTripExtraData(response.data);
+          openSidebar(true);
         }).catch(error => {
-            console.log(selectedTrip);
             console.log(error);
         })
       };

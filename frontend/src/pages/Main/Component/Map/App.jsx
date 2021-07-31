@@ -15,8 +15,9 @@ import {Divider} from "@material-ui/core";
 // let res = {free_text:"",region:'', access:"" , with_water:'', length:''}
 
 
-export const NewMap = (res) => {
-    const {data, selectedTrip, setSelectedTrip, getTrip} = useMapFacade(res);
+export const NewMap = (props) => {
+    const {res, openSidebar, setTripExtraData} = props.props.props;
+    const {data, selectedTrip, setSelectedTrip, getTrip} = useMapFacade(res, openSidebar, setTripExtraData);
 
     return (
     <GoogleMap
@@ -34,7 +35,6 @@ export const NewMap = (res) => {
           name={trip.name}
           onClick={() => {
             setSelectedTrip(trip);
-            console.log(`clicked ${trip.name}`)
           }}
         />
       ))}
@@ -75,7 +75,7 @@ export default class TheMap extends React.Component {
                   loadingElement={<div style={{height: `100%`}}/>}
                   containerElement={<div style={{height: `100%`}}/>}
                   mapElement={<div style={{height: `50%`}}/>}
-                  res={this.props.searchParams}
+                  props = {this.props}
               />
           </div>
     );

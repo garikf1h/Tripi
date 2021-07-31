@@ -16,7 +16,7 @@
 .article {
   background-color: #fffbf3;
         width: 1000px;
-        height: 800px;
+        height: 1200px;
         margin: 6em auto;
         border-radius: 1.5em;
         box-shadow: 1px 11px 35px 2px rgba(0, 0, 0, 0.14);
@@ -26,7 +26,7 @@
 }
 
 .search_area{
-   background-color: #fffbf3;
+   background-color: #b4ff9e;
 
 
         margin: 6em auto;
@@ -37,11 +37,15 @@
     width: 340px;
     top: 300px;
     right:-500px;
-    height: 310px;
+    height: 550px;
 
 
 }
 
+
+.lab{
+    size:30px;
+}
 /*container_param{*/
 /*     position: inherit;*/
 /*     top: -50px;*/

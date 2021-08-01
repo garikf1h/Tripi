@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, send_from_directory
 from flask_mysqldb import MySQL
-import requests
+#import requests
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 

@@ -22,7 +22,8 @@ def serve(path):
 
 
 api.add_resource(map, '/map', endpoint='map')
-api.add_resource(google, '/trip', endpoint='trip')
+#api.add_resource(google, '/trip', endpoint='trip')
+api.add_resource(google, '/recommend', endpoint='trip')
 # api.add_resource(signup, '/signup', endpoint='signup')
 
 

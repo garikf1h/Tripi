@@ -218,7 +218,7 @@ export default class FormTrip extends React.Component {
                 <label style={{display: "block", marginTop: "10px"}}>:רמת פעילות</label>
                  <PrettoSlider
                      style={{left:"-80px", top:"-25px", position: "relative"}}
-                     min={1} max = {5}
+                     min={1} max = {4}
                      onChange={handleSliderLevelChange}
                      valueLabelDisplay="auto"
                      aria-label="pretto slider"

@@ -10,23 +10,26 @@ import {
 } from "react-google-maps";
 import {useMapFacade} from "./facade";
 import {Divider} from "@material-ui/core";
+import Trip from './Markers/Trip.svg';
+import hotel from "./Markers/hotel.svg";
+import Res from "./Markers/Res.svg";
 
 
 // let res = {free_text:"",region:'', access:"" , with_water:'', length:''}
 
 
 export const NewMap = (props) => {
-    const {res, openSidebar, setTripExtraData} = props.props.props;
-    const {data, selectedTrip, setSelectedTrip, getTrip} = useMapFacade(res, openSidebar, setTripExtraData);
+    const {searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip} = props.props.props;
+    const {data,setData, selectedTrip, setSelectedTrip, restData, addRest, addHotel, hotelData, setHotelData} = useMapFacade(searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip);
 
     return (
     <GoogleMap
-      defaultZoom={10}
+      defaultZoom={8}
       defaultCenter={{ lat: 32.085300, lng: 34.781769 }}
     >
       {data.map(trip => (
         <Marker
-          key={trip.name}
+            key={trip.name}
           position={{
             lat: Number(trip.Starting_point_y),
             lng: Number(trip.Starting_point_x)
@@ -36,6 +39,44 @@ export const NewMap = (props) => {
           onClick={() => {
             setSelectedTrip(trip);
           }}
+          icon={{
+              url: Trip,
+              scaledSize: new window.google.maps.Size(45, 45)
+      }}
+        />
+      ))}
+        {restData.map(rest => (
+        <Marker
+          position={{
+            lat: rest.geometry.location.lat,
+            lng: rest.geometry.location.lng
+          }}
+          style
+          name={rest.name}
+          onClick={() => {
+            addRest(rest);
+          }}
+          icon={{
+              url: Res,
+              scaledSize: new window.google.maps.Size(45, 45)
+      }}
+        />
+      ))}
+          {hotelData.map(hotel => (
+        <Marker
+          position={{
+            lat: Number(hotel.Starting_point_y),
+            lng: Number(hotel.Starting_point_x)
+          }}
+          style
+          name={hotel.name}
+          onClick={() => {
+            addHotel(hotel);
+          }}
+          icon={{
+              url: hotel,
+              scaledSize: new window.google.maps.Size(45, 45)
+      }}
         />
       ))}
         {selectedTrip !== undefined && (
@@ -53,7 +94,10 @@ export const NewMap = (props) => {
                 <Divider />
                 <p>{selectedTrip.Product_url}</p>
                 <Divider />
-                <Button primary onClick={() => getTrip()}>בחר את המסלול והתקדם</Button>
+                <Button primary onClick={() => {
+                    setData([selectedTrip]);
+                    //setSelectedTrip(undefined);
+                }}>בחר את המסלול והתקדם</Button>
                 <Divider />
             </div>
         </InfoWindow>
@@ -69,7 +113,7 @@ export default class TheMap extends React.Component {
   render()
   {
     return (
-          <div style={{ position:"relative", height: '120vh', width: '100vh' , top:"-90px", right:"-100px"}} >
+          <div style={{ position:"relative", height: '120vh', width: '70vh' , top:"100px", right:"-10px"}} >
               <MapWrapped
                   googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAVA4A4vIJ2dOrqQtcx69tMdKBDZWE0l4I`}
                   loadingElement={<div style={{height: `100%`}}/>}

@@ -12,8 +12,6 @@ import {useMapFacade} from "./facade";
 import {Divider} from "@material-ui/core";
 
 
-// let res = {free_text:"",region:'', access:"" , with_water:'', length:''}
-
 
 export const NewMap = (res) => {
     const {data, selectedTrip, setSelectedTrip, getTrip} = useMapFacade(res);
@@ -23,6 +21,7 @@ export const NewMap = (res) => {
       defaultZoom={10}
       defaultCenter={{ lat: 32.085300, lng: 34.781769 }}
     >
+
       {data.map(trip => (
         <Marker
           key={trip.name}
@@ -46,7 +45,10 @@ export const NewMap = (res) => {
           }}
             onCloseClick={() => setSelectedTrip(undefined)}
         >
+            <h1>{data[0].name}</h1>
+
             <div>
+
                 <p>{selectedTrip.name}</p>
                 <Divider />
                 <p>{`${selectedTrip.shortDescription}`}</p>

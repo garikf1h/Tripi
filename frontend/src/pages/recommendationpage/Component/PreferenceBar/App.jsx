@@ -142,12 +142,23 @@ const classes = ()=>{
 
 }
 export default class FormTrip extends React.Component {
-    sendData = () => {
-       // console.log(res);
-        this.props.callBack(res)
-    }
+    // sendData = () => {
+    //    // console.log(res);
+    //     this.props.callBack(res)
+    // }
+//      handleClick = ()=>{
+//     this.onSubmit();
+// }
     onSubmit = () => {
-        this.sendData();
+        //this.sendData();
+        console.log(res);
+        axios.post('http://localhost:5000/recommend', {type: 'aa', data:res}).then(response => {
+          console.log(response);
+          //setData(response.data.data);
+        }).catch(error => {
+           console.log("ERROR");
+          console.log(error);
+        })
     }
 
   render()
@@ -238,7 +249,7 @@ export default class FormTrip extends React.Component {
                 <a className="BUTTON_SZM" type='submit' onClick={this.onSubmit}>חפש</a>
           </Form>
 <div>
-    <Button  style ={{position:"relative", left:"-200px", top:"-400px"}}>טיול 1</Button>
+    <Button  style ={{position:"relative", left:"-200px", top:"-400px"}} >טיול 1</Button>
     <Button  style ={{position:"relative", left:"-280px", top:"-350px"}}>טיול 2</Button>
     <Button  style ={{position:"relative", left:"-360px", top:"-300px"}}>טיול 3</Button>
         </div>

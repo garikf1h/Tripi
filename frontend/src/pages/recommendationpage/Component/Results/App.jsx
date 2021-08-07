@@ -4,23 +4,23 @@ import axios from "axios";
 
 
 
- const useResultsFacade = (res) => {
-    const [data, setData] = useState([]);
-    const [selectedTrip, setSelectedTrip] = useState(undefined);
-    const [showPopUp, setShowPopUp] = useState(false);
-
-      useEffect(()=>{
-          console.log("Hello");
-          console.log(data);
-          axios.post('http://localhost:5000/recommend', {type: 'aa', data:res.res}).then(response => {
-          console.log(response);
-          //setData(response.data.data);
-        }).catch(error => {
-           console.log("ERROR");
-          console.log(error);
-        })
-
-      }, [res]);
+ // const useResultsFacade = (res) => {
+    // const [data, setData] = useState([]);
+    // const [selectedTrip, setSelectedTrip] = useState(undefined);
+    // const [showPopUp, setShowPopUp] = useState(false);
+    //
+    //   useEffect(()=>{
+    //       console.log("Hello");
+    //       console.log(data);
+    //       axios.post('http://localhost:5000/recommend', {type: 'aa', data:res.res}).then(response => {
+    //       console.log(response);
+    //       //setData(response.data.data);
+    //     }).catch(error => {
+    //        console.log("ERROR");
+    //       console.log(error);
+    //     })
+    //
+    //   }, [res]);
 
       //  const getTrip = () => {
       //      console.log(selectedTrip);
@@ -34,15 +34,15 @@ import axios from "axios";
       //       console.log(error);
       //   })
       // };
-
-      return {
-          data,
-      }
-}
+//
+//       return {
+//           data,
+//       }
+// }
 
 export const NewMap = (res) => {
 
-    const data = useResultsFacade(res);
+    // const data = useResultsFacade(res);
     return (
       <div>
           <h5>Hey</h5>

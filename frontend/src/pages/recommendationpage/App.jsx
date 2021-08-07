@@ -8,8 +8,6 @@ import {NewMap} from "./Component/Results/App";
 
 
 export default class RecommendPage extends React.Component {
-
-
         searchParams = {rest:'',region:'הכל', access:"לא" , with_water:'לא', length:'הכל', child:'לא', level:'1', price:'1'};
         updateSearchParams = (inputParams) => {
         this.setState( {},() => {
@@ -26,7 +24,7 @@ export default class RecommendPage extends React.Component {
 
         <div className="body">
 
-            <div className="search_area" >
+            <div >
                 <FormTrip callBack={this.updateSearchParams}/>
             </div>
 
@@ -36,7 +34,7 @@ export default class RecommendPage extends React.Component {
             {/*</div>*/}
 
             {/*</article>*/}
-            <div  >
+            <div >
                 <NewMap searchParams={this.searchParams}/>
             </div>
         </div>

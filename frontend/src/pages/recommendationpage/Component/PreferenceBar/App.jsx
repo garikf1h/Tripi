@@ -6,6 +6,7 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
+import Button1 from 'react-bootstrap/Button'
 
 
 
@@ -156,8 +157,8 @@ export default class FormTrip extends React.Component {
 
     return (
 
-          <div style={{textAlign:"right"}}>
-           <Header as='h3'>:העדפות מסלול טיול</Header>
+          <div style={{position:"relative", textAlign:"right"}} className="search_area" >
+           <Header as='h3' style={{textAlign:"center"}}>:העדפות מסלול טיול</Header>
             <Form>
                 <Dropdown
                     placeholder='בחר אזור בארץ'
@@ -215,6 +216,7 @@ export default class FormTrip extends React.Component {
                     selection
                     options={tripLevel}
                 />
+
                 <label style={{display: "block", marginTop: "10px"}}>:רמת פעילות</label>
                  <PrettoSlider
                      style={{left:"-80px", top:"-25px", position: "relative"}}
@@ -223,8 +225,8 @@ export default class FormTrip extends React.Component {
                      valueLabelDisplay="auto"
                      aria-label="pretto slider"
                      defaultValue={1} />
-                 <Header as='h3' style={{position: "relative", top:"-28px"}}>:העדפות ארוחה</Header>
-                 <input type = "text" placeholder='סוג מסעדה'  onChange={(e,data) => res.rest = e.target.value}/>
+                 <Header as='h3' style={{position: "relative", top:"-28px", textAlign:"center"}}>:העדפות ארוחה</Header>
+                 <input type = "text"  style={{textAlign:"right"}} placeholder='סוג מסעדה'  onChange={(e,data) => res.rest = e.target.value}/>
                  <label style={{display: "block", marginTop: "10px"}}>טווח מחירים(הכי זול 1, הכי יקר 5)</label>
                 <PrettoSlider
                               style={{left:"0px", top:"-25px", position: "relative"}}
@@ -235,7 +237,14 @@ export default class FormTrip extends React.Component {
                               defaultValue={1} />
                 <a className="BUTTON_SZM" type='submit' onClick={this.onSubmit}>חפש</a>
           </Form>
+<div>
+    <Button  style ={{position:"relative", left:"-200px", top:"-400px"}}>טיול 1</Button>
+    <Button  style ={{position:"relative", left:"-280px", top:"-350px"}}>טיול 2</Button>
+    <Button  style ={{position:"relative", left:"-360px", top:"-300px"}}>טיול 3</Button>
+        </div>
           </div>
+
     );
   }
 }
+

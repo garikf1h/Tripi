@@ -1,9 +1,12 @@
 .body {
   background-image: url("./landscape.jpg") !important;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-  margin: 1rem;
+  background-repeat: repeat;
+  /*background-attachment: fixed;*/
+  background-size: cover;
+    height: 100%;
+
+  background-position: center;
+
 }
 #logo{
   width: 420px;
@@ -35,8 +38,8 @@
   font-family: 'Ubuntu', sans-serif;
   position: relative;
     width: 340px;
-    top: 300px;
-    right:-500px;
+    top: 80px;
+    right:-530px;
     height: 550px;
 
 

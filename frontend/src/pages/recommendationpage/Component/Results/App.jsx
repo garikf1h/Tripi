@@ -11,7 +11,7 @@ import axios from "axios";
 
       useEffect(()=>{
           console.log("Hello");
-
+          console.log(data);
           axios.post('http://localhost:5000/recommend', {type: 'aa', data:res.res}).then(response => {
           console.log(response);
           //setData(response.data.data);

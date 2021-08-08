@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button, Header } from "semantic-ui-react";
+import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button, Header, Card, Feed } from "semantic-ui-react";
 import '../../../../styles/button.css'
 import {Switch, FormControlLabel} from '@material-ui/core';
 import Slider from '@material-ui/core/Slider';
@@ -140,18 +140,32 @@ const handleSliderPriceChange= (event, data) => {
 
 export const FormTrip = () => {
     const [visible, setVisible]= useState(false);
+    const [visible_card, setVisibleCard]= useState(false);
+    const [current_trip, setCurrentTrip] = useState(Object);
+   // const [data, setData] = useState("");
+
+    let save_results = Object;
+
 
     const onSubmit = () => {
         //this.sendData();
         console.log(res);
         axios.post('http://localhost:5000/recommend', {type: 'aa', data:res}).then(response => {
           console.log(response);
+          save_results = response.data;
+          //console.log(save_results);
           setVisible(true);
           //setData(response.data.data);
         }).catch(error => {
            console.log("ERROR");
           console.log(error);
         })
+    }
+    const onClickTrip = (trip) => {
+       setVisibleCard(true);
+       setCurrentTrip(save_results[0]);
+       console.log(save_results[0]);
+
     }
     
     
@@ -237,18 +251,61 @@ export const FormTrip = () => {
                               defaultValue={1} />
                 <a className="BUTTON_SZM" type='submit' onClick={onSubmit}>חפש</a>
           </Form>
+
     {visible && (
         <div>
-        <Button  style ={{position:"relative", left:"-200px", top:"-400px"}} >טיול 1</Button>
-    <Button  style ={{position:"relative", left:"-280px", top:"-350px"}}>טיול 2</Button>
-    <Button  style ={{position:"relative", left:"-360px", top:"-300px"}}>טיול 3</Button>
+        <Button  style ={{position:"relative", left:"-200px", top:"-400px"}} onClick={()=>onClickTrip(1)}>טיול 1</Button>
+        <Button  style ={{position:"relative", left:"-280px", top:"-350px"}}>טיול 2</Button>
+         <Button  style ={{position:"relative", left:"-360px", top:"-300px"}}>טיול 3</Button>
         </div>
     )}
-          </div>
+    {visible_card &&(
+            <Card style ={{position:"relative",textAlign:"right", top:"-400px", left:"-500px"}}>
+             <Card.Content>
+                <Card.Header textAlign={"center"}>טיול ראשון</Card.Header>
+            </Card.Content>
+            <Card.Content style={{textAlign:"right"}}>
+            <Feed>
+                  <Feed.Event>
+          <Feed.Label image='/images/avatar/small/jenny.jpg' />
+          <Feed.Content>
+            <Feed.Date style={{textAlign:"right"}} content=' :מסלול טיול' />
+            <Feed.Summary style={{textAlign:"right"}}>
+
+            </Feed.Summary>
+          </Feed.Content>
+        </Feed.Event>
+
+        <Feed.Event>
+          <Feed.Label image='/images/avatar/small/molly.png' />
+          <Feed.Content>
+            <Feed.Date style={{textAlign:"right"}} content=':מסעדה' />
+            <Feed.Summary>
+              You added <a>Molly Malone</a> as a friend.
+            </Feed.Summary>
+          </Feed.Content>
+        </Feed.Event>
+
+        <Feed.Event>
+          <Feed.Label image='/images/avatar/small/elliot.jpg' />
+          <Feed.Content>
+            <Feed.Date style={{textAlign:"right"}} content=':לינה'  />
+            <Feed.Summary>
+              You added <a>Elliot Baker</a> to your <a>musicians</a> group.
+            </Feed.Summary>
+          </Feed.Content>
+        </Feed.Event>
+      </Feed>
+    </Card.Content>
+  </Card>
+
+                  )}
 
 
+ </div>
 
     );
+
 }
 
 export default {FormTrip};

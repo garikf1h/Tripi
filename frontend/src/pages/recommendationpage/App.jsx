@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Segment} from "semantic-ui-react";
 import TheMap from "./Component/Map/App";
-import FormTrip from "./Component/PreferenceBar/App"
+import {FormTrip} from "./Component/PreferenceBar/App"
 
 
 

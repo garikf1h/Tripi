@@ -138,34 +138,23 @@ const handleSliderPriceChange= (event, data) => {
 //     )
 // }
 
-const classes = ()=>{
+export const FormTrip = () => {
+    const [visible, setVisible]= useState(false);
 
-}
-export default class FormTrip extends React.Component {
-    // sendData = () => {
-    //    // console.log(res);
-    //     this.props.callBack(res)
-    // }
-//      handleClick = ()=>{
-//     this.onSubmit();
-// }
-    onSubmit = () => {
+    const onSubmit = () => {
         //this.sendData();
         console.log(res);
         axios.post('http://localhost:5000/recommend', {type: 'aa', data:res}).then(response => {
           console.log(response);
+          setVisible(true);
           //setData(response.data.data);
         }).catch(error => {
            console.log("ERROR");
           console.log(error);
         })
     }
-
-  render()
-  {
-
-
-
+    
+    
     return (
 
           <div style={{position:"relative", textAlign:"right"}} className="search_area" >
@@ -246,16 +235,21 @@ export default class FormTrip extends React.Component {
                               onChange={handleSliderPriceChange}
                               aria-label="pretto slider"
                               defaultValue={1} />
-                <a className="BUTTON_SZM" type='submit' onClick={this.onSubmit}>חפש</a>
+                <a className="BUTTON_SZM" type='submit' onClick={onSubmit}>חפש</a>
           </Form>
-<div>
-    <Button  style ={{position:"relative", left:"-200px", top:"-400px"}} >טיול 1</Button>
+    {visible && (
+        <div>
+        <Button  style ={{position:"relative", left:"-200px", top:"-400px"}} >טיול 1</Button>
     <Button  style ={{position:"relative", left:"-280px", top:"-350px"}}>טיול 2</Button>
     <Button  style ={{position:"relative", left:"-360px", top:"-300px"}}>טיול 3</Button>
         </div>
+    )}
           </div>
 
+
+
     );
-  }
 }
+
+export default {FormTrip};
 

@@ -36,13 +36,13 @@ export const MainPage = () => {
         <Sidebar.Pusher dimmed={showSidebar}>
                 <div className="body" style={{display:"flex", flexDirection:"row"}}>
                     <div key="map">
-                    <TheMap props={{searchParams, openSidebar: updateShowSideBar, setTripExtraData, restParams, fullTrip, setFullTrip}}/>
+                    <TheMap props={{searchParams, openSidebar: updateShowSideBar, setTripExtraData, restParams, fullTrip, setFullTrip, hotelParams}}/>
                 </div>
                     <div className="search_area">
-                          <TripForm key="hotelForm" callBack={setHotelParams}/>
+                          <RestaurantForm key="hotelForm" callBack={setHotelParams}/>
                       </div>
                     <div className="search_area">
-                      <RestaurantForm callBack={setRestParams}/>
+                      <RestaurantForm key="restForm" callBack={setRestParams}/>
                   </div>
                   <div className="search_area">
                       <TripForm key="trip" callBack={updateSearchParams}/>

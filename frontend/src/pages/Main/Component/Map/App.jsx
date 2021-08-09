@@ -11,7 +11,7 @@ import {
 import {useMapFacade} from "./facade";
 import {Divider} from "@material-ui/core";
 import Trip from './Markers/Trip.svg';
-import hotel from "./Markers/hotel.svg";
+import Hotel from "./Markers/Hotel.svg";
 import Res from "./Markers/Res.svg";
 
 
@@ -19,8 +19,13 @@ import Res from "./Markers/Res.svg";
 
 
 export const NewMap = (props) => {
-    const {searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip} = props.props.props;
-    const {data,setData, selectedTrip, setSelectedTrip, restData, addRest, addHotel, hotelData, setHotelData} = useMapFacade(searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip);
+    const {searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip, hotelParams} = props.props.props;
+    const {data, setData, selectedTrip,
+        setSelectedTrip, restData, addRest,
+        addHotel, hotelData, setHotelData, infoToShow,
+          setInfoToShow, setRestData, hotelToShow,
+        restToShow, setRestToShow, setHotelToShow,
+        setTripToShow, tripToShow} = useMapFacade(searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip, hotelParams);
 
     return (
     <GoogleMap
@@ -37,7 +42,7 @@ export const NewMap = (props) => {
           style
           name={trip.name}
           onClick={() => {
-            setSelectedTrip(trip);
+            setTripToShow(trip);
           }}
           icon={{
               url: Trip,
@@ -54,7 +59,7 @@ export const NewMap = (props) => {
           style
           name={rest.name}
           onClick={() => {
-            addRest(rest);
+            setRestToShow(rest);
           }}
           icon={{
               url: Res,
@@ -71,32 +76,84 @@ export const NewMap = (props) => {
           style
           name={hotel.name}
           onClick={() => {
-            addHotel(hotel);
+            setHotelToShow(hotel);
           }}
           icon={{
-              url: hotel,
+              url: Hotel,
               scaledSize: new window.google.maps.Size(45, 45)
       }}
         />
       ))}
-        {selectedTrip !== undefined && (
+        {tripToShow !== undefined && (
         <InfoWindow
+            key="trip"
             position={{
-            lat: Number(selectedTrip.Starting_point_y),
-            lng: Number(selectedTrip.Starting_point_x)
+            lat: Number(tripToShow.Starting_point_y),
+            lng: Number(tripToShow.Starting_point_x)
           }}
-            onCloseClick={() => setSelectedTrip(undefined)}
+            onCloseClick={() => setTripToShow(undefined)}
         >
             <div>
-                <p>{selectedTrip.name}</p>
+                <p>{tripToShow.name}</p>
                 <Divider />
-                <p>{`${selectedTrip.shortDescription}`}</p>
+                <p>{`${tripToShow.shortDescription}`}</p>
                 <Divider />
-                <p>{selectedTrip.Product_url}</p>
+                <p>{tripToShow.Product_url}</p>
                 <Divider />
                 <Button primary onClick={() => {
-                    setData([selectedTrip]);
-                    //setSelectedTrip(undefined);
+                    setSelectedTrip(tripToShow);
+                    setData([tripToShow]);
+                    setTripToShow(undefined);
+                }}>בחר את המסלול והתקדם</Button>
+                <Divider />
+            </div>
+        </InfoWindow>
+      )}
+        {restToShow !== undefined && (
+        <InfoWindow
+            key="rest"
+            position={{
+            lat: Number(restToShow.Starting_point_y),
+            lng: Number(restToShow.Starting_point_x)
+          }}
+            onCloseClick={() => setRestToShow(undefined)}
+        >
+            <div>
+                <p>{restToShow.name}</p>
+                <Divider />
+                <p>{`${restToShow.rating}`}</p>
+                <Divider />
+                <p>{restToShow.vicinity}</p>
+                <Divider />
+                <Button primary onClick={() => {
+                    console.log(restToShow);
+                    setRestData([restToShow]);
+                    setRestToShow(undefined);
+                }}>בחר את המסלול והתקדם</Button>
+                <Divider />
+            </div>
+        </InfoWindow>
+      )}
+        {hotelToShow !== undefined && (
+        <InfoWindow
+            key="hotel"
+            position={{
+            lat: Number(hotelToShow.Starting_point_y),
+            lng: Number(hotelToShow.Starting_point_x)
+          }}
+            onCloseClick={() => setHotelToShow(undefined)}
+        >
+            <div>
+                <p>{hotelToShow.name}</p>
+                <Divider />
+                <p>{`${hotelToShow.rating}`}</p>
+                <Divider />
+                <p>{hotelToShow.vicinity}</p>
+                <Divider />
+                <Button primary onClick={() => {
+                    console.log(hotelToShow)
+                    setHotelData([hotelToShow]);
+                    setHotelToShow(undefined);
                 }}>בחר את המסלול והתקדם</Button>
                 <Divider />
             </div>

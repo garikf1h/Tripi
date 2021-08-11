@@ -31,11 +31,43 @@ export const useMapFacade = (props) => {
     };
 
     useEffect(() => {
-        const clone = cloneDeep(sidebarData);
-        clone.tripData = data;
-        setSidebarData(clone);
-
+        const newSideData = {
+            hotelData:[],
+            restData:[],
+            tripData:data,
+        };
+        setSidebarData(newSideData);
     }, [data]);
+
+    useEffect(() => {
+        if (restData !== []) {
+            const newSideData = {
+            hotelData:[],
+            restData,
+            tripData:[],
+        };
+        setSidebarData(newSideData);
+        }
+
+    }, [restData]);
+
+    useEffect(() => {
+        if(hotelData !== []) {
+            const newSideData = {
+            hotelData:hotelData,
+            restData:[],
+            tripData:[],
+        };
+        setSidebarData(newSideData);
+        }
+    }, [hotelData]);
+
+    useEffect(() => {
+        setHotelData([]);
+        setRestData([]);
+        setHotelToShow(undefined);
+        setRestToShow(undefined);
+    }, [data])
 
       useEffect(()=>{
           axios.post('http://localhost:5000/map', {type: 'Trip', data:searchParams}).then(response => {
@@ -51,7 +83,6 @@ export const useMapFacade = (props) => {
                const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}, restInfo: restParams}
                   axios.post('http://localhost:5000/trip', {type: 'rest', data: dataTrip}).then(response => {
                   // setSelectedTrip(undefined);
-                      setSidebarData(response.data);
                   setRestData(response.data);
                 }).catch((error) => {
             console.log(error);

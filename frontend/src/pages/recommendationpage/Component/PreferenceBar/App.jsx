@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button, Header, Card, Feed } from "semantic-ui-react";
 import '../../../../styles/button.css'
 import {Switch, FormControlLabel} from '@material-ui/core';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBBtn } from 'mdbreact';
 import axios from "axios";
-import Button1 from 'react-bootstrap/Button'
-
+import logo from '../../../../styles/logo.PNG';
 
 
 const PrettoSlider = withStyles({
@@ -137,14 +137,15 @@ const handleSliderPriceChange= (event, data) => {
 //   </Form>
 //     )
 // }
-
+    let save_results =0;
 export const FormTrip = () => {
     const [visible, setVisible]= useState(false);
+    const [save_results, setResults]= useState([]);
     const [visible_card, setVisibleCard]= useState(false);
-    const [current_trip, setCurrentTrip] = useState(Object);
+    const [current_trip, setCurrentTrip] = useState({});
    // const [data, setData] = useState("");
 
-    let save_results = Object;
+
 
 
     const onSubmit = () => {
@@ -152,8 +153,12 @@ export const FormTrip = () => {
         console.log(res);
         axios.post('http://localhost:5000/recommend', {type: 'aa', data:res}).then(response => {
           console.log(response);
-          save_results = response.data;
-          //console.log(save_results);
+          setResults(response.data);
+          setResults((response)=>{
+              if(response.length == 0)
+                  setVisibleCard(false);
+              return response;
+          });
           setVisible(true);
           //setData(response.data.data);
         }).catch(error => {
@@ -162,62 +167,65 @@ export const FormTrip = () => {
         })
     }
     const onClickTrip = (trip) => {
+       console.log(save_results);
        setVisibleCard(true);
-       setCurrentTrip(save_results[0]);
-       console.log(save_results[0]);
 
+       setCurrentTrip(save_results[trip]);
     }
     
     
     return (
+          <div >
+              <img src={logo} style={{position:"absolute", right:"570px", width:"300px", height:"100px", top:"10px"}}/>
 
-          <div style={{position:"relative", textAlign:"right"}} className="search_area" >
-           <Header as='h3' style={{textAlign:"center"}}>:העדפות מסלול טיול</Header>
-            <Form>
+            <Form className="search_area">
+                <Header as='h3' style={{textAlign:"center", position:"absolute", top:"10px", left:"210px"}}>:העדפות מסלול</Header>
                 <Dropdown
                     placeholder='בחר אזור בארץ'
                     fluid
                     onChange={handleDropDownSelect}
                     selection
+                    style ={{position:"absolute", top:"40px",  width:"200px", left:"70px", textAlign:"right"}}
                     options={options}
                 />
 
                 <Form.Field>
                     {/*// TODO: need to active this field*/}
-               <FormControlLabel
+               <FormControlLabel  style ={{position:"absolute", top:"90px", left:"100px" }}
                       control={
                    <Switch
-                // checked={state.checkedB}
                   onChange={handleChangeSwitchChild}
                   name="checkedChild"
                   color="primary"
+
                     />
                 }
                  label="עם ילדים"
                 />
                 </Form.Field>
                 <Form.Field>
-                    {/*// TODO: need to active this field*/}
-                  <FormControlLabel
+                  <FormControlLabel style ={{position:"absolute", top:"130px", left:"100px" }}
                       control={
                    <Switch
                 // checked={state.checkedB}
                   onChange={handleChangeSwitchWater}
                   name="checkedWater"
                   color="primary"
+                  style ={{position:"absolute"}}
                     />
                 }
                  label="מסלול מים"
                 />
                 </Form.Field>
                  <Form.Field>
-                   <FormControlLabel
+                   <FormControlLabel style ={{position:"absolute", top:"170px", left:"100px" }}
                       control={
                    <Switch
                 // checked={state.checkedB}
                   onChange={handleChangeSwitchAccess}
                   name="checkedB"
                   color="primary"
+
                     />
                 }
                  label=":נגישות"
@@ -229,79 +237,103 @@ export const FormTrip = () => {
                     onChange={handleDropDownSelectTrip}
                     selection
                     options={tripLevel}
+                    style ={{position:"absolute", top:"220px",  width:"200px", left:"70px", textAlign:"right"}}
                 />
 
-                <label style={{display: "block", marginTop: "10px"}}>:רמת פעילות</label>
+                <label style={{position:"absolute", textAlign:"right", left:"250px", top:"280px"   }}>:רמת פעילות</label>
                  <PrettoSlider
                      style={{left:"-80px", top:"-25px", position: "relative"}}
                      min={1} max = {4}
                      onChange={handleSliderLevelChange}
                      valueLabelDisplay="auto"
                      aria-label="pretto slider"
-                     defaultValue={1} />
-                 <Header as='h3' style={{position: "relative", top:"-28px", textAlign:"center"}}>:העדפות ארוחה</Header>
-                 <input type = "text"  style={{textAlign:"right"}} placeholder='סוג מסעדה'  onChange={(e,data) => res.rest = e.target.value}/>
-                 <label style={{display: "block", marginTop: "10px"}}>טווח מחירים(הכי זול 1, הכי יקר 5)</label>
+                     defaultValue={1}
+                     style ={{position:"absolute", top:"273px", left:"70px", width:"150px"  }}
+                 />
+                 <Header as='h3' style={{position: "absolute", top:"300px", left:"210px", textAlign:"right"}}>:העדפות ארוחה</Header>
+                 <input type = "text"  style={{textAlign:"right", position:"absolute", top:"360px",  width:"200px", left:"70px"}} placeholder='סוג מסעדה'  onChange={(e,data) => res.rest = e.target.value}/>
+                 <label style={{position:"absolute", top:"420px", left:"250px"}}>:טווח מחירים</label>
                 <PrettoSlider
-                              style={{left:"0px", top:"-25px", position: "relative"}}
+                              style={{left:"70px", top:"415px", position: "absolute", width:"150px" }}
                               min={1} max = {5}
                               valueLabelDisplay="auto"
                               onChange={handleSliderPriceChange}
                               aria-label="pretto slider"
-                              defaultValue={1} />
-                <a className="BUTTON_SZM" type='submit' onClick={onSubmit}>חפש</a>
-          </Form>
-
-    {visible && (
+                              defaultValue={1}
+                />
+                <a className="BUTTON_SZM" type='submit' onClick={onSubmit} style ={{position:"absolute", right:"110px", top:"470px" }}>חפש</a>
+                  {visible && (
         <div>
-        <Button  style ={{position:"relative", left:"-200px", top:"-400px"}} onClick={()=>onClickTrip(1)}>טיול 1</Button>
-        <Button  style ={{position:"relative", left:"-280px", top:"-350px"}}>טיול 2</Button>
-         <Button  style ={{position:"relative", left:"-360px", top:"-300px"}}>טיול 3</Button>
+            {
+                save_results.length >= 1 &&(
+                    <Button  style ={{position:"absolute", left:"-200px", top:"-400px" }} onClick={()=>onClickTrip(0)}>טיול 1</Button>
+                )
+
+            }
+            {
+                save_results.length >= 2 && (
+                    <Button style={{position:"absolute", left: "-280px", top: "-350px"}}
+                            onClick={() => onClickTrip(1)}>טיול 2</Button>
+                )
+            }
+        {
+                save_results.length >= 3 &&(
+                     <Button  style ={{position:"absolute", visible:"True", left:"-360px", top:"-300px"}}onClick={()=>onClickTrip(2)}>טיול 3</Button>
+                )
+
+            }
         </div>
     )}
-    {visible_card &&(
-            <Card style ={{position:"relative",textAlign:"right", top:"-400px", left:"-500px"}}>
+
+
+
+    { visible_card  &&(
+
+        <Card style ={{position:"relative",textAlign:"right", top:"-400px", left:"-500px"}}>
+
              <Card.Content>
-                <Card.Header textAlign={"center"}>טיול ראשון</Card.Header>
+                <Card.Header textAlign={"center"}>:המלצה</Card.Header>
             </Card.Content>
+                <Card.Content>{current_trip.score} :ציון הטיול </Card.Content>
             <Card.Content style={{textAlign:"right"}}>
             <Feed>
                   <Feed.Event>
-          <Feed.Label image='/images/avatar/small/jenny.jpg' />
+
           <Feed.Content>
             <Feed.Date style={{textAlign:"right"}} content=' :מסלול טיול' />
             <Feed.Summary style={{textAlign:"right"}}>
+                {current_trip.trip.shortDescription}
 
             </Feed.Summary>
           </Feed.Content>
         </Feed.Event>
 
         <Feed.Event>
-          <Feed.Label image='/images/avatar/small/molly.png' />
           <Feed.Content>
             <Feed.Date style={{textAlign:"right"}} content=':מסעדה' />
             <Feed.Summary>
-              You added <a>Molly Malone</a> as a friend.
+              {current_trip.rest.name}.
             </Feed.Summary>
           </Feed.Content>
         </Feed.Event>
-
-        <Feed.Event>
-          <Feed.Label image='/images/avatar/small/elliot.jpg' />
+                {
+                    Object.keys(current_trip.accom).length !== 0 && (<Feed.Event>
           <Feed.Content>
             <Feed.Date style={{textAlign:"right"}} content=':לינה'  />
             <Feed.Summary>
-              You added <a>Elliot Baker</a> to your <a>musicians</a> group.
+                {current_trip.accom.name}
             </Feed.Summary>
           </Feed.Content>
         </Feed.Event>
-      </Feed>
-    </Card.Content>
-  </Card>
+                 )
+                }
+        </Feed>
+             </Card.Content>
+            </Card>
 
                   )}
 
-
+     </Form>
  </div>
 
     );

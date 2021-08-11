@@ -20,10 +20,7 @@ export default class RecommendPage extends React.Component {
     return (
 
         <div className="body">
-
-            <div >
                 <FormTrip />
-            </div>
         </div>
 
     );

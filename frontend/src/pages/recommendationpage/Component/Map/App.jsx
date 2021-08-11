@@ -34,7 +34,6 @@ export const NewMap = (res) => {
           name={trip.name}
           onClick={() => {
             setSelectedTrip(trip);
-            console.log(`clicked ${trip.name}`)
           }}
         />
       ))}

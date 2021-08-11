@@ -3,19 +3,18 @@ import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button } from "sema
 import '../../../../styles/button.css';
 import { cloneDeep } from 'lodash';
 import {options } from './const';
-import axios from "axios";
 
 
-let res = {foodType: '', priceRange: 1};
+let hotel = {foodType: '', priceRange: 1};
 
 const handleDropDownSelect = (event, data) => {
-   res.price = data.value;
+   hotel.price = data.value;
 };
 
 
-export const RestaurantForm = (props) => {
+export const HotelForm = (props) => {
     const sendData = async () => {
-        const clone = cloneDeep(res);
+        const clone = cloneDeep(hotel);
         await props.callBack(clone);
     }
     const onSubmit = () => {
@@ -26,7 +25,7 @@ export const RestaurantForm = (props) => {
           <div style={{textAlign:"right"}}>
             <Form>
                 <Form.Field>
-                  <input type = "text" placeholder='הכנס סגנון מסעדה'  onChange={(e,data) => res.foodType = e.target.value}/>
+                  <input type = "text" placeholder='מלון ספציפי'  onChange={(e,data) => hotel.foodType = e.target.value}/>
                 </Form.Field>
                 <Dropdown
                     placeholder='רמת מחיר'
@@ -42,5 +41,5 @@ export const RestaurantForm = (props) => {
     );
   };
 
-export default {RestaurantForm};
+export default {HotelForm};
 

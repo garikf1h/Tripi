@@ -142,7 +142,6 @@ const classes = ()=>{
 }
 export default class FormTrip extends React.Component {
     sendData = () => {
-       // console.log(res);
         this.props.callBack(res)
     }
     onSubmit = () => {

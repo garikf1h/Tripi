@@ -20,8 +20,6 @@ const handleDropDownSelectTrip = (event, data) => {
 
 export const TripForm = (props) => {
     const sendData = () => {
-        console.log('on trip form submit');
-        console.log( props.callBack);
         const clone = cloneDeep(res);
         props.callBack(clone)
     }
@@ -57,9 +55,8 @@ export const TripForm = (props) => {
                     selection
                     options={tripLevel}
                 />
-                <a className="BUTTON_SZM" onClick={onSubmit}>חפש</a>
-                <Divider />
-                <Button primary circular={true} onClick={onSubmit}> הצג רשימה</Button>
+                <Button primary circular={true} onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>
+                <Button primary circular={true} onClick={onSubmit}>חפש</Button>
           </Form>
           </div>
     );

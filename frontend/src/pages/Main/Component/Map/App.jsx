@@ -19,13 +19,12 @@ import Res from "./Markers/Res.svg";
 
 
 export const NewMap = (props) => {
-    const {searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip, hotelParams} = props.props.props;
     const {data, setData, selectedTrip,
         setSelectedTrip, restData, addRest,
         addHotel, hotelData, setHotelData, infoToShow,
           setInfoToShow, setRestData, hotelToShow,
         restToShow, setRestToShow, setHotelToShow,
-        setTripToShow, tripToShow} = useMapFacade(searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip, hotelParams);
+        setTripToShow, tripToShow} = useMapFacade(props.props.props);
 
     return (
     <GoogleMap
@@ -86,7 +85,7 @@ export const NewMap = (props) => {
       ))}
         {tripToShow !== undefined && (
         <InfoWindow
-            key="trip"
+            key={tripToShow.name}
             position={{
             lat: Number(tripToShow.Starting_point_y),
             lng: Number(tripToShow.Starting_point_x)
@@ -111,7 +110,7 @@ export const NewMap = (props) => {
       )}
         {restToShow !== undefined && (
         <InfoWindow
-            key="rest"
+            key={restToShow.name}
             position={{
             lat: Number(restToShow.Starting_point_y),
             lng: Number(restToShow.Starting_point_x)
@@ -126,7 +125,6 @@ export const NewMap = (props) => {
                 <p>{restToShow.vicinity}</p>
                 <Divider />
                 <Button primary onClick={() => {
-                    console.log(restToShow);
                     setRestData([restToShow]);
                     setRestToShow(undefined);
                 }}>בחר את המסלול והתקדם</Button>
@@ -136,7 +134,7 @@ export const NewMap = (props) => {
       )}
         {hotelToShow !== undefined && (
         <InfoWindow
-            key="hotel"
+            key={hotelToShow.name}
             position={{
             lat: Number(hotelToShow.Starting_point_y),
             lng: Number(hotelToShow.Starting_point_x)
@@ -151,7 +149,6 @@ export const NewMap = (props) => {
                 <p>{hotelToShow.vicinity}</p>
                 <Divider />
                 <Button primary onClick={() => {
-                    console.log(hotelToShow)
                     setHotelData([hotelToShow]);
                     setHotelToShow(undefined);
                 }}>בחר את המסלול והתקדם</Button>

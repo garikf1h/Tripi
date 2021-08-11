@@ -13,8 +13,6 @@ export default class RecommendPage extends React.Component {
         updateSearchParams = (inputParams) => {
         this.setState( {},() => {
             this.searchParams = inputParams;
-            console.log(inputParams);
-            //console.log(this.searchParams);
         })
     };
 

@@ -94,6 +94,7 @@ def get_trips(free_text,region,accesability,water,length,children ='לא',activi
 def get_restaurants(params,rest_type,radius = '1500'):
     cor_x = params['coordinates']['x']
     cor_y = params['coordinates']['y']
+    rest_type = params['restInfo']['foodType']
     get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&radius=" + radius + "&type=restaurant&keyword=" + rest_type+"&key=" + google_api_key
     res = requests.get(get_url)
     print (res.json()['results'])

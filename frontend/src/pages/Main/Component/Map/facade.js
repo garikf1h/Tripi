@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { cloneDeep } from 'lodash';
 import axios from "axios";
+import {Divider} from "@material-ui/core";
+import {Button} from "semantic-ui-react";
+import {Marker} from "react-google-maps";
+import Res from "./Markers/Res.svg";
 
-export const useMapFacade = (searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip, hotelParams) => {
+export const useMapFacade = (props) => {
+    const {searchParams, openSidebar, setTripExtraData, restParams, fullTrip, setFullTrip, hotelParams, setSidebarData, sidebarData} = props
     const [data, setData] = useState([]);
     const [restData, setRestData] = useState([]);
     const [hotelData, setHotelData] = useState([]);
@@ -14,7 +19,6 @@ export const useMapFacade = (searchParams, openSidebar, setTripExtraData, restPa
 
 
     const addRest = (rest) => {
-        console.log(rest.name);
         const clone = cloneDeep(fullTrip);
         clone.rest = rest;
         setFullTrip(clone);
@@ -26,11 +30,16 @@ export const useMapFacade = (searchParams, openSidebar, setTripExtraData, restPa
         setFullTrip(clone);
     };
 
+    useEffect(() => {
+        const clone = cloneDeep(sidebarData);
+        clone.tripData = data;
+        setSidebarData(clone);
+
+    }, [data]);
+
       useEffect(()=>{
-          console.log('should fetch new trips');
-          axios.post('http://localhost:5000/map', {type: 'aa', data:searchParams}).then(response => {
+          axios.post('http://localhost:5000/map', {type: 'Trip', data:searchParams}).then(response => {
           setData(response.data.data);
-          setRestData([]);
         }).catch(error => {
           console.log(error);
         })
@@ -39,10 +48,10 @@ export const useMapFacade = (searchParams, openSidebar, setTripExtraData, restPa
 
        useEffect (() => {
            if (selectedTrip !== undefined) {
-               console.log(selectedTrip);
-               const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}}
+               const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}, restInfo: restParams}
                   axios.post('http://localhost:5000/trip', {type: 'rest', data: dataTrip}).then(response => {
                   // setSelectedTrip(undefined);
+                      setSidebarData(response.data);
                   setRestData(response.data);
                 }).catch((error) => {
             console.log(error);
@@ -51,13 +60,11 @@ export const useMapFacade = (searchParams, openSidebar, setTripExtraData, restPa
        }, [restParams] );
 
        useEffect (() => {
-           console.log(hotelParams);
            if (selectedTrip !== undefined) {
-               console.log('getting hotel');
-               const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}}
+               const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}, hotelInfo: hotelParams}
                   axios.post('http://localhost:5000/trip', {type: 'hotel', data: dataTrip}).then(response => {
                   //setSelectedTrip(undefined);
-                      console.log(response.data);
+                      setSidebarData(response.data);
                   setHotelData(response.data);
                 }).catch((error) => {
             console.log(error);

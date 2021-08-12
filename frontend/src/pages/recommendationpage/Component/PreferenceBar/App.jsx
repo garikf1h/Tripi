@@ -8,6 +8,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBBtn } from 'mdbreact';
 import axios from "axios";
 import logo from '../../../../styles/logo.PNG';
+import Loader from 'react-loader-spinner';
 
 
 const PrettoSlider = withStyles({
@@ -143,6 +144,7 @@ export const FormTrip = () => {
     const [save_results, setResults]= useState([]);
     const [visible_card, setVisibleCard]= useState(false);
     const [current_trip, setCurrentTrip] = useState({});
+    const [is_loading_data, setLoadingData] = useState(false);
    // const [data, setData] = useState("");
 
 
@@ -150,13 +152,16 @@ export const FormTrip = () => {
 
     const onSubmit = () => {
         //this.sendData();
+        setLoadingData(true);
         console.log(res);
         axios.post('http://localhost:5000/recommend', {type: 'aa', data:res}).then(response => {
+
           console.log(response);
           setResults(response.data);
           setResults((response)=>{
               if(response.length == 0)
                   setVisibleCard(false);
+              setLoadingData(false);
               return response;
           });
           setVisible(true);
@@ -262,23 +267,29 @@ export const FormTrip = () => {
                               defaultValue={1}
                 />
                 <a className="BUTTON_SZM" type='submit' onClick={onSubmit} style ={{position:"absolute", right:"110px", top:"470px" }}>חפש</a>
+                </Form>
+
+              {is_loading_data &&(
+                                <Loader type="Circles" color="#00BFFF" style = {{position:"absolute", top:"370px", left:"650px"}}height={80} width={80}/>)
+              }
+
                   {visible && (
         <div>
             {
                 save_results.length >= 1 &&(
-                    <Button  style ={{position:"absolute", left:"-200px", top:"-400px" }} onClick={()=>onClickTrip(0)}>טיול 1</Button>
+                    <Button  style ={{position:"absolute", top:"0px" }} onClick={()=>onClickTrip(0)}>טיול 1</Button>
                 )
 
             }
             {
                 save_results.length >= 2 && (
-                    <Button style={{position:"absolute", left: "-280px", top: "-350px"}}
+                    <Button style={{position:"absolute"}}
                             onClick={() => onClickTrip(1)}>טיול 2</Button>
                 )
             }
         {
                 save_results.length >= 3 &&(
-                     <Button  style ={{position:"absolute", visible:"True", left:"-360px", top:"-300px"}}onClick={()=>onClickTrip(2)}>טיול 3</Button>
+                     <Button  style ={{position:"absolute"}}onClick={()=>onClickTrip(2)}>טיול 3</Button>
                 )
 
             }
@@ -289,7 +300,7 @@ export const FormTrip = () => {
 
     { visible_card  &&(
 
-        <Card style ={{position:"relative",textAlign:"right", top:"-400px", left:"-500px"}}>
+        <Card style ={{position:"absolute",textAlign:"right", top:"5px", left:"200px"}}>
 
              <Card.Content>
                 <Card.Header textAlign={"center"}>:המלצה</Card.Header>
@@ -333,7 +344,7 @@ export const FormTrip = () => {
 
                   )}
 
-     </Form>
+
  </div>
 
     );

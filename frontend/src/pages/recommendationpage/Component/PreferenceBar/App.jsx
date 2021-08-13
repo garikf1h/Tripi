@@ -142,8 +142,8 @@ const handleSliderPriceChange= (event, data) => {
 export const FormTrip = () => {
     const [visible, setVisible]= useState(false);
     const [save_results, setResults]= useState([]);
-    const [visible_card, setVisibleCard]= useState(false);
-    const [current_trip, setCurrentTrip] = useState({});
+    // const [visible_card, setVisibleCard]= useState(false);
+    // const [current_trip, setCurrentTrip] = useState({});
     const [is_loading_data, setLoadingData] = useState(false);
    // const [data, setData] = useState("");
 
@@ -159,8 +159,7 @@ export const FormTrip = () => {
           console.log(response);
           setResults(response.data);
           setResults((response)=>{
-              if(response.length == 0)
-                  setVisibleCard(false);
+
               setLoadingData(false);
               return response;
           });
@@ -170,12 +169,10 @@ export const FormTrip = () => {
            console.log("ERROR");
           console.log(error);
         })
+
     }
     const onClickTrip = (trip) => {
        console.log(save_results);
-       setVisibleCard(true);
-
-       setCurrentTrip(save_results[trip]);
     }
     
     
@@ -273,76 +270,78 @@ export const FormTrip = () => {
                                 <Loader type="Circles" color="#00BFFF" style = {{position:"absolute", top:"370px", left:"650px"}}height={80} width={80}/>)
               }
 
-                  {visible && (
-        <div>
-            {
-                save_results.length >= 1 &&(
-                    <Button  style ={{position:"absolute", top:"0px" }} onClick={()=>onClickTrip(0)}>טיול 1</Button>
-                )
+    {/*              {visible && (*/}
+    {/*    <div>*/}
+    {/*        {*/}
+    {/*            save_results.length >= 1 &&(*/}
+    {/*                <Button  style ={{position:"absolute", top:"0px" }} onClick={()=>onClickTrip(0)}>טיול 1</Button>*/}
+    {/*            )*/}
 
-            }
-            {
-                save_results.length >= 2 && (
-                    <Button style={{position:"absolute"}}
-                            onClick={() => onClickTrip(1)}>טיול 2</Button>
-                )
-            }
-        {
-                save_results.length >= 3 &&(
-                     <Button  style ={{position:"absolute"}}onClick={()=>onClickTrip(2)}>טיול 3</Button>
-                )
+    {/*        }*/}
+    {/*        {*/}
+    {/*            save_results.length >= 2 && (*/}
+    {/*                <Button style={{position:"absolute"}}*/}
+    {/*                        onClick={() => onClickTrip(1)}>טיול 2</Button>*/}
+    {/*            )*/}
+    {/*        }*/}
+    {/*    {*/}
+    {/*            save_results.length >= 3 &&(*/}
+    {/*                 <Button  style ={{position:"absolute"}}onClick={()=>onClickTrip(2)}>טיול 3</Button>*/}
+    {/*            )*/}
 
-            }
-        </div>
-    )}
+    {/*        }*/}
+    {/*    </div>*/}
+    {/*)}*/}
 
 
 
-    { visible_card  &&(
+{save_results.map( (full_trip, a) => (
 
-        <Card style ={{position:"absolute",textAlign:"right", top:"5px", left:"200px"}}>
+        <Card style={{position: "absolute", textAlign: "right", top: "5px", left: a * 300 + 150}} key ={full_trip.name}>
 
-             <Card.Content>
+            <Card.Content>
                 <Card.Header textAlign={"center"}>:המלצה</Card.Header>
             </Card.Content>
-                <Card.Content>{current_trip.score} :ציון הטיול </Card.Content>
-            <Card.Content style={{textAlign:"right"}}>
-            <Feed>
-                  <Feed.Event>
+            <Card.Content>{full_trip.score} :ציון הטיול </Card.Content>
+            <Card.Content style={{textAlign: "right"}}>
+                <Feed>
+                    <Feed.Event>
 
-          <Feed.Content>
-            <Feed.Date style={{textAlign:"right"}} content=' :מסלול טיול' />
-            <Feed.Summary style={{textAlign:"right"}}>
-                {current_trip.trip.shortDescription}
+                        <Feed.Content>
+                            <Feed.Date style={{textAlign: "right"}} content=' :מסלול טיול'/>
+                            <Feed.Summary style={{textAlign: "right"}}>
+                                {full_trip.trip.shortDescription}
 
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
+                            </Feed.Summary>
+                        </Feed.Content>
+                    </Feed.Event>
 
-        <Feed.Event>
-          <Feed.Content>
-            <Feed.Date style={{textAlign:"right"}} content=':מסעדה' />
-            <Feed.Summary>
-              {current_trip.rest.name}.
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-                {
-                    Object.keys(current_trip.accom).length !== 0 && (<Feed.Event>
-          <Feed.Content>
-            <Feed.Date style={{textAlign:"right"}} content=':לינה'  />
-            <Feed.Summary>
-                {current_trip.accom.name}
-            </Feed.Summary>
-          </Feed.Content>
-        </Feed.Event>
-                 )
-                }
-        </Feed>
-             </Card.Content>
-            </Card>
+                    <Feed.Event>
+                        <Feed.Content>
+                            <Feed.Date style={{textAlign: "right"}} content=':מסעדה'/>
+                            <Feed.Summary>
+                                {full_trip.rest.name}.
+                            </Feed.Summary>
+                        </Feed.Content>
+                    </Feed.Event>
+                    {
+                        Object.keys(full_trip.accom).length !== 0 && (<Feed.Event>
+                                <Feed.Content>
+                                    <Feed.Date style={{textAlign: "right"}} content=':לינה'/>
+                                    <Feed.Summary>
+                                        {full_trip.accom.name}
+                                    </Feed.Summary>
+                                </Feed.Content>
+                            </Feed.Event>
+                        )
+                    }
+                </Feed>
+            </Card.Content>
+        </Card>
+    ))}
+}
 
-                  )}
+
 
 
  </div>

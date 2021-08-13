@@ -9,7 +9,8 @@ import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, 
 import axios from "axios";
 import logo from '../../../../styles/logo.PNG';
 import Loader from 'react-loader-spinner';
-
+import TheMap from "../../../Main/Component/Map/App";
+import PopUp from '../mapPopUp/App'
 
 const PrettoSlider = withStyles({
   root: {
@@ -138,18 +139,23 @@ const handleSliderPriceChange= (event, data) => {
 //   </Form>
 //     )
 // }
-    let save_results =0;
 export const FormTrip = () => {
     const [visible, setVisible]= useState(false);
     const [save_results, setResults]= useState([]);
-    // const [visible_card, setVisibleCard]= useState(false);
-    // const [current_trip, setCurrentTrip] = useState({});
     const [is_loading_data, setLoadingData] = useState(false);
-   // const [data, setData] = useState("");
+    const [show_pop_up, setShowPopUp] = useState(false);
+    const [current_trip, setCurrentTrip] = useState({});
 
 
+    const map_colors = (score) =>
+    {
+        if (score >= 8)
+            return "lightblue";
+        if (score >= 4)
+            return "Yellow"
+        return "Red";
 
-
+    }
     const onSubmit = () => {
         //this.sendData();
         setLoadingData(true);
@@ -174,13 +180,20 @@ export const FormTrip = () => {
     const onClickTrip = (trip) => {
        console.log(save_results);
     }
-    
+    const togglePopUp = (trip) =>{
+        setShowPopUp(!show_pop_up);
+        setCurrentTrip(save_results[trip]);
+
+    }
+    const hideResults = () =>{
+        setResults([]);
+    }
     
     return (
           <div >
-              <img src={logo} style={{position:"absolute", right:"570px", width:"300px", height:"100px", top:"10px"}}/>
-
-            <Form className="search_area">
+              <img src={logo} style={{position:"absolute", right:"620px", width:"300px", height:"100px", top:"10px"}}/>
+              {save_results.length == 0 &&(
+                           <Form className="search_area">
                 <Header as='h3' style={{textAlign:"center", position:"absolute", top:"10px", left:"210px"}}>:העדפות מסלול</Header>
                 <Dropdown
                     placeholder='בחר אזור בארץ'
@@ -266,8 +279,11 @@ export const FormTrip = () => {
                 <a className="BUTTON_SZM" type='submit' onClick={onSubmit} style ={{position:"absolute", right:"110px", top:"470px" }}>חפש</a>
                 </Form>
 
+              )}
+
+
               {is_loading_data &&(
-                                <Loader type="Circles" color="#00BFFF" style = {{position:"absolute", top:"370px", left:"650px"}}height={80} width={80}/>)
+                                <Loader type="Circles" color="#00BFFF" style = {{position:"absolute", top:"370px", left:"730px"}}height={80} width={80}/>)
               }
 
     {/*              {visible && (*/}
@@ -297,52 +313,75 @@ export const FormTrip = () => {
 
 {save_results.map( (full_trip, a) => (
 
-        <Card style={{position: "absolute", textAlign: "right", top: "5px", left: a * 300 + 150}} key ={full_trip.name}>
-
-            <Card.Content>
-                <Card.Header textAlign={"center"}>:המלצה</Card.Header>
+        <Card style={{position: "absolute", textAlign: "right", top: "250px", right: a * 400 + 210}} key ={full_trip.trip.name}>
+            <Card.Content style={{position:"relative"}}>
+                <Card.Header textAlign={"center"}>:המלצה מספר {a + 1}
+                <div key = {a} className="circle" style={{backgroundColor:map_colors(full_trip.score)}}>
+                  <div className="text_of_circle">{full_trip.score.toFixed(1)}</div>
+              </div></Card.Header>
             </Card.Content>
-            <Card.Content>{full_trip.score} :ציון הטיול </Card.Content>
+
             <Card.Content style={{textAlign: "right"}}>
                 <Feed>
                     <Feed.Event>
 
                         <Feed.Content>
                             <Feed.Date style={{textAlign: "right"}} content=' :מסלול טיול'/>
-                            <Feed.Summary style={{textAlign: "right"}}>
-                                {full_trip.trip.shortDescription}
+                            <div style={{textAlign:"right"}}><b > {full_trip.trip.name}</b> </div>
 
-                            </Feed.Summary>
+                             <div style={{textAlign:"right"}}><b > תיאור כללי   </b>:  {full_trip.trip.shortDescription}</div>
+                            {/* <Feed.Summary style={{textAlign: "right"}}>*/}
+                            {/*    {full_trip.trip.Product_url} קישור לצפייה במסלול :*/}
+                            {/*</Feed.Summary>*/}
+                         <div style ={{textAlign:"right"}}> <a href={full_trip.trip.Product_url} >  לצפייה במסלול   </a></div>
+
                         </Feed.Content>
                     </Feed.Event>
 
                     <Feed.Event>
                         <Feed.Content>
                             <Feed.Date style={{textAlign: "right"}} content=':מסעדה'/>
-                            <Feed.Summary>
-                                {full_trip.rest.name}.
-                            </Feed.Summary>
+                            <div style ={{textAlign:"right"}}> <b>{full_trip.rest.name}</b> </div>
+                            <div style ={{textAlign:"right"}}> {full_trip.rest.rating} <b>:ציון המסעדה</b>  </div>
                         </Feed.Content>
                     </Feed.Event>
                     {
-                        Object.keys(full_trip.accom).length !== 0 && (<Feed.Event>
+                        Object.keys(full_trip.accom).length !== 0 && (<Feed.Event key={{a}}>
                                 <Feed.Content>
                                     <Feed.Date style={{textAlign: "right"}} content=':לינה'/>
-                                    <Feed.Summary>
-                                        {full_trip.accom.name}
-                                    </Feed.Summary>
+                                    <div style ={{textAlign:"right"}}> <b>{full_trip.accom.name} </b>    </div>
+                                    <div style ={{textAlign:"right"}}> {full_trip.accom.rating}  <b>:ציון המלון</b> </div>
                                 </Feed.Content>
                             </Feed.Event>
                         )
                     }
                 </Feed>
             </Card.Content>
+            <button style={{position:"absolute", top:"200px", left:"10px"}} onClick={
+                ()=>{
+                    togglePopUp(a);
+                    console.log(a);
+                }
+            } key={a}>הראה במפה</button>
+
+
+
+
         </Card>
+
+
     ))}
 }
+              { save_results.length != 0 &&
+                  <Button style={{position:"absolute", top:"530px", left:"720px"}} onClick={hideResults}>חזור חזרה</Button>
 
+              }
+{ show_pop_up &&(
+                <PopUp style = {{position:"absolute"}} handleClose = {togglePopUp} places = {current_trip}>
 
-
+                </PopUp>
+            )
+            }
 
  </div>
 

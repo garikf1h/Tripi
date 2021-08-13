@@ -11,6 +11,7 @@ export const useMapFacade = (res) => {
           console.log(response);
           setData(response.data.data);
         }).catch(error => {
+            
           console.log(error);
         })
 

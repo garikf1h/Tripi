@@ -192,7 +192,13 @@ export const FormTrip = () => {
     const hideResults = () =>{
         setResults([]);
     }
-    
+    const calcTopOfBack = () =>{
+        if(res.length == '2')
+        {
+            return 600;
+        }
+        return 530;
+    }
     return (
           <div >
               <img src={logo} style={{position:"absolute", right:"620px", width:"300px", height:"100px", top:"10px"}}/>
@@ -381,8 +387,7 @@ export const FormTrip = () => {
     ))}
 }
               { save_results.length != 0 &&
-                  <Button style={{position:"absolute", top:"530px", left:"720px"}} onClick={hideResults}>חזור חזרה</Button>
-
+                  <Button style={{position:"absolute", top:calcTopOfBack(), left:"720px"}} onClick={hideResults}>חזור חזרה</Button>
               }
 { show_pop_up &&(
                 <PopUp style = {{position:"absolute"}} handleClose = {togglePopUp} places = {current_trip}>

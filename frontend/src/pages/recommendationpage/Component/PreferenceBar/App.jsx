@@ -145,6 +145,7 @@ export const FormTrip = () => {
     const [is_loading_data, setLoadingData] = useState(false);
     const [show_pop_up, setShowPopUp] = useState(false);
     const [current_trip, setCurrentTrip] = useState({});
+    const [no_results, setNoResults] = useState(false);
 
 
     const map_colors = (score) =>
@@ -163,14 +164,17 @@ export const FormTrip = () => {
         axios.post('http://localhost:5000/recommend', {type: 'aa', data:res}).then(response => {
 
           console.log(response);
+          if (response.data.length == 0)
+              setNoResults(true);
+          let timer = setTimeout(()=>{setNoResults(false);},2000);
           setResults(response.data);
           setResults((response)=>{
-
-              setLoadingData(false);
               return response;
           });
+
+          setLoadingData(false);
+
           setVisible(true);
-          //setData(response.data.data);
         }).catch(error => {
            console.log("ERROR");
           console.log(error);
@@ -277,7 +281,11 @@ export const FormTrip = () => {
                               defaultValue={1}
                 />
                 <a className="BUTTON_SZM" type='submit' onClick={onSubmit} style ={{position:"absolute", right:"110px", top:"470px" }}>חפש</a>
+                               {no_results &&
+                               (<div style ={{position:"absolute", top:"515px", left:"120px", color:"RED"}}>אין תוצאות לחיפוש</div>)
+                                }
                 </Form>
+
 
               )}
 

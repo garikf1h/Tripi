@@ -8,7 +8,7 @@ export const useMapFacade = (res) => {
 
       useEffect(()=>{
           axios.post('http://localhost:5000/recommend', {type: 'aa', data:res.res}).then(response => {
-          console.log(response);
+          console.log(response.data[0].trip);
           //setData(response.data.data);
         }).catch(error => {
           console.log(error);

@@ -150,9 +150,9 @@ export const FormTrip = () => {
 
     const map_colors = (score) =>
     {
-        if (score >= 8)
+        if (score >= 90)
             return "lightblue";
-        if (score >= 4)
+        if (score >= 65)
             return "Yellow"
         return "Red";
 

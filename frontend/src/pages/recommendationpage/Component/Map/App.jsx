@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Button, Checkbox} from "semantic-ui-react";
-import render from 'react-dom';
+
 import {
   withGoogleMap,
   withScriptjs,
@@ -22,7 +21,7 @@ export const NewMap = (props) => {
     return (
         <>
     <GoogleMap
-      defaultZoom={14}
+      defaultZoom={10}
       defaultCenter={{ lat: Number(props.places['trip'].Starting_point_y) , lng: Number(props.places['trip'].Starting_point_x) }}>
 
         <Marker
@@ -55,7 +54,7 @@ export const NewMap = (props) => {
                 name={props.places['rest'].name}
                 onClick={() => {
                     props.places['rest'].Starting_point_y = props.places.rest.geometry.location.lat;
-                    props.places['rest'].Starting_point_x = props.places.rest.geometry.location.lan;
+                    props.places['rest'].Starting_point_x = props.places.rest.geometry.location.lng;
                     setTrip(props.places['rest']);
                 }}
                 icon={{
@@ -78,7 +77,7 @@ export const NewMap = (props) => {
                 name={props.places['accom'].name}
                 onClick={() => {
                     props.places['accom'].Starting_point_y = props.places.accom.geometry.location.lat;
-                    props.places['accom'].Starting_point_x = props.places.accom.geometry.location.lan;
+                    props.places['accom'].Starting_point_x = props.places.accom.geometry.location.lng;
                     setTrip(props.places['accom']);
                 }}
                 icon={{
@@ -90,29 +89,6 @@ export const NewMap = (props) => {
 
 
 
-      {/*  {selectedTrip !== undefined && (*/}
-      {/*  <InfoWindow*/}
-      {/*      position={{*/}
-      {/*      lat: Number(selectedTrip.Starting_point_y),*/}
-      {/*      lng: Number(selectedTrip.Starting_point_x)*/}
-      {/*    }}*/}
-      {/*      onCloseClick={() => setSelectedTrip(undefined)}*/}
-      {/*  >*/}
-      {/*      <h1>{data[0].name}</h1>*/}
-
-      {/*      <div>*/}
-
-      {/*          <p>{selectedTrip.name}</p>*/}
-      {/*          <Divider />*/}
-      {/*          <p>{`${selectedTrip.shortDescription}`}</p>*/}
-      {/*          <Divider />*/}
-      {/*          <p>{selectedTrip.Product_url}</p>*/}
-      {/*          <Divider />*/}
-      {/*          <Divider />*/}
-      {/*      </div>*/}
-      {/*  </InfoWindow>*/}
-      {/*)}*/}
-
     </GoogleMap>
     {tripToShow!=undefined && (<InfoWindow
             key={tripToShow.name}
@@ -122,15 +98,12 @@ export const NewMap = (props) => {
           }}
             onCloseClick={() => setTrip(undefined)}
         >
-         <div>
+         <div style={{textAlign:!/[^a-zA-Z1-9' ']/.test(tripToShow.name)?"left":"right"}}>
                 <p>{tripToShow.name}</p>
                 <Divider />
                 <p>{`${tripToShow.shortDescription??tripToShow.vicinity}`}</p>
                 <Divider />
                 <p>{tripToShow.Product_url}</p>
-                <Divider />
-
-                <Divider />
             </div>
                 </InfoWindow>)}
                 </>

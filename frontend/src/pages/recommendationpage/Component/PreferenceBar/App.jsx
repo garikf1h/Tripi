@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBBtn } from 'mdbreact';
 import axios from "axios";
-import logo from '../../../../styles/logo.png';
+import logo from '../../../../styles/logo.PNG';
 import Loader from 'react-loader-spinner';
 import TheMap from "../../../Main/Component/Map/App";
 import PopUp from '../mapPopUp/App'
@@ -158,13 +158,13 @@ export const FormTrip = () => {
         {
             return 600;
         }
-        return 530;
+        return 500;
     }
     return (
           <div >
               <img src={logo} style={{position:"absolute", right:"620px", width:"300px", height:"100px", top:"10px"}}/>
               {save_results.length == 0 &&(
-                           <Form className="search_area">
+                           <Form className="search_area" style={{position:"relative"}}>
                 <Header as='h3' style={{textAlign:"center", position:"absolute", top:"10px", left:"210px"}}>:העדפות מסלול</Header>
                 <Dropdown
                     placeholder='בחר אזור בארץ'
@@ -247,6 +247,9 @@ export const FormTrip = () => {
                               aria-label="pretto slider"
                               defaultValue={1}
                 />
+                 {is_loading_data &&(
+                                <Loader type="Circles" color="#00BFFF" style = {{position:"absolute", top:"230px", right:"120px"}}height={80} width={80}/>)
+              }
                 <a className="BUTTON_SZM" type='submit' onClick={onSubmit} style ={{position:"absolute", right:"110px", top:"470px" }}>חפש</a>
                                {no_results &&
                                (<div style ={{position:"absolute", top:"515px", left:"120px", color:"RED"}}>אין תוצאות לחיפוש</div>)
@@ -257,38 +260,10 @@ export const FormTrip = () => {
               )}
 
 
-              {is_loading_data &&(
-                                <Loader type="Circles" color="#00BFFF" style = {{position:"absolute", top:"370px", left:"730px"}}height={80} width={80}/>)
-              }
-
-    {/*              {visible && (*/}
-    {/*    <div>*/}
-    {/*        {*/}
-    {/*            save_results.length >= 1 &&(*/}
-    {/*                <Button  style ={{position:"absolute", top:"0px" }} onClick={()=>onClickTrip(0)}>טיול 1</Button>*/}
-    {/*            )*/}
-
-    {/*        }*/}
-    {/*        {*/}
-    {/*            save_results.length >= 2 && (*/}
-    {/*                <Button style={{position:"absolute"}}*/}
-    {/*                        onClick={() => onClickTrip(1)}>טיול 2</Button>*/}
-    {/*            )*/}
-    {/*        }*/}
-    {/*    {*/}
-    {/*            save_results.length >= 3 &&(*/}
-    {/*                 <Button  style ={{position:"absolute"}}onClick={()=>onClickTrip(2)}>טיול 3</Button>*/}
-    {/*            )*/}
-
-    {/*        }*/}
-    {/*    </div>*/}
-    {/*)}*/}
-
-
 
 {save_results.map( (full_trip, a) => (
 
-        <Card style={{position: "absolute", textAlign: "right", top: "250px", right: a * 400 + 210}} key ={full_trip.trip.name}>
+        <Card style={{position: "relative", marginBottom:"20px", textAlign: "right", float:"right", marginLeft:"70px", top:"170px", left:"-250px"}} key ={full_trip.trip.name}>
             <Card.Content style={{position:"relative"}}>
                 <Card.Header textAlign={"center"}>:המלצה מספר {a + 1}
                 <div key = {a} className="circle" style={{backgroundColor:map_colors(full_trip.score)}}>
@@ -331,13 +306,14 @@ export const FormTrip = () => {
                         )
                     }
                 </Feed>
-            </Card.Content>
-            <button style={{position:"absolute", top:"200px", left:"10px"}} onClick={
+                <button style={{position:"relative", float:"left"}} onClick={
                 ()=>{
                     togglePopUp(a);
                     console.log(a);
                 }
             } key={a}>הראה במפה</button>
+            </Card.Content>
+
 
 
 
@@ -348,7 +324,7 @@ export const FormTrip = () => {
     ))}
 }
               { save_results.length != 0 &&
-                  <Button style={{position:"absolute", top:calcTopOfBack(), left:"720px"}} onClick={hideResults}>חזור חזרה</Button>
+                  <Button style={{position:"relative",top:calcTopOfBack(),  left:"720px"}} onClick={hideResults}>חזור חזרה</Button>
               }
 { show_pop_up &&(
                 <PopUp style = {{position:"absolute"}} handleClose = {togglePopUp} places = {current_trip}>

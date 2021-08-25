@@ -23,7 +23,7 @@ export const RestaurantForm = (props) => {
     }
 
     return (
-          <div style={{textAlign:"right"}}>
+          <div style={{textAlign:"right", }}>
             <Form>
                 <Form.Field>
                   <input type = "text" placeholder='הכנס סגנון מסעדה'  onChange={(e,data) => res.foodType = e.target.value}/>

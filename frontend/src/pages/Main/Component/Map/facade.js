@@ -133,9 +133,8 @@ export const useMapFacade = (props) => {
       axios
         .post("http://localhost:5000/trip", { type: "hotel", data: dataTrip })
         .then((response) => {
-          setSidebarData(response.data);
-          setHotelData(response.data);
-          addHotel(undefined);
+                   //   setSidebarData(response.data);
+                  setHotelData(response.data);addHotel(undefined);
         })
         .catch((error) => {
           console.log(error);

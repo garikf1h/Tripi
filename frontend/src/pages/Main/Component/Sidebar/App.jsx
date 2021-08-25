@@ -18,16 +18,7 @@ export const SidebarComponent = (props) => {
                     <Divider />
                 </Segment>
                 ))}
-             {sidebarData.hotelData.map( (hotel) => (
-                <Segment>
-                    <p>{hotel.name}</p>
-                    <Divider />
-                    <p>{`${hotel.rating}`}</p>
-                    <Divider />
-                    <p>{hotel.vicinity}</p>
-                    <Divider />
-                </Segment>
-                ))}
+
             {sidebarData.restData.map( (rest) => (
                 <Segment>
                     <p>{rest.name}</p>

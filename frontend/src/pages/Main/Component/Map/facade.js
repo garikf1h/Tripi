@@ -73,6 +73,7 @@ export const useMapFacade = (props) => {
           axios.post('http://localhost:5000/map', {type: 'Trip', data:searchParams}).then(response => {
           setData(response.data.data);
         }).catch(error => {
+            
           console.log(error);
         })
 

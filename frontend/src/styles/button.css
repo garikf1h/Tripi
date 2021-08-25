@@ -2,7 +2,7 @@
 	cursor: pointer;
         border-radius: 5em;
         color: #fff;
-        background: linear-gradient(to right, #9C27B0, #E040FB);
+        background: linear-gradient(to right, #f4ffc9, #2a8066);
         border: 0;
         padding-left: 40px;
         padding-right: 40px;
@@ -13,9 +13,6 @@
         font-size: 13px;
         box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 
-   position: inherit;
-   right: 100px;
-   bottom: -15px;
 }
 .BUTTON_SZM:hover,.BUTTON_SZM:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #1f3dab;

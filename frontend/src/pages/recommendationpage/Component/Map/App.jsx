@@ -17,7 +17,10 @@ import Hotel from './Markers/Hotel.svg';
 
 
 export const NewMap = (props) => {
+    const [tripToShow, setTrip] = useState(undefined);
+
     return (
+        <>
     <GoogleMap
       defaultZoom={14}
       defaultCenter={{ lat: Number(props.places['trip'].Starting_point_y) , lng: Number(props.places['trip'].Starting_point_x) }}>
@@ -30,9 +33,11 @@ export const NewMap = (props) => {
           }}
           style
           name={props.places['trip'].name}
-          onClick={() => {
-            console.log(`clicked ${props.places['trip'].name}`)
-          }}
+          onClick={()=>
+          {
+                setTrip(props.places['trip'])
+             }
+          }
           icon={{
               url: Trip,
               scaledSize: new window.google.maps.Size(45, 45)
@@ -49,7 +54,9 @@ export const NewMap = (props) => {
                 style
                 name={props.places['rest'].name}
                 onClick={() => {
-                    console.log(`clicked ${props.places['rest'].name}`)
+                    props.places['rest'].Starting_point_y = props.places.rest.geometry.location.lat;
+                    props.places['rest'].Starting_point_x = props.places.rest.geometry.location.lan;
+                    setTrip(props.places['rest']);
                 }}
                 icon={{
               url: Res,
@@ -70,7 +77,9 @@ export const NewMap = (props) => {
                 style
                 name={props.places['accom'].name}
                 onClick={() => {
-                    console.log(`clicked ${props.places['accom'].name}`)
+                    props.places['accom'].Starting_point_y = props.places.accom.geometry.location.lat;
+                    props.places['accom'].Starting_point_x = props.places.accom.geometry.location.lan;
+                    setTrip(props.places['accom']);
                 }}
                 icon={{
               url: Hotel,
@@ -103,7 +112,28 @@ export const NewMap = (props) => {
       {/*      </div>*/}
       {/*  </InfoWindow>*/}
       {/*)}*/}
+
     </GoogleMap>
+    {tripToShow!=undefined && (<InfoWindow
+            key={tripToShow.name}
+            position={{
+            lat: Number(tripToShow.Starting_point_y),
+            lng: Number(tripToShow.Starting_point_x)
+          }}
+            onCloseClick={() => setTrip(undefined)}
+        >
+         <div>
+                <p>{tripToShow.name}</p>
+                <Divider />
+                <p>{`${tripToShow.shortDescription??tripToShow.vicinity}`}</p>
+                <Divider />
+                <p>{tripToShow.Product_url}</p>
+                <Divider />
+
+                <Divider />
+            </div>
+                </InfoWindow>)}
+                </>
   );
 }
 

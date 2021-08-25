@@ -96,7 +96,7 @@ export const useMapFacade = (props) => {
                const dataTrip = {coordinates: {y : selectedTrip.Starting_point_y, x: selectedTrip.Starting_point_x}, hotelInfo: hotelParams}
                   axios.post('http://localhost:5000/trip', {type: 'hotel', data: dataTrip}).then(response => {
                   //setSelectedTrip(undefined);
-                      setSidebarData(response.data);
+                   //   setSidebarData(response.data);
                   setHotelData(response.data);
                 }).catch((error) => {
             console.log(error);

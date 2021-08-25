@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse, request
-from utils import get_restaurants, get_accom
+from utils import get_restaurants, get_accom_filtered
 import json
 
 
@@ -22,7 +22,7 @@ class GoogleApiHandler2(Resource):
         if args['type'] == 'rest':
             data = get_restaurants(request_json, 'all')
         else:
-            data = get_accom(request_json)
+            data = get_accom_filtered(request_json)
         # {"region":region,"access":accesability,"with_water":water,"length":length,"children":"לא","activity_level":"קל","price_range":1,"restaurant_type":"italian"}))
 
         print("printing recommended routes:")

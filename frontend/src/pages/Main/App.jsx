@@ -31,7 +31,7 @@ export const MainPage = () => {
         direction="left"
         width="very wide"
       >
-          <SidebarComponent sidebarData={sidebarData}/>
+{/*           <SidebarComponent sidebarData={sidebarData}/> */}
           </Sidebar>
         <Sidebar.Pusher dimmed={showSidebar}>
                 <div className="body2" style={{display:"flex", flexDirection:"row"}}>

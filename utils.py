@@ -193,3 +193,12 @@ def get_accom(params,radius = '10000'):
     for item in parsed_list:
         item.update({"Distance":geopy.distance.distance((cor_y,cor_x),(item['geometry']['location']['lat'],item['geometry']['location']['lng'])).km})
     return parsed_list
+
+def get_accom_filtered(params,radius = '10000'):
+    print(params)
+    cor_x = params['coordinates']['x']
+    cor_y = params['coordinates']['y']
+    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&radius=" + radius + "&type=lodging&key=" + google_api_key
+    res = requests.get(get_url)
+    parsed_list = res.json()['results']
+    return parsed_list

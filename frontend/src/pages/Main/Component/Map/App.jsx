@@ -69,8 +69,8 @@ export const NewMap = (props) => {
           {hotelData.map(hotel => (
         <Marker
           position={{
-            lat: Number(hotel.Starting_point_y),
-            lng: Number(hotel.Starting_point_x)
+            lat: hotel.geometry.location.lat,
+            lng: hotel.geometry.location.lng
           }}
           style
           name={hotel.name}

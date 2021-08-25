@@ -107,4 +107,5 @@ export const TheMap = (props) => {
         </div>
     );
 }
+
 export default TheMap;

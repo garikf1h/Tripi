@@ -1,40 +1,58 @@
-import React, {useState} from 'react';
-import {Segment} from "semantic-ui-react";
+import React, {useEffect, useState} from 'react';
+import {Icon, Menu, Segment, Sidebar, Grid, Image} from "semantic-ui-react";
 import TheMap from "./Component/Map/App";
-import FormTrip from "./Component/PreferenceBar/App"
-import '../../styles/Tripi_page_2.css'
+import {TripForm} from "./Component/TripForm/App";
+import {RestaurantForm} from "./Component/RestaurantForm/App";
+import {HotelForm} from "./Component/HotelForm/App";
+
+import './styles.css'
+import {SidebarComponent} from "./Component/Sidebar/App";
+import {Divider} from "@material-ui/core";
+
+export const MainPage = () => {
+    const [searchParams,updateSearchParams] = useState({free_text:"",region:'הכל', access:"לא" , with_water:'לא', length:'הכל'});
+    const [restParams, setRestParams] = useState();
+    const [hotelParams, setHotelParams] = useState(undefined);
+    const [showSidebar, setShowSideBar] = useState(false);
+    const [fullTrip, setFullTrip] = useState({trip: undefined, rest: undefined, hotel: undefined});
+    const [sidebarData, setSidebarData] = useState({tripData:[], hotelData:[], restData:[]});
 
 
-
-
-export default class MainPage extends React.Component {
-
-        searchParams = {free_text:"",region:'הכל', access:"לא" , with_water:'לא', length:'הכל'};    updateSearchParams = (inputParams) => {
-        this.setState( {},() => {
-            this.searchParams = inputParams;
-            console.log(inputParams);
-            console.log(this.searchParams);
-        })
-    };
-
-
-  render()
-  {
     return (
 
-        <div className="body">
+        <Sidebar.Pushable as={Segment}>
+      <Sidebar
+        as={Menu}
+        animation="scale down"
+        vertical
+        onHide={() => setShowSideBar(false)}
+        visible={showSidebar}
 
-            <div className="search_area" >
-                <FormTrip callBack={this.updateSearchParams}/>
-            </div>
-
+        direction="left"
+        width="very wide"
+      >
+          <SidebarComponent sidebarData={sidebarData}/>
+          </Sidebar>
+        <Sidebar.Pusher dimmed={showSidebar}>
+                <div className="body2" style={{display:"flex", flexDirection:"row"}}>
+                    <div key="map">
+                    <TheMap props={{searchParams, setSidebarData, restParams, fullTrip, setFullTrip, hotelParams, sidebarData}}/>
+                </div>
+                    <div className="new_search_form">
+                          <HotelForm key="hotelForm" callBack={setHotelParams} sidebarShow={setShowSideBar}/>
+                      </div>
+                    <div className="new_search_form">
+                      <RestaurantForm key="hotelForm" callBack={setRestParams} sidebarShow={setShowSideBar}/>
+                  </div>
+                  <div className="new_search_form">
+                      <TripForm key="trip" callBack={updateSearchParams} sidebarShow={setShowSideBar}/>
+                  </div>
             <article>
-                <div key="map">
-                <TheMap searchParams={this.searchParams}/>
-            </div>
+
             </article>
         </div>
-
+           </Sidebar.Pusher>
+        </Sidebar.Pushable>
     );
-  }
+
 }

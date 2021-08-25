@@ -100,45 +100,6 @@ const handleSliderPriceChange= (event, data) => {
   res.price= data;
 };
 
-// const TripForm = (props) => {
-//     console.log(props);
-//     const {sendData} = props;
-//     const onSubmit = () => {
-//         props.props();
-//     }
-//
-//     return (
-//     <Form>
-//         <Form.Field>
-//           <label>חיפוש חופשי</label>
-//           <input placeholder='free text' />
-//         </Form.Field>
-//         <Dropdown
-//             placeholder='Select Friend'
-//             fluid
-//             onChange={handleDropDownSelect}
-//             selection
-//             options={options}
-//         />
-//         <Form.Field>
-//             {/*// TODO: need to active this field*/}
-//           <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'לא' : 'כן'}/>
-//         </Form.Field>
-//          <Form.Field>
-//             {/*// TODO: need to active this field*/}
-//           <Checkbox label='מסלול נגיש' onChange={(e,data) => res.access = data.checked ?'לא' : 'כן'}/>
-//         </Form.Field>
-//         <Dropdown
-//             placeholder='בחר אורך טיול'
-//             fluid
-//             onChange={handleDropDownSelectTrip}
-//             selection
-//             options={tripLevel}
-//         />
-//         <Button type='submit' onClick={onSubmit}>Submit</Button>
-//   </Form>
-//     )
-// }
 export const FormTrip = () => {
     const [visible, setVisible]= useState(false);
     const [save_results, setResults]= useState([]);
@@ -403,4 +364,3 @@ export const FormTrip = () => {
 }
 
 export default {FormTrip};
-

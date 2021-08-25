@@ -10,6 +10,9 @@ import {
 } from "react-google-maps";
 import {Divider} from "@material-ui/core";
 import {forEach} from "react-bootstrap/ElementChildren";
+import Trip from './Markers/Trip.svg';
+import Res from './Markers/Res.svg';
+import Hotel from './Markers/Hotel.svg';
 
 
 
@@ -30,6 +33,10 @@ export const NewMap = (props) => {
           onClick={() => {
             console.log(`clicked ${props.places['trip'].name}`)
           }}
+          icon={{
+              url: Trip,
+              scaledSize: new window.google.maps.Size(45, 45)
+      }}
         />
         {  Object.keys(props.places['rest']).length !== 0 &&
         (
@@ -44,6 +51,10 @@ export const NewMap = (props) => {
                 onClick={() => {
                     console.log(`clicked ${props.places['rest'].name}`)
                 }}
+                icon={{
+              url: Res,
+              scaledSize: new window.google.maps.Size(45, 45)
+      }}
             />)
         }
 
@@ -61,6 +72,10 @@ export const NewMap = (props) => {
                 onClick={() => {
                     console.log(`clicked ${props.places['accom'].name}`)
                 }}
+                icon={{
+              url: Hotel,
+              scaledSize: new window.google.maps.Size(45, 45)
+      }}
             />)
         }
 

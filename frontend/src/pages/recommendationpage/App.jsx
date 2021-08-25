@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {FormTrip} from "./Component/PreferenceBar/App";
+import '../../styles/Tripi_page_2.css';
 
-const RecommendPage  = () => {
+export const RecommendPage  = () => {
     return (
 
         <div className="body">

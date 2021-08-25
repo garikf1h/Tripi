@@ -7,7 +7,7 @@ import { Switch, Route } from 'react-router-dom';
 // import App from './pages/';
 import {MainPage} from './pages/Main/App';
 import Login from './pages/Login/App';
-import RecommendPage from './pages/recommendationpage/App';
+import {RecommendPage} from './pages/recommendationpage/App';
 // import LoginPage from './pages/Login';
 
 const Main = () => {

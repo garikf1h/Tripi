@@ -5,7 +5,7 @@ import {TripForm} from "./Component/TripForm/App";
 import {RestaurantForm} from "./Component/RestaurantForm/App";
 import {HotelForm} from "./Component/HotelForm/App";
 
-import '../../styles/Tripi_page_2.css'
+import './styles.css'
 import {SidebarComponent} from "./Component/Sidebar/App";
 import {Divider} from "@material-ui/core";
 
@@ -34,17 +34,17 @@ export const MainPage = () => {
           <SidebarComponent sidebarData={sidebarData}/>
           </Sidebar>
         <Sidebar.Pusher dimmed={showSidebar}>
-                <div className="body" style={{display:"flex", flexDirection:"row"}}>
+                <div className="body2" style={{display:"flex", flexDirection:"row"}}>
                     <div key="map">
                     <TheMap props={{searchParams, setSidebarData, restParams, fullTrip, setFullTrip, hotelParams, sidebarData}}/>
                 </div>
-                    <div className="search_area">
+                    <div className="new_search_form">
                           <HotelForm key="hotelForm" callBack={setHotelParams} sidebarShow={setShowSideBar}/>
                       </div>
-                    <div className="search_area">
+                    <div className="new_search_form">
                       <RestaurantForm key="hotelForm" callBack={setRestParams} sidebarShow={setShowSideBar}/>
                   </div>
-                  <div className="search_area">
+                  <div className="new_search_form">
                       <TripForm key="trip" callBack={updateSearchParams} sidebarShow={setShowSideBar}/>
                   </div>
             <article>

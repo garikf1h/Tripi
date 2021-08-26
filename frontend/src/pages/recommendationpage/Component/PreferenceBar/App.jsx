@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBBtn } from 'mdbreact';
 import axios from "axios";
-import logo from '../../../../styles/logo.PNG';
+import logo from '../../../../styles/logo.png';
 import Loader from 'react-loader-spinner';
 import TheMap from "../../../Main/Component/Map/App";
 import PopUp from '../mapPopUp/App'

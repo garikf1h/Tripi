@@ -16,7 +16,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
-google_api_key = 'AIzaSyAesDybIrVwbCEsSm0rGbwlB06zSIdxpgc'
+google_api_key = 'AIzaSyAeJvACSJMgKjFUumYdsx9mX018g8kYeyE'
 
 
 class PlaceType(Enum):

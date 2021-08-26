@@ -161,36 +161,40 @@ export const FormTrip = () => {
         return 500;
     }
     return (
-          <div >
-              <img src={logo} style={{position:"absolute", right:"620px", width:"300px", height:"100px", top:"10px"}}/>
+          <div style={{position:"relative"}}>
+
+             <div>
+                 <img src={logo} className="logo"/></div>
               {save_results.length == 0 &&(
-                           <Form className="search_area" style={{position:"relative"}}>
-                <Header as='h3' style={{textAlign:"center", position:"absolute", top:"10px", left:"210px"}}>:העדפות מסלול</Header>
+                  <Form className="search_area">
+                <Header as='h3' className="form_header">:העדפות מסלול</Header>
+                      <div className="area">
                 <Dropdown
                     placeholder='בחר אזור בארץ'
                     fluid
                     onChange={handleDropDownSelect}
                     selection
-                    style ={{position:"absolute", top:"40px",  width:"200px", left:"70px", textAlign:"right"}}
-                    options={options}
-                />
 
-                <Form.Field>
-                    {/*// TODO: need to active this field*/}
-               <FormControlLabel  style ={{position:"absolute", top:"90px", left:"100px" }}
+                    options={options}
+                 />
+                 </div>
+
+                <div className="child">
+                    <Form.Field>
+               <FormControlLabel
                       control={
                    <Switch
                   onChange={handleChangeSwitchChild}
                   name="checkedChild"
                   color="primary"
-
                     />
                 }
                  label="עם ילדים"
                 />
                 </Form.Field>
+                </div>
                 <Form.Field>
-                  <FormControlLabel style ={{position:"absolute", top:"130px", left:"100px" }}
+                  <FormControlLabel className="water"
                       control={
                    <Switch
                 // checked={state.checkedB}
@@ -204,10 +208,9 @@ export const FormTrip = () => {
                 />
                 </Form.Field>
                  <Form.Field>
-                   <FormControlLabel style ={{position:"absolute", top:"170px", left:"100px" }}
+                   <FormControlLabel className="access"
                       control={
                    <Switch
-                // checked={state.checkedB}
                   onChange={handleChangeSwitchAccess}
                   name="checkedB"
                   color="primary"
@@ -217,42 +220,50 @@ export const FormTrip = () => {
                  label=":נגישות"
                 />
                  </Form.Field>
-                <Dropdown
+
+           <div className="length">
+               <Dropdown
                     placeholder='אורך טיול כולל'
                     fluid
                     onChange={handleDropDownSelectTrip}
                     selection
                     options={tripLevel}
-                    style ={{position:"absolute", top:"220px",  width:"200px", left:"70px", textAlign:"right"}}
-                />
 
-                <label style={{position:"absolute", textAlign:"right", left:"250px", top:"280px"   }}>:רמת פעילות</label>
+                />
+           </div>
+
+                <label className="level_label">:רמת פעילות</label>
+                <div className="level">
                  <PrettoSlider
-                     style={{left:"-80px", top:"-25px", position: "relative"}}
                      min={1} max = {4}
                      onChange={handleSliderLevelChange}
                      valueLabelDisplay="auto"
                      aria-label="pretto slider"
                      defaultValue={1}
-                     style ={{position:"absolute", top:"273px", left:"70px", width:"150px"  }}
+
                  />
-                 <Header as='h3' style={{position: "absolute", top:"300px", left:"210px", textAlign:"right"}}>:העדפות ארוחה</Header>
-                 <input type = "text"  style={{textAlign:"right", position:"absolute", top:"360px",  width:"200px", left:"70px"}} placeholder='סוג מסעדה'  onChange={(e,data) => res.rest = e.target.value}/>
-                 <label style={{position:"absolute", top:"420px", left:"250px"}}>:טווח מחירים</label>
-                <PrettoSlider
-                              style={{left:"70px", top:"415px", position: "absolute", width:"150px" }}
+                      </div>
+                 <Header as='h3' className="title_rest">:העדפות ארוחה</Header>
+                      <div className="input_rest" >
+                          <input type = "text"   placeholder='סוג מסעדה'  onChange={(e,data) => res.rest = e.target.value}/>
+                      </div>
+                 <label className="price_range_title">:טווח מחירים</label>
+                <div className="price_slider">
+                    <PrettoSlider
+                              className="price_slider"
                               min={1} max = {5}
                               valueLabelDisplay="auto"
                               onChange={handleSliderPriceChange}
                               aria-label="pretto slider"
                               defaultValue={1}
                 />
+                </div>
                  {is_loading_data &&(
-                                <Loader type="Circles" color="#00BFFF" style = {{position:"absolute", top:"230px", right:"120px"}}height={80} width={80}/>)
+                                <Loader type="Circles" color="#00BFFF" className="loader" height={80} width={80}/>)
               }
-                <a className="BUTTON_SZM" type='submit' onClick={onSubmit} style ={{position:"absolute", right:"110px", top:"470px" }}>חפש</a>
+                <a className="BUTTON_SZM" type='submit' onClick={onSubmit} >חפש</a>
                                {no_results &&
-                               (<div style ={{position:"absolute", top:"515px", left:"120px", color:"RED"}}>אין תוצאות לחיפוש</div>)
+                               (<div className="no_results">אין תוצאות לחיפוש</div>)
                                 }
                 </Form>
 
@@ -261,57 +272,58 @@ export const FormTrip = () => {
 
 
 
+
 {save_results.map( (full_trip, a) => (
 
-        <Card style={{position: "relative", marginBottom:"20px", textAlign: "right", float:"right", marginLeft:"70px", top:"170px", left:"-250px"}} key ={full_trip.trip.name}>
-            <Card.Content style={{position:"relative"}}>
-                <Card.Header textAlign={"center"}>:המלצה מספר {a + 1}
+        <div className="card_trips"> <Card className="card_trips" key ={full_trip.trip.name}>
+            <Card.Content>
+                <Card.Header>:המלצה מספר {a + 1}
                 <div key = {a} className="circle" style={{backgroundColor:map_colors(full_trip.score)}}>
                   <div className="text_of_circle">{full_trip.score.toFixed(1)}</div>
               </div></Card.Header>
             </Card.Content>
 
-            <Card.Content style={{textAlign: "right"}}>
+            <Card.Content>
                 <Feed>
                     <Feed.Event>
 
-                        <Feed.Content>
-                            <Feed.Date style={{textAlign: "right"}} content=' :מסלול טיול'/>
-                            <div style={{textAlign:"right"}}><b > {full_trip.trip.name}</b> </div>
+                        <Feed.Content style={{textAlign: "right"}} >
+                            <Feed.Date content=' :מסלול טיול'/>
+                            <div ><b > {full_trip.trip.name}</b> </div>
 
-                             <div style={{textAlign:"right"}}><b > תיאור כללי   </b>:  {full_trip.trip.shortDescription}</div>
+                             <div ><b > תיאור כללי   </b>:  {full_trip.trip.shortDescription}</div>
                             {/* <Feed.Summary style={{textAlign: "right"}}>*/}
                             {/*    {full_trip.trip.Product_url} קישור לצפייה במסלול :*/}
                             {/*</Feed.Summary>*/}
-                         <div style ={{textAlign:"right"}}> <a href={full_trip.trip.Product_url} >  לצפייה במסלול   </a></div>
+                         <div> <a href={full_trip.trip.Product_url} >  לצפייה במסלול   </a></div>
 
                         </Feed.Content>
                     </Feed.Event>
 
                     <Feed.Event>
-                        <Feed.Content>
-                            <Feed.Date style={{textAlign: "right"}} content=':מסעדה'/>
-                            <div style ={{textAlign:"right"}}> <b>{full_trip.rest.name}</b> </div>
-                            <div style ={{textAlign:"right"}}> {full_trip.rest.rating} <b>:ציון המסעדה</b>  </div>
+                        <Feed.Content style={{textAlign: "right"}}>
+                            <Feed.Date  content=':מסעדה'/>
+                            <div> <b>{full_trip.rest.name}</b> </div>
+                            <div> {full_trip.rest.rating} <b>:ציון המסעדה</b>  </div>
                         </Feed.Content>
                     </Feed.Event>
                     {
                         Object.keys(full_trip.accom).length !== 0 && (<Feed.Event key={{a}}>
-                                <Feed.Content>
-                                    <Feed.Date style={{textAlign: "right"}} content=':לינה'/>
-                                    <div style ={{textAlign:"right"}}> <b>{full_trip.accom.name} </b>    </div>
-                                    <div style ={{textAlign:"right"}}> {full_trip.accom.rating}  <b>:ציון המלון</b> </div>
+                                <Feed.Content >
+                                    <Feed.Date content=':לינה'/>
+                                    <div> <b>{full_trip.accom.name} </b>    </div>
+                                    <div> {full_trip.accom.rating}  <b>:ציון המלון</b> </div>
                                 </Feed.Content>
                             </Feed.Event>
                         )
                     }
                 </Feed>
-                <button style={{position:"relative", float:"left"}} onClick={
+                <div className="map_button" ><button onClick={
                 ()=>{
                     togglePopUp(a);
                     console.log(a);
                 }
-            } key={a}>הראה במפה</button>
+            } key={a}>הראה במפה</button></div>
             </Card.Content>
 
 
@@ -320,14 +332,17 @@ export const FormTrip = () => {
 
         </Card>
 
+        </div>
+
 
     ))}
-}
+
               { save_results.length != 0 &&
-                  <Button style={{position:"relative",top:calcTopOfBack(),  left:"720px"}} onClick={hideResults}>חזור חזרה</Button>
+              <div className="back_button"> <Button onClick={hideResults}>חזור חזרה</Button></div>
               }
+
 { show_pop_up &&(
-                <PopUp style = {{position:"absolute"}} handleClose = {togglePopUp} places = {current_trip}>
+                <PopUp handleClose = {togglePopUp} places = {current_trip}>
 
                 </PopUp>
             )

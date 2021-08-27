@@ -10,7 +10,6 @@ from flask_restful import Api
 CORS(app)  # comment this on deployment
 api = Api(app)
 
-# TODO: need to think how to handle the diffrenet cases for the routes
 map = MapApiHandler()
 google = GoogleApiHandler()
 google2 = GoogleApiHandler2()

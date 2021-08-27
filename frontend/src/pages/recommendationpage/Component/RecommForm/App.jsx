@@ -1,18 +1,20 @@
 import React, { useState, useEffect} from "react";
-import {Form, Segment, TextArea, Dropdown, Divider,Checkbox, Button, Header, Card, Feed } from "semantic-ui-react";
-import '../../../../styles/button.css'
-import {Switch, FormControlLabel} from '@material-ui/core';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBBtn } from 'mdbreact';
+import '../../styles/recommend_page.css'
+import {Dropdown, Header, Form} from "semantic-ui-react";
+import {FormControlLabel, Switch} from "@material-ui/core";
+import Loader from "react-loader-spinner";
+import {withStyles} from "@material-ui/core/styles";
+import Slider from "@material-ui/core/Slider";
 import axios from "axios";
-import logo from '../../../../styles/logo.png';
-import Loader from 'react-loader-spinner';
-import TheMap from "../../../Main/Component/Map/App";
-import PopUp from '../mapPopUp/App'
 
-const PrettoSlider = withStyles({
+const RecommForm = ({save_results,setResults }) => {
+
+let user_input = {rest:'',region:'הכל', access:"לא" , with_water:'לא', length:'הכל', child:'לא', level:'1', price:'1'};
+        const [visible, setVisible]= useState(false);
+        const [is_loading_data, setLoadingData] = useState(false);
+        const [no_results, setNoResults] = useState(false);
+
+        const PrettoSlider = withStyles({
   root: {
     color: '#3240ff',
     height: 8,
@@ -52,77 +54,55 @@ const options = [{Key:'north',value:'צפון', text:"צפון"},
             {Key:'eilat',value:'אילת', text:"אילת"},
             {Key:'all',value:'הכל', text:"הכל"}];
 
-//TODO: update correct fields
 const tripLevel = [
             {Key:'1',value:'1', text:"עד יום"},
             {Key:'2',value:'2', text:"יותר מיום(כולל לינה)"},
 ];
 
-let res = {rest:'',region:'הכל', access:"לא" , with_water:'לא', length:'הכל', child:'לא', level:'1', price:'1'}
-
 const handleDropDownSelect = (event, data) => {
-   res.region = data.value;
+   user_input.region = data.value;
 };
 
 const handleChangeSwitchChild=(event, data)=>{
        if(data) {
-        res.child='כן'
+        user_input.child='כן'
     }
     else {
-        res.child='לא'
+        user_input.child='לא'
     }
 
 };
 const handleDropDownSelectTrip = (event, data) => {
-  res.length = data.value;
+  user_input.length = data.value;
 };
 const handleChangeSwitchWater = (event, data) => {
     if(data) {
-        res.with_water='כן'
+        user_input.with_water='כן'
     }
     else {
-        res.with_water='לא'
+        user_input.with_water='לא'
     }
 };
 const handleChangeSwitchAccess = (event, data) => {
      if(data) {
-        res.access='כן'
+        user_input.access='כן'
     }
     else {
-        res.access='לא'
+        user_input.access='לא'
     }
 };
 const handleSliderLevelChange= (event, data) => {
-  res.level= data;
+  user_input.level= data;
 };
 
 const handleSliderPriceChange= (event, data) => {
-  res.price= data;
+  user_input.price = data;
 };
-
-export const FormTrip = () => {
-    const [visible, setVisible]= useState(false);
-    const [save_results, setResults]= useState([]);
-    const [is_loading_data, setLoadingData] = useState(false);
-    const [show_pop_up, setShowPopUp] = useState(false);
-    const [current_trip, setCurrentTrip] = useState({});
-    const [no_results, setNoResults] = useState(false);
-
-
-    const map_colors = (score) =>
-    {
-        if (score >= 90)
-            return "lightblue";
-        if (score >= 65)
-            return "Yellow"
-        return "Red";
-
-    }
     const onSubmit = () => {
         //this.sendData();
         setLoadingData(true);
-        console.log(res);
-        axios.post('http://localhost:5000/recommend', {type: 'aa', data:res}).then(response => {
+        console.log(user_input);
+        axios.post('http://localhost:5000/recommend', {type: 'aa', data:user_input}).then(response => {
 
           console.log(response);
           if (response.data.length == 0)
@@ -140,42 +120,19 @@ export const FormTrip = () => {
            console.log("ERROR");
           console.log(error);
         })
-
     }
-    const onClickTrip = (trip) => {
-       console.log(save_results);
-    }
-    const togglePopUp = (trip) =>{
-        setShowPopUp(!show_pop_up);
-        setCurrentTrip(save_results[trip]);
-
-    }
-    const hideResults = () =>{
-        setResults([]);
-    }
-    const calcTopOfBack = () =>{
-        if(res.length == '2')
-        {
-            return 600;
-        }
-        return 500;
-    }
-    return (
-          <div style={{position:"relative"}}>
-
-             <div>
-                 <img src={logo} className="logo"/></div>
-              {save_results.length == 0 &&(
-                  <Form className="search_area">
+  return (
+       <Form className="search_area" >
                 <Header as='h3' className="form_header">:העדפות מסלול</Header>
-                      <div className="area">
+                      <div className="area" >
                 <Dropdown
                     placeholder='בחר אזור בארץ'
                     fluid
                     onChange={handleDropDownSelect}
                     selection
-
                     options={options}
+                    style={{textAlign:"right"}}
+
                  />
                  </div>
 
@@ -207,7 +164,7 @@ export const FormTrip = () => {
                  label="מסלול מים"
                 />
                 </Form.Field>
-                 <Form.Field>
+                 <Form.Field >
                    <FormControlLabel className="access"
                       control={
                    <Switch
@@ -228,6 +185,7 @@ export const FormTrip = () => {
                     onChange={handleDropDownSelectTrip}
                     selection
                     options={tripLevel}
+                    style={{textAlign:"right"}}
 
                 />
            </div>
@@ -245,7 +203,7 @@ export const FormTrip = () => {
                       </div>
                  <Header as='h3' className="title_rest">:העדפות ארוחה</Header>
                       <div className="input_rest" >
-                          <input type = "text"   placeholder='סוג מסעדה'  onChange={(e,data) => res.rest = e.target.value}/>
+                          <input type = "text"   style={{textAlign:"right"}} placeholder='סוג מסעדה'  onChange={(e,data) => user_input.rest = e.target.value}/>
                       </div>
                  <label className="price_range_title">:טווח מחירים</label>
                 <div className="price_slider">
@@ -255,7 +213,7 @@ export const FormTrip = () => {
                               valueLabelDisplay="auto"
                               onChange={handleSliderPriceChange}
                               aria-label="pretto slider"
-                              defaultValue={1}
+                              defaultValue ={1}
                 />
                 </div>
                  {is_loading_data &&(
@@ -266,92 +224,7 @@ export const FormTrip = () => {
                                (<div className="no_results">אין תוצאות לחיפוש</div>)
                                 }
                 </Form>
+  );
+};
 
-
-              )}
-
-
-
-
-{save_results.map( (full_trip, a) => (
-
-        <div className="card_trips"> <Card className="card_trips" key ={full_trip.trip.name}>
-            <Card.Content>
-                <Card.Header>:המלצה מספר {a + 1}
-                <div key = {a} className="circle" style={{backgroundColor:map_colors(full_trip.score)}}>
-                  <div className="text_of_circle">{full_trip.score.toFixed(1)}</div>
-              </div></Card.Header>
-            </Card.Content>
-
-            <Card.Content>
-                <Feed>
-                    <Feed.Event>
-
-                        <Feed.Content style={{textAlign: "right"}} >
-                            <Feed.Date content=' :מסלול טיול'/>
-                            <div ><b > {full_trip.trip.name}</b> </div>
-
-                             <div ><b > תיאור כללי   </b>:  {full_trip.trip.shortDescription}</div>
-                            {/* <Feed.Summary style={{textAlign: "right"}}>*/}
-                            {/*    {full_trip.trip.Product_url} קישור לצפייה במסלול :*/}
-                            {/*</Feed.Summary>*/}
-                         <div> <a href={full_trip.trip.Product_url} >  לצפייה במסלול   </a></div>
-
-                        </Feed.Content>
-                    </Feed.Event>
-
-                    <Feed.Event>
-                        <Feed.Content style={{textAlign: "right"}}>
-                            <Feed.Date  content=':מסעדה'/>
-                            <div> <b>{full_trip.rest.name}</b> </div>
-                            <div> {full_trip.rest.rating} <b>:ציון המסעדה</b>  </div>
-                        </Feed.Content>
-                    </Feed.Event>
-                    {
-                        Object.keys(full_trip.accom).length !== 0 && (<Feed.Event key={{a}}>
-                                <Feed.Content >
-                                    <Feed.Date content=':לינה'/>
-                                    <div> <b>{full_trip.accom.name} </b>    </div>
-                                    <div> {full_trip.accom.rating}  <b>:ציון המלון</b> </div>
-                                </Feed.Content>
-                            </Feed.Event>
-                        )
-                    }
-                </Feed>
-                <div className="map_button" ><button onClick={
-                ()=>{
-                    togglePopUp(a);
-                    console.log(a);
-                }
-            } key={a}>הראה במפה</button></div>
-            </Card.Content>
-
-
-
-
-
-        </Card>
-
-        </div>
-
-
-    ))}
-
-              { save_results.length != 0 &&
-              <div className="back_button"> <Button onClick={hideResults}>חזור חזרה</Button></div>
-              }
-
-{ show_pop_up &&(
-                <PopUp handleClose = {togglePopUp} places = {current_trip}>
-
-                </PopUp>
-            )
-            }
-
- </div>
-
-    );
-
-}
-
-export default {FormTrip};
+export default RecommForm;

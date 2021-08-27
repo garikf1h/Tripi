@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {FormTrip} from "./Component/PreferenceBar/App";
-import '../../styles/Tripi_page_2.css';
+import {MainComp} from "./Component/MainComp/App";
+import './styles/recommend_page.css';
 
 export const RecommendPage  = () => {
     return (
 
         <div className="body">
-                <FormTrip />
+                <MainComp />
         </div>
 
     );

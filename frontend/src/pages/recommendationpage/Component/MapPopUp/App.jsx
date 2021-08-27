@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import '../../../../styles/Tripi_page_2.css'
+import '../../styles/recommend_page.css'
 import TheMap from "../Map/App";
 
 

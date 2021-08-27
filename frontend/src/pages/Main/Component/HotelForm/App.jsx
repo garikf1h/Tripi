@@ -5,7 +5,7 @@ import { cloneDeep } from 'lodash';
 import {options } from './const';
 import Slider from '@material-ui/core/Slider';
 import { withStyles } from '@material-ui/core/styles';
-
+import '../../styles.css'
 const PrettoSlider = withStyles({
   root: {
     color: '#3240ff',
@@ -58,21 +58,21 @@ export const HotelForm = (props) => {
           <div style={{textAlign:"right"}}>
             <Form>
                 <Form.Field>
-                  <input type = "text" placeholder='מלון ספציפי'  onChange={(e,data) => hotel.foodType = e.target.value}/>
+                  <div className='txt'> <input type = "text" placeholder='מלון ספציפי'   onChange={(e,data) => hotel.foodType = e.target.value}/></div>
                 </Form.Field>
-                <div style = {{display:"flex", flexDirection:"column"}}>
-                  <label >:רמת מחיר</label>
+                <div style = {{display:"flex", flexDirection:"column"}} >
+                  <label className="price">:רמת מחיר</label>
+                    <div className="priceslid">
                      <PrettoSlider
                          min={1} max = {5}
                         onChange={handleSliderPriceChange}
                         valueLabelDisplay="auto"
                         aria-label="pretto slider"
                         defaultValue={1}
-                        style={{left:"90px",top:"47px", position: "absolute"}}
                     />
-                   </div>
-                <Button primary circular={true} onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>
-                <Button primary circular={true} onClick={onSubmit}>חפש</Button>
+                   </div></div>
+                <Button primary circular={true} className="all_button" onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>
+                <Button primary circular={true} className="all_button" onClick={onSubmit}>חפש</Button>
           </Form>
           </div>
     );

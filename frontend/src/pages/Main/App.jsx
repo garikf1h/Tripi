@@ -4,14 +4,12 @@ import TheMap from "./Component/Map/App";
 import { TripForm } from "./Component/TripForm/App";
 import { RestaurantForm } from "./Component/RestaurantForm/App";
 import { HotelForm } from "./Component/HotelForm/App";
-
-import "./styles.css";
-import { SidebarComponent } from "./Component/Sidebar/App";
 import { TripCard } from "../recommendationpage/Component/Cards/TripCards";
 import { RestCard } from "../recommendationpage/Component/Cards/RestCard";
 import { HotelCard } from "../recommendationpage/Component/Cards/HotelCards";
-
-export const MainPage = () => {
+import MainMenu from "../MainMenuBar/App";
+import './styles.css'
+export const BuildTrip = () => {
   const [searchParams, updateSearchParams] = useState({
     free_text: "",
     region: "הכל",
@@ -34,6 +32,7 @@ export const MainPage = () => {
   });
 
   return (
+    <>  <MainMenu active_page={"First"}/>
     <Sidebar.Pushable as={Segment}>
       <Sidebar
         as={Menu}
@@ -51,7 +50,7 @@ export const MainPage = () => {
           className="body2"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <div key="map">
+          <div key="map" className="map">
             <TheMap
               props={{
                 searchParams,
@@ -91,6 +90,6 @@ export const MainPage = () => {
           <article></article>
         </div>
       </Sidebar.Pusher>
-    </Sidebar.Pushable>
+    </Sidebar.Pushable></>
   );
 };

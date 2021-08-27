@@ -55,7 +55,7 @@ export const HotelForm = (props) => {
     }
 
     return (
-          <div style={{textAlign:"right"}}>
+          <div style={{textAlign:"right", position:"relative"}}>
             <Form>
                 <Form.Field>
                   <div className='txt'> <input type = "text" placeholder='מלון ספציפי'   onChange={(e,data) => hotel.foodType = e.target.value}/></div>

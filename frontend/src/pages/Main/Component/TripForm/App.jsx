@@ -28,35 +28,39 @@ export const TripForm = (props) => {
     }
 
     return (
-          <div style={{textAlign:"right"}}>
+          <div style={{textAlign:"right", position:"relative"}}>
             <Form>
                 <Form.Field>
+                    <div className="txt">
                   <input type = "text" placeholder='הכנס טקסט חופשי'  onChange={(e,data) => res.free_text = e.target.value}/>
+                  </div>
                 </Form.Field>
+                <div className="txt">
                 <Dropdown
                     placeholder='בחר אזור בארץ'
                     fluid
                     onChange={handleDropDownSelect}
                     selection
                     options={options}
-                />
+
+                /></div>
                 <Form.Field>
-                    {/*// TODO: need to active this field*/}
-                  <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'כן' : 'לא'}/>
+                    <div className="checkbox">
+                  <Checkbox label='מסלול מים' onChange={(e,data) => res.with_water = data.checked ?'כן' : 'לא'}/></div>
                 </Form.Field>
                  <Form.Field>
-                    {/*// TODO: need to active this field*/}
                   <Checkbox label='מסלול נגיש'  style={{textAlign:"left"}} onChange={(e,data) => res.access = data.checked ?'כן' : 'לא'}/>
                 </Form.Field>
+                <div className="txt">
                 <Dropdown
                     placeholder='בחר אורך מסלול'
                     fluid
                     onChange={handleDropDownSelectTrip}
                     selection
                     options={tripLevel}
-                />
-                <Button primary circular={true} onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>
-                <Button primary circular={true} onClick={onSubmit}>חפש</Button>
+                /></div>
+                <Button primary circular={true} className="all_button" onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>
+                <Button primary circular={true} className="all_button" onClick={onSubmit}>חפש</Button>
           </Form>
           </div>
     );

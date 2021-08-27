@@ -17,8 +17,8 @@ background-size: cover;
   position: relative;
   width: 200px;
   top: 50px;
-  right:-250px;
-  height: 550px;
+  right:-450px;
+  height: 500px;
 }
 .priceslid{
   right:-30px;
@@ -36,12 +36,17 @@ background-size: cover;
   position:relative;
   text-align: right;
   float: right;
+  margin-bottom: 10px;
   right:30px;
 
 }
+.checkbox{
+    right:30px;
+}
 .map{
   width:250px;
-  top:100px;
+  top:-25px;
+  left:70px;
   position: relative;
 }
 .price{

@@ -29,6 +29,7 @@ export const TripForm = (props) => {
 
     return (
           <div style={{textAlign:"right", position:"relative"}}>
+          <label>חפש מסלול</label>
             <Form>
                 <Form.Field>
                     <div className="txt">

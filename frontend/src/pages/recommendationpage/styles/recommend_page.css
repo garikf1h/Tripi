@@ -1,0 +1,246 @@
+.body {
+  background-image: url("../../../styles/landscape.jpg");
+position: fixed;
+
+width: 100%;
+height: 100%;
+background-size: cover;
+
+
+}
+.form-light .font-small {
+  font-size: 0.8rem; }
+
+.form-light [type="radio"] + label,
+.form-light [type="checkbox"] + label {
+  font-size: 0.8rem; }
+
+.form-light [type="checkbox"] + label:before {
+  top: 2px;
+  width: 15px;
+  height: 15px; }
+
+.form-light input[type="checkbox"] + label:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  z-index: 0;
+  border-radius: 1px;
+  margin-top: 2px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s; }
+
+.form-light input[type="checkbox"]:checked + label:before {
+  top: -4px;
+  left: -3px;
+  width: 12px;
+  height: 22px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent #EB3573 #EB3573 transparent;
+  -webkit-transform: rotate(40deg);
+  -ms-transform: rotate(40deg);
+  transform: rotate(40deg);
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%; }
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left :10px;
+}
+.popup-box {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+.close-icon {
+  content: 'x';
+  cursor: pointer;
+  position: fixed;
+  right: calc(15%);
+  top: calc(100vh - 85vh - 20px);
+  background: #ededed;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 20px;
+}
+.box {
+  position: relative;
+  width: 70%;
+  margin: 90px auto;
+  height: auto;
+  max-height: 70vh;
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+
+.text_of_circle {
+  margin: auto;
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+}
+.form-light .footer {
+  border-bottom-left-radius: .3rem;
+  border-bottom-right-radius: .3rem; }
+#logo{
+  width: 420px;
+  height: 140px;
+  position: relative;
+  top: 10px;
+  left: 20px
+}
+
+
+.search_area{
+  background-color: rgba(123, 188, 219, 0.2);
+  margin: 6em auto;
+  border-style: solid;
+  border-color: #acacac;
+  border-radius: 1.5em;
+  box-shadow: 10px 18px 10px 5px rgba(162, 118, 118, 0.25);
+  position: relative;
+  width: 340px;
+  top: -50px;
+  right:0px;
+  height: 550px;
+  text-align: right;
+}
+
+.form_header{
+   position:relative;
+   top:10px;
+
+}
+.area{
+  position:relative;
+  width:200px;
+  margin-left: 80px;
+  margin-top:10px;
+  text-align: right;
+}
+.child{
+  position:absolute;
+  top:90px;
+  left:100px;
+}
+
+.water{
+  position:absolute;
+  top:130px;
+  left:100px;
+
+}
+.access{
+  position:absolute;
+  top:170px;
+  left:100px;
+
+}
+.length{
+  position:absolute;
+  top:260px;
+  width:200px;
+  left:70px;
+  text-align:right;
+}
+.card_trips{
+  position: relative;
+  margin-bottom:20px;
+  text-align: right;
+  float:right;
+  margin-right:150px;
+  margin-top:100px;
+}
+.level_label{
+  position:absolute;
+  textAlign:right;
+  left:250px;
+  top:220px;
+}
+Feed.Content{
+  textAlign: right;
+}
+.level{
+  position:absolute;
+  top:215px;
+  left:50px;
+  width:150px;
+}
+.title_rest{
+  position: absolute;
+  top:280px;
+  left:220px;
+  text-align:right;
+}
+.input_rest{
+text-align:center;
+  position:absolute;
+  top:340px;
+  width:200px;
+  left:70px;
+}
+.price_range_title{
+  position:absolute;
+  top:400px;
+  left:250px;
+}
+.price_slider{
+  left:25px;
+  top:197px;
+  position: absolute;
+  width:150px;
+}
+.loader{
+  position:absolute;
+  top:230px;
+  right:120px;
+}
+.logo{
+  position:sticky;
+  width:300px;
+  overflow: hidden;
+  display: block;
+  margin: 1em auto;
+}
+
+.back_button{
+  position:absolute;
+  right:700px;
+  top: 600px
+
+}
+.lab{
+    size:30px;
+}
+.map_button{
+  position:relative;
+  float: left;
+
+}
+.no_results{
+  position:absolute;
+  top:515px;
+  left:120px;
+  color:RED;
+}

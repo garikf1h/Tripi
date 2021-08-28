@@ -54,3 +54,9 @@ background-size: cover;
   margin-top: 60px;
   left:110px;
 }
+
+.clear_button{
+  position:relative;
+  top:100px;
+  left:50px;
+}

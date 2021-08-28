@@ -62,6 +62,7 @@ export const TripForm = (props) => {
                 /></div>
                 <Button primary circular={true} className="all_button" onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>
                 <Button primary circular={true} className="all_button" onClick={onSubmit}>חפש</Button>
+
           </Form>
           </div>
     );

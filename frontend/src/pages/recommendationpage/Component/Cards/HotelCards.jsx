@@ -7,9 +7,9 @@ export const HotelCard = (props) => {
   return (
     <Card
       style={{
-        position: "absolute",
+        position: "relative",
         textAlign: "right",
-        top: "250px",
+        top: "100px",
       }}
       key={hotel.name}
     >

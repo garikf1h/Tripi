@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, Segment, Sidebar } from "semantic-ui-react";
+import {Button, Menu, Segment, Sidebar} from "semantic-ui-react";
 import TheMap from "./Component/Map/App";
 import { TripForm } from "./Component/TripForm/App";
 import { RestaurantForm } from "./Component/RestaurantForm/App";
@@ -31,7 +31,16 @@ export const BuildTrip = () => {
     hotelData: [],
     restData: [],
   });
+   const ClearAll = () =>{
+       setFullTrip({rest:undefined, hotel:undefined, trip:undefined}  );
 
+   };
+   const ClearRestAndAccom = () =>{
+       setFullTrip({rest:undefined, hotel:undefined, trip:fullTrip.trip}  );
+   };
+   const ClearAccom = () =>{
+       setFullTrip({rest:fullTrip.rest, hotel:undefined, trip:fullTrip.trip}  );
+   };
 
   return (
     <>  <MainMenu active_page={"First"}/>
@@ -71,7 +80,10 @@ export const BuildTrip = () => {
               callBack={setHotelParams}
               sidebarShow={setShowSideBar}
             />}
-            {fullTrip.hotel && <HotelCard props={fullTrip} />}
+            {fullTrip.hotel &&
+            (<><HotelCard props={fullTrip} />
+                 <Button className="clear_button" onClick={ClearAccom}>אפס</Button></>)
+            }
           </div>}
           {fullTrip.trip && <div className="new_search_form">
             {!fullTrip.rest && <RestaurantForm
@@ -79,15 +91,23 @@ export const BuildTrip = () => {
               callBack={setRestParams}
               sidebarShow={setShowSideBar}
             />}
-            {fullTrip.rest && <RestCard props={fullTrip} />}
+            {fullTrip.rest && (<><RestCard props={fullTrip} />
+            <Button className="clear_button" onClick={ClearRestAndAccom}>אפס</Button></>)
+
+            }
           </div>}
           <div className="new_search_form">
             {!fullTrip.trip && <TripForm
               key="trip"
               callBack={updateSearchParams}
-              sidebarShow={setShowSideBar}
-            />}
-            {fullTrip.trip && <TripCard props={fullTrip} />}
+              sidebarShow={setShowSideBar}/>
+            }
+            {fullTrip.trip &&
+            (<><TripCard props={fullTrip} />
+                 <Button className="clear_button" onClick={ClearAll}>אפס הכל</Button>
+                </>
+                )
+            }
           </div>
           <article>
 </article>

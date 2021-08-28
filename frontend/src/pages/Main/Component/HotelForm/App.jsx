@@ -38,10 +38,14 @@ const PrettoSlider = withStyles({
   },
 })(Slider);
 
-let hotel = {foodType: '', price: 1};
+let hotel = {foodType: '', price: 1, distance: 10};
 
 const handleSliderPriceChange = (event, data) => {
-   hotel.price = data.value;
+   hotel.price = data;
+};
+
+const handleSliderDistanceChange = (event, data) => {
+   hotel.distance = data;
 };
 
 
@@ -56,6 +60,7 @@ export const HotelForm = (props) => {
 
     return (
           <div style={{textAlign:"right", position:"relative"}}>
+          <label>חפש מלון</label>
             <Form>
                 <Form.Field>
                   <div className='txt'> <input type = "text" placeholder='מלון ספציפי'   onChange={(e,data) => hotel.foodType = e.target.value}/></div>
@@ -69,6 +74,16 @@ export const HotelForm = (props) => {
                         valueLabelDisplay="auto"
                         aria-label="pretto slider"
                         defaultValue={1}
+                    />
+                   </div>
+                  <label className="price">מרחק מהמסלול (בק"מ):</label>
+                    <div className="priceslid">
+                     <PrettoSlider
+                         min={1} max = {15}
+                        onChange={handleSliderDistanceChange}
+                        valueLabelDisplay="auto"
+                        aria-label="pretto slider"
+                        defaultValue={10}
                     />
                    </div></div>
                 <Button primary circular={true} className="all_button" onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>

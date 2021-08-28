@@ -30,6 +30,7 @@ export const BuildTrip = () => {
     hotelData: [],
     restData: [],
   });
+  const [tripWasChosen] = useState(false)
 
   return (
     <>  <MainMenu active_page={"First"}/>

@@ -4,11 +4,17 @@ import '../../../../styles/button.css';
 import { cloneDeep } from 'lodash';
 import {withStyles} from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
-let res = {foodType: '', priceRange: 1};
+let res = {foodType: '', price: 1, distance:10};
 
-const handleSliderChange = (event, data) => {
-   res.price = data.value;
+const handlePriceSliderChange = (event, data) => {
+   res.price = data;
 };
+
+const handleSliderDistanceChange = (event, data) => {
+   res.distance = data;
+};
+
+
 export const RestaurantForm = (props) => {
 
     const PrettoSlider = withStyles({
@@ -53,6 +59,7 @@ export const RestaurantForm = (props) => {
 
     return (
           <div style={{textAlign:"right", position:"relative" }}>
+          <label>חפש מסעדה</label>
             <Form>
                 <Form.Field>
                     <div className="txt">
@@ -65,12 +72,23 @@ export const RestaurantForm = (props) => {
                     <div className="priceslid">
                      <PrettoSlider
                          min={1} max = {5}
-                        onChange={handleSliderChange}
+                        onChange={handlePriceSliderChange}
                         valueLabelDisplay="auto"
                         aria-label="pretto slider"
                         defaultValue={1}
                     />
-                   </div></div>
+                   </div>
+                   <label className="price">מרחק מהמסלול (בק"מ):</label>
+                    <div className="priceslid">
+                     <PrettoSlider
+                         min={1} max = {15}
+                        onChange={handleSliderDistanceChange}
+                        valueLabelDisplay="auto"
+                        aria-label="pretto slider"
+                        defaultValue={10}
+                    />
+                   </div>
+                   </div>
                 <Button primary circular={true} className="all_button" onClick={()=> props.sidebarShow(true)}> הצג רשימה</Button>
                 <Button primary circular={true} className="all_button" onClick={onSubmit}>חפש</Button>
           </Form>

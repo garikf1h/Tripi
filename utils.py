@@ -155,13 +155,13 @@ def get_trips_with_score(region,accesability,water,length,children ='לא',activ
 def get_restaurants(params,rest_type,radius = '10000'):
     cor_x = params['coordinates']['x']
     cor_y = params['coordinates']['y']
-    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&radius=" + radius + "&type=restaurant&keyword=" + rest_type+"&key=" + google_api_key
+    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&language=iw&radius=" + radius + "&type=restaurant&keyword=" + rest_type+"&key=" + google_api_key
     res = requests.get(get_url)
     parsed_list = res.json()['results']
     for item in parsed_list:
         item.update({"keyword":True,"Distance":geopy.distance.distance((cor_y,cor_x),(item['geometry']['location']['lat'],item['geometry']['location']['lng'])).km})
     if (len(res.json()['results']) < 5 and rest_type != ''):
-        get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&radius=" + radius + "&type=restaurant&key=" + google_api_key
+        get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&language=iw&radius=" + radius + "&type=restaurant&key=" + google_api_key
         res_wider = requests.get(get_url)
         parsed_list_wider = res_wider.json()['results']
         for item in parsed_list_wider:
@@ -187,18 +187,41 @@ def get_score(place, price_range,place_type):
 def get_accom(params,radius = '10000'):
     cor_x = params['coordinates']['x']
     cor_y = params['coordinates']['y']
-    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&radius=" + radius + "&type=lodging&key=" + google_api_key
+    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&language=iw&radius=" + radius + "&type=lodging&key=" + google_api_key
     res = requests.get(get_url)
     parsed_list = res.json()['results']
     for item in parsed_list:
         item.update({"Distance":geopy.distance.distance((cor_y,cor_x),(item['geometry']['location']['lat'],item['geometry']['location']['lng'])).km})
     return parsed_list
 
-def get_accom_filtered(params,radius = '10000'):
+
+def get_accom_filtered(params):
     print(params)
     cor_x = params['coordinates']['x']
     cor_y = params['coordinates']['y']
-    get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&radius=" + radius + "&type=lodging&key=" + google_api_key
+    radius = str(params['hotelInfo']['distance']*1000)
+    keyword = params['hotelInfo']['foodType']
+    if keyword != '':
+        get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&language=iw&radius=" + radius + "&type=lodging&keyword="+ keyword + "&key=" + google_api_key
+    else:
+        get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&language=iw&radius=" + radius + "&type=lodging&key=" + google_api_key
+
+    res = requests.get(get_url)
+    parsed_list = res.json()['results']
+    return parsed_list
+
+
+def get_rest_filtered(params):
+    cor_x = params['coordinates']['x']
+    cor_y = params['coordinates']['y']
+    radius = str(params['restInfo']['distance']*1000)
+    keyword = params['restInfo']['foodType']
+    price = str(params['restInfo']['price'] - 1)
+    if keyword != '':
+        get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&language=iw&radius=" + radius + "&type=restaurant&maxprice="+price+"&keyword="+ keyword + "&key=" + google_api_key
+    else:
+        get_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + cor_y + "," + cor_x + "&language=iw&radius=" + radius + "&type=restaurant&maxprice="+price+"&key=" + google_api_key
+
     res = requests.get(get_url)
     parsed_list = res.json()['results']
     return parsed_list

@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap");
+:root {
+    --font3: 'Roboto', sans-serif;
+}
+
+#title-page{
+    color: #0096FF;
+    font-family: "Dancing Script", cursive !important;
+    font-size: 120px;
+    font-weight: 600;
+    line-height: 50px;
+    margin: 0 0 40px;
+    text-shadow: none;
+
+}
+#title-page:hover{
+    cursor: pointer;
+}
+
+.h1,
+h1 {
+    font-size: 1.5rem;
+}
+
+.container-fluid {
+    max-width: 1400px;
+}
+.shadow{
+    border-color: #479187;
+}
+.card {
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    border: 1em;
+    border-radius: 1rem;
+}
+
+.img-hover-zoom--colorize img {
+    border-radius: 50%;
+    width: 150px;
+    height: auto;
+    margin-top: 20px;
+    padding: 1px;
+    transition: transform .5s;
+    filter: grayscale(100%);
+}
+
+.img-hover-zoom--colorize:hover img {
+    filter: grayscale(0);
+    transform: scale(1.05);
+}
+
+.card h5 {
+    overflow: hidden;
+    height: 80px;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.card h5 a {
+    color: black;
+    text-decoration: none;
+}
+
+.role {
+    color: #7a7a7a;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fab {
+    font-size: 1.5rem;
+    color: darkgray;
+    transition: transform .5s;
+}
+
+.fab:hover {
+    color: black;
+    transform: scale(1.1);
+}
+
+.card h2 {
+    font-size: 1rem;
+}
+
+
+/* MEDIA */
+
+@media only screen and (min-width: 1200px) {
+    .img-hover-zoom--colorize img {
+        width: 200px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .h2,
+    h2 {
+        font-size: 2rem;
+    }
+}
+
+.about-section {
+
+    position: relative;
+    top:auto;
+    letter-spacing: normal;
+      padding: 20px;
+      text-align: center;
+      color: #ffffff;
+    font-size: 20px;
+    font-family: Arial,Helvetica,sans-serif !important;
+    text-shadow: 0 0 3px #5cbad6, 0 0 5px #00a36c;
+
+  background-color: rgba(0, 0, 0, 0.06); /* Black w/opacity/see-through */
+}
+#team-title{
+    text-align: center;
+    color: #f5f2f2;
+    font-size: 45px;
+    transition: transform .5s;
+    font-weight: normal;
+
+
+}
+
+#team{
+     background:
+        linear-gradient(#5cbad6, transparent),
+        linear-gradient(to top left, #ece1dd, transparent),
+        linear-gradient(to top right, #50C878, transparent);
+    background-blend-mode: screen;
+    padding: 20px;
+    position: relative;
+    top: -10px;
+
+}

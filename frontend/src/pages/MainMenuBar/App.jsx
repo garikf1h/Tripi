@@ -37,8 +37,9 @@ const MainMenu = ({active_page}) => {
           Recommendations System
         </Menu.Item>
          <Menu.Item
-          name='about-us'
-          active={active_page === 'about-us'}
+          name='AboutUs'
+          active={active_page === 'AboutUs'}
+          href="/about-us"
           // onClick={this.handleItemClick}
         >
           About Us

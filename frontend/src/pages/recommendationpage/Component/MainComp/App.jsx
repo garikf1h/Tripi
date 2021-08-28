@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import logo from '../../../../styles/logo.PNG';
+
 import '../../styles/recommend_page.css'
 import RecommResults from "../RecommResults/App";
 import RecommForm from '../RecommForm/App'
@@ -14,7 +14,7 @@ export const MainComp = () => {
 
         <div style={{position: "relative"}}>
             <MainMenu active_page= "Second" />
-            <div><img src={logo} className="logo"/></div>
+
 
             {save_results.length == 0 && (
                 <RecommForm save_results={save_results} setResults={setResults}/>

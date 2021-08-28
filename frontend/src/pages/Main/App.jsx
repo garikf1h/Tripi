@@ -9,6 +9,7 @@ import { RestCard } from "../recommendationpage/Component/Cards/RestCard";
 import { HotelCard } from "../recommendationpage/Component/Cards/HotelCards";
 import MainMenu from "../MainMenuBar/App";
 import './styles.css'
+
 export const BuildTrip = () => {
   const [searchParams, updateSearchParams] = useState({
     free_text: "",
@@ -30,7 +31,7 @@ export const BuildTrip = () => {
     hotelData: [],
     restData: [],
   });
-  const [tripWasChosen] = useState(false)
+
 
   return (
     <>  <MainMenu active_page={"First"}/>
@@ -64,31 +65,32 @@ export const BuildTrip = () => {
               }}
             />
           </div>
-          <div className="new_search_form">
-            <HotelForm
+          {fullTrip.trip && <div className="new_search_form">
+            {!fullTrip.hotel && <HotelForm
               key="hotelForm"
               callBack={setHotelParams}
               sidebarShow={setShowSideBar}
-            />
+            />}
             {fullTrip.hotel && <HotelCard props={fullTrip} />}
-          </div>
-          <div className="new_search_form">
-            <RestaurantForm
+          </div>}
+          {fullTrip.trip && <div className="new_search_form">
+            {!fullTrip.rest && <RestaurantForm
               key="hotelForm"
               callBack={setRestParams}
               sidebarShow={setShowSideBar}
-            />
+            />}
             {fullTrip.rest && <RestCard props={fullTrip} />}
-          </div>
+          </div>}
           <div className="new_search_form">
-            <TripForm
+            {!fullTrip.trip && <TripForm
               key="trip"
               callBack={updateSearchParams}
               sidebarShow={setShowSideBar}
-            />
+            />}
             {fullTrip.trip && <TripCard props={fullTrip} />}
           </div>
-          <article></article>
+          <article>
+</article>
         </div>
       </Sidebar.Pusher>
     </Sidebar.Pushable></>

@@ -76,7 +76,7 @@ export const NewMap = (props) => {
         <Marker
           position={{
             lat: hotel.geometry.location.lat,
-            lng: hotel.geometry.location.lng
+            lng: hotel.geometry.location.lng,
           }}
           style
           name={hotel.name}
@@ -123,8 +123,8 @@ export const NewMap = (props) => {
         <InfoWindow
           key={restToShow.name}
           position={{
-            lat: Number(restToShow.Starting_point_y),
-            lng: Number(restToShow.Starting_point_x),
+            lat: Number(restToShow.geometry.location.lat),
+            lng: Number(restToShow.geometry.location.lan),
           }}
           onCloseClick={() => setRestToShow(undefined)}
         >
@@ -153,8 +153,8 @@ export const NewMap = (props) => {
         <InfoWindow
           key={hotelToShow.name}
           position={{
-            lat: Number(hotelToShow.Starting_point_y),
-            lng: Number(hotelToShow.Starting_point_x),
+            lat: Number(hotelToShow.geometry.location.lat),
+            lng: Number(hotelToShow.geometry.location.lan),
           }}
           onCloseClick={() => setHotelToShow(undefined)}
         >

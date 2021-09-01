@@ -1,6 +1,6 @@
-import { Card, Feed,Button } from "semantic-ui-react";
+import { Card, Feed, Button } from "semantic-ui-react";
 import React from "react";
-import {BuildTrip} from "../../../Main/App";
+import { BuildTrip } from "../../App";
 
 export const TripCard = (props) => {
   console.log(props);
@@ -33,7 +33,6 @@ export const TripCard = (props) => {
                 {" "}
                 <a href={trip.Product_url}> לצפייה במסלול </a>
               </div>
-
             </Feed.Content>
           </Feed.Event>
         </Feed>

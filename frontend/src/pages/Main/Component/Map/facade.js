@@ -77,6 +77,24 @@ export const useMapFacade = (props) => {
   }, [hotelData]);
 
   useEffect(() => {
+    if (fullTrip.trip === undefined && data.length === 1) {
+      setData([]);
+    }
+  }, [fullTrip.trip]);
+
+  useEffect(() => {
+    if (fullTrip.rest === undefined && restData.length === 1) {
+      setRestData([]);
+    }
+  }, [fullTrip.rest]);
+
+  useEffect(() => {
+    if (fullTrip.hotel === undefined && hotelData.length === 1) {
+      setHotelData([]);
+    }
+  }, [fullTrip.hotel]);
+
+  useEffect(() => {
     setHotelData([]);
     setRestData([]);
     setHotelToShow(undefined);
@@ -133,8 +151,9 @@ export const useMapFacade = (props) => {
       axios
         .post("http://localhost:5000/trip", { type: "hotel", data: dataTrip })
         .then((response) => {
-                   //   setSidebarData(response.data);
-                  setHotelData(response.data);addHotel(undefined);
+          //   setSidebarData(response.data);
+          setHotelData(response.data);
+          addHotel(undefined);
         })
         .catch((error) => {
           console.log(error);

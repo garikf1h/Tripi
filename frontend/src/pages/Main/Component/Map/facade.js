@@ -46,37 +46,6 @@ export const useMapFacade = (props) => {
   }, [selectedTrip]);
 
   useEffect(() => {
-    const newSideData = {
-      hotelData: [],
-      restData: [],
-      tripData: data,
-    };
-    setSidebarData(newSideData);
-  }, [data]);
-
-  useEffect(() => {
-    if (restData !== []) {
-      const newSideData = {
-        hotelData: [],
-        restData,
-        tripData: [],
-      };
-      setSidebarData(newSideData);
-    }
-  }, [restData]);
-
-  useEffect(() => {
-    if (hotelData !== []) {
-      const newSideData = {
-        hotelData: hotelData,
-        restData: [],
-        tripData: [],
-      };
-      setSidebarData(newSideData);
-    }
-  }, [hotelData]);
-
-  useEffect(() => {
     if (fullTrip.trip === undefined && data.length === 1) {
       setData([]);
     }
@@ -95,6 +64,26 @@ export const useMapFacade = (props) => {
   }, [fullTrip.hotel]);
 
   useEffect(() => {
+    if (fullTrip.hotel) {
+      setSidebarData({
+        tripData: [],
+        hotelData: [],
+        restData: restData.length > 1 ? restData : [],
+      });
+    }
+  }, [fullTrip.hotel]);
+
+  useEffect(() => {
+    if (fullTrip.rest) {
+      setSidebarData({
+        tripData: [],
+        hotelData: hotelData.length > 1 ? hotelData : [],
+        restData: [],
+      });
+    }
+  }, [fullTrip.rest]);
+
+  useEffect(() => {
     setHotelData([]);
     setRestData([]);
     setHotelToShow(undefined);
@@ -106,6 +95,11 @@ export const useMapFacade = (props) => {
       .post("http://localhost:5000/map", { type: "Trip", data: searchParams })
       .then((response) => {
         setData(response.data.data);
+        setSidebarData({
+          tripData: response.data.data,
+          hotelData: [],
+          restData: [],
+        });
         setSelectedTrip(undefined);
         setFullTrip({
           trip: undefined,
@@ -131,6 +125,11 @@ export const useMapFacade = (props) => {
         .post("http://localhost:5000/trip", { type: "rest", data: dataTrip })
         .then((response) => {
           setRestData(response.data);
+          setSidebarData({
+            tripData: [],
+            hotelData,
+            restData: response.data,
+          });
           addRest(undefined);
         })
         .catch((error) => {
@@ -151,8 +150,12 @@ export const useMapFacade = (props) => {
       axios
         .post("http://localhost:5000/trip", { type: "hotel", data: dataTrip })
         .then((response) => {
-          //   setSidebarData(response.data);
           setHotelData(response.data);
+          setSidebarData({
+            tripData: [],
+            hotelData: response.data,
+            restData,
+          });
           addHotel(undefined);
         })
         .catch((error) => {

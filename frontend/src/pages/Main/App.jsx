@@ -9,6 +9,7 @@ import { RestCard } from "./Component/Cards/RestCard";
 import { HotelCard } from "./Component/Cards/HotelCards";
 import MainMenu from "../MainMenuBar/App";
 import "./styles.css";
+import { SidebarComponent } from "./Component/Sidebar/App";
 
 export const BuildTrip = () => {
   const [searchParams, updateSearchParams] = useState({
@@ -33,6 +34,13 @@ export const BuildTrip = () => {
   });
   const ClearAll = () => {
     setFullTrip({ rest: undefined, hotel: undefined, trip: undefined });
+    updateSearchParams({
+      free_text: "",
+      region: "הכל",
+      access: "לא",
+      with_water: "לא",
+      length: "הכל",
+    });
   };
   const ClearRestAndAccom = () => {
     setFullTrip({
@@ -59,7 +67,12 @@ export const BuildTrip = () => {
           direction="left"
           width="very wide"
         >
-          {/*           <SidebarComponent sidebarData={sidebarData}/> */}
+          <SidebarComponent
+            sidebarData={sidebarData}
+            setFullTrip={setFullTrip}
+            fullTrip={fullTrip}
+            setShowSideBar={setShowSideBar}
+          />
         </Sidebar>
         <Sidebar.Pusher dimmed={showSidebar}>
           <div

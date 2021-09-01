@@ -3,7 +3,6 @@ import React from "react";
 import { BuildTrip } from "../../App";
 
 export const TripCard = (props) => {
-  console.log(props);
   const { trip } = props.props;
   return (
     <Card

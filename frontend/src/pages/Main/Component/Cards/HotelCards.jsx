@@ -2,7 +2,6 @@ import { Card, Feed } from "semantic-ui-react";
 import React from "react";
 
 export const HotelCard = (props) => {
-  console.log(props);
   const { hotel } = props.props;
   return (
     <Card

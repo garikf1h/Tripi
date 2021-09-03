@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { cloneDeep } from "lodash";
 import axios from "axios";
-import { Divider } from "@material-ui/core";
-import { Button } from "semantic-ui-react";
-import { Marker } from "react-google-maps";
-import Res from "./Markers/Res.svg";
 
 export const useMapFacade = (props) => {
   const {
     searchParams,
-    openSidebar,
-    setTripExtraData,
     restParams,
     fullTrip,
     setFullTrip,
     hotelParams,
     setSidebarData,
-    sidebarData,
   } = props;
   const [data, setData] = useState([]);
   const [restData, setRestData] = useState([]);
@@ -26,6 +19,10 @@ export const useMapFacade = (props) => {
   const [hotelToShow, setHotelToShow] = useState(undefined);
   const [selectedTrip, setSelectedTrip] = useState(undefined);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [mapCenter, setMapCenter] = useState({
+    lat: 32.062016,
+    lng: 34.824769,
+  });
 
   const addRest = (rest) => {
     const clone = cloneDeep(fullTrip);
@@ -40,41 +37,24 @@ export const useMapFacade = (props) => {
   };
 
   useEffect(() => {
+    if (selectedTrip !== undefined) {
+      setMapCenter({
+        lat: Number(selectedTrip.Starting_point_y),
+        lng: Number(selectedTrip.Starting_point_x),
+      });
+    } else {
+      setMapCenter({
+        lat: 32.062016,
+        lng: 34.824769,
+      });
+    }
+  }, [selectedTrip]);
+
+  useEffect(() => {
     const clone = cloneDeep(fullTrip);
     clone.trip = selectedTrip;
     setFullTrip(clone);
   }, [selectedTrip]);
-
-  useEffect(() => {
-    const newSideData = {
-      hotelData: [],
-      restData: [],
-      tripData: data,
-    };
-    setSidebarData(newSideData);
-  }, [data]);
-
-  useEffect(() => {
-    if (restData !== []) {
-      const newSideData = {
-        hotelData: [],
-        restData,
-        tripData: [],
-      };
-      setSidebarData(newSideData);
-    }
-  }, [restData]);
-
-  useEffect(() => {
-    if (hotelData !== []) {
-      const newSideData = {
-        hotelData: hotelData,
-        restData: [],
-        tripData: [],
-      };
-      setSidebarData(newSideData);
-    }
-  }, [hotelData]);
 
   useEffect(() => {
     if (fullTrip.trip === undefined && data.length === 1) {
@@ -95,6 +75,43 @@ export const useMapFacade = (props) => {
   }, [fullTrip.hotel]);
 
   useEffect(() => {
+    if (fullTrip.hotel) {
+      setHotelData([fullTrip.hotel]);
+      setSidebarData({
+        tripData: [],
+        hotelData: [],
+        restData: restData.length > 1 ? restData : [],
+      });
+    }
+  }, [fullTrip.hotel]);
+
+  useEffect(() => {
+    if (fullTrip.rest) {
+      setRestData([fullTrip.rest]);
+      setSidebarData({
+        tripData: [],
+        hotelData: hotelData.length > 1 ? hotelData : [],
+        restData: [],
+      });
+    }
+  }, [fullTrip.rest]);
+
+  useEffect(() => {
+    if (
+      fullTrip.trip &&
+      (selectedTrip === undefined || fullTrip.trip.name !== selectedTrip.name)
+    ) {
+      setSelectedTrip(fullTrip.trip);
+      setData([fullTrip.trip]);
+      setSidebarData({
+        tripData: [],
+        hotelData: [],
+        restData: [],
+      });
+    }
+  }, [fullTrip.trip]);
+
+  useEffect(() => {
     setHotelData([]);
     setRestData([]);
     setHotelToShow(undefined);
@@ -106,6 +123,11 @@ export const useMapFacade = (props) => {
       .post("http://localhost:5000/map", { type: "Trip", data: searchParams })
       .then((response) => {
         setData(response.data.data);
+        setSidebarData({
+          tripData: response.data.data,
+          hotelData: [],
+          restData: [],
+        });
         setSelectedTrip(undefined);
         setFullTrip({
           trip: undefined,
@@ -119,6 +141,8 @@ export const useMapFacade = (props) => {
   }, [searchParams]);
 
   useEffect(() => {
+    console.log(`in rest`);
+    console.log(selectedTrip);
     if (selectedTrip !== undefined) {
       const dataTrip = {
         coordinates: {
@@ -131,6 +155,11 @@ export const useMapFacade = (props) => {
         .post("http://localhost:5000/trip", { type: "rest", data: dataTrip })
         .then((response) => {
           setRestData(response.data);
+          setSidebarData({
+            tripData: [],
+            hotelData,
+            restData: response.data,
+          });
           addRest(undefined);
         })
         .catch((error) => {
@@ -151,8 +180,12 @@ export const useMapFacade = (props) => {
       axios
         .post("http://localhost:5000/trip", { type: "hotel", data: dataTrip })
         .then((response) => {
-          //   setSidebarData(response.data);
           setHotelData(response.data);
+          setSidebarData({
+            tripData: [],
+            hotelData: response.data,
+            restData,
+          });
           addHotel(undefined);
         })
         .catch((error) => {
@@ -168,6 +201,7 @@ export const useMapFacade = (props) => {
     setHotelData,
     addRest,
     addHotel,
+    mapCenter,
     tripToShow,
     setTripToShow,
     restToShow,

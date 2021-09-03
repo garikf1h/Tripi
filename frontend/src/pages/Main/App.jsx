@@ -9,6 +9,7 @@ import { RestCard } from "./Component/Cards/RestCard";
 import { HotelCard } from "./Component/Cards/HotelCards";
 import MainMenu from "../MainMenuBar/App";
 import "./styles.css";
+import { SidebarComponent } from "./Component/Sidebar/App";
 
 export const BuildTrip = () => {
   const [searchParams, updateSearchParams] = useState({
@@ -18,6 +19,7 @@ export const BuildTrip = () => {
     with_water: "לא",
     length: "הכל",
   });
+  const [activeIndex, setActiveIndex] = useState(0);
   const [restParams, setRestParams] = useState();
   const [hotelParams, setHotelParams] = useState(undefined);
   const [showSidebar, setShowSideBar] = useState(false);
@@ -33,6 +35,13 @@ export const BuildTrip = () => {
   });
   const ClearAll = () => {
     setFullTrip({ rest: undefined, hotel: undefined, trip: undefined });
+    updateSearchParams({
+      free_text: "",
+      region: "הכל",
+      access: "לא",
+      with_water: "לא",
+      length: "הכל",
+    });
   };
   const ClearRestAndAccom = () => {
     setFullTrip({
@@ -59,7 +68,13 @@ export const BuildTrip = () => {
           direction="left"
           width="very wide"
         >
-          {/*           <SidebarComponent sidebarData={sidebarData}/> */}
+          <SidebarComponent
+            index={activeIndex}
+            sidebarData={sidebarData}
+            setFullTrip={setFullTrip}
+            fullTrip={fullTrip}
+            setShowSideBar={setShowSideBar}
+          />
         </Sidebar>
         <Sidebar.Pusher dimmed={showSidebar}>
           <div
@@ -84,6 +99,7 @@ export const BuildTrip = () => {
                 {!fullTrip.hotel && (
                   <HotelForm
                     key="hotelForm"
+                    setIndex={setActiveIndex}
                     callBack={setHotelParams}
                     sidebarShow={setShowSideBar}
                   />
@@ -103,6 +119,7 @@ export const BuildTrip = () => {
                 {!fullTrip.rest && (
                   <RestaurantForm
                     key="hotelForm"
+                    setIndex={setActiveIndex}
                     callBack={setRestParams}
                     sidebarShow={setShowSideBar}
                   />
@@ -124,6 +141,7 @@ export const BuildTrip = () => {
               {!fullTrip.trip && (
                 <TripForm
                   key="trip"
+                  setIndex={setActiveIndex}
                   callBack={updateSearchParams}
                   sidebarShow={setShowSideBar}
                 />

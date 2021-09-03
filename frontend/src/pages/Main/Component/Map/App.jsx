@@ -17,17 +17,15 @@ export const NewMap = (props) => {
   const {
     data,
     setData,
-    selectedTrip,
     setSelectedTrip,
     restData,
     addRest,
     addHotel,
     hotelData,
     setHotelData,
-    infoToShow,
-    setInfoToShow,
     setRestData,
     hotelToShow,
+    mapCenter,
     restToShow,
     setRestToShow,
     setHotelToShow,
@@ -36,7 +34,7 @@ export const NewMap = (props) => {
   } = useMapFacade(props.props.props);
 
   return (
-    <GoogleMap defaultZoom={8} defaultCenter={{ lat: 32.0853, lng: 34.781769 }}>
+    <GoogleMap defaultZoom={9} defaultCenter={mapCenter} center={mapCenter}>
       {data.map((trip) => (
         <Marker
           key={trip.name}

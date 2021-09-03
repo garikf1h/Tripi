@@ -3,7 +3,6 @@ import React from "react";
 import { BuildTrip } from "../../App";
 
 export const TripCard = (props) => {
-  console.log(props);
   const { trip } = props.props;
   return (
     <Card
@@ -31,7 +30,10 @@ export const TripCard = (props) => {
               </div>
               <div style={{ textAlign: "right" }}>
                 {" "}
-                <a href={trip.Product_url}> לצפייה במסלול </a>
+                <a href={trip.Product_url} target="_blank">
+                  {" "}
+                  לצפייה במסלול{" "}
+                </a>
               </div>
             </Feed.Content>
           </Feed.Event>

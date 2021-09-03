@@ -2,7 +2,6 @@ import { Card, Feed, Segment } from "semantic-ui-react";
 import React from "react";
 
 export const RestCard = (props) => {
-  console.log(props);
   const { rest } = props.props;
   return (
     <Card
@@ -27,7 +26,8 @@ export const RestCard = (props) => {
             </div>
             <div style={{ textAlign: "right" }}>
               {" "}
-              {rest.vicinity} <b>כתובת</b>{" "}
+              <b>:כתובת</b>
+              <p> {rest.vicinity}</p>
             </div>
           </Feed.Content>
         </Feed.Event>

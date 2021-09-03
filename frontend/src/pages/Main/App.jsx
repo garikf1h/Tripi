@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Menu, Segment, Sidebar } from "semantic-ui-react";
+import { Button, Menu, Segment, Sidebar, Grid } from "semantic-ui-react";
 import TheMap from "./Component/Map/App";
 import { TripForm } from "./Component/TripForm/App";
 import { RestaurantForm } from "./Component/RestaurantForm/App";
@@ -77,86 +77,98 @@ export const BuildTrip = () => {
           />
         </Sidebar>
         <Sidebar.Pusher dimmed={showSidebar}>
-          <div
-            className="body2"
-            style={{ display: "flex", flexDirection: "row" }}
-          >
-            <div key="map" className="map">
-              <TheMap
-                props={{
-                  searchParams,
-                  setSidebarData,
-                  restParams,
-                  fullTrip,
-                  setFullTrip,
-                  hotelParams,
-                  sidebarData,
-                }}
-              />
-            </div>
-            {fullTrip.trip && (
-              <div className="new_search_form">
-                {!fullTrip.hotel && (
-                  <HotelForm
-                    key="hotelForm"
-                    setIndex={setActiveIndex}
-                    callBack={setHotelParams}
-                    sidebarShow={setShowSideBar}
-                  />
-                )}
-                {fullTrip.hotel && (
-                  <>
-                    <HotelCard props={fullTrip} />
-                    <Button className="clear_button" onClick={ClearAccom}>
-                      אפס
-                    </Button>
-                  </>
-                )}
+          <Grid columns={4}>
+            <Grid.Row>
+              <div
+                className="body2"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <Grid.Column>
+                  <div key="map" className="map">
+                    <TheMap
+                      props={{
+                        searchParams,
+                        setSidebarData,
+                        restParams,
+                        fullTrip,
+                        setFullTrip,
+                        hotelParams,
+                        sidebarData,
+                      }}
+                    />
+                  </div>
+                </Grid.Column>
+                <Grid.Column>
+                  {fullTrip.trip && (
+                    <div className="new_search_form">
+                      {!fullTrip.hotel && (
+                        <HotelForm
+                          key="hotelForm"
+                          setIndex={setActiveIndex}
+                          callBack={setHotelParams}
+                          sidebarShow={setShowSideBar}
+                        />
+                      )}
+                      {fullTrip.hotel && (
+                        <>
+                          <HotelCard props={fullTrip} />
+                          <Button className="clear_button" onClick={ClearAccom}>
+                            אפס
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </Grid.Column>
+                <Grid.Column>
+                  {fullTrip.trip && (
+                    <div className="new_search_form">
+                      {!fullTrip.rest && (
+                        <RestaurantForm
+                          key="hotelForm"
+                          setIndex={setActiveIndex}
+                          callBack={setRestParams}
+                          sidebarShow={setShowSideBar}
+                        />
+                      )}
+                      {fullTrip.rest && (
+                        <>
+                          <RestCard props={fullTrip} />
+                          <Button
+                            className="clear_button"
+                            onClick={ClearRestAndAccom}
+                          >
+                            אפס
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </Grid.Column>
+                <Grid.Column>
+                  <div className="new_search_form">
+                    {!fullTrip.trip && (
+                      <TripForm
+                        key="trip"
+                        setIndex={setActiveIndex}
+                        callBack={updateSearchParams}
+                        sidebarShow={setShowSideBar}
+                      />
+                    )}
+                    {fullTrip.trip && (
+                      <>
+                        <TripCard props={fullTrip} />
+                        <Button className="clear_button" onClick={ClearAll}>
+                          אפס הכל
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </Grid.Column>
+                <article></article>
               </div>
-            )}
-            {fullTrip.trip && (
-              <div className="new_search_form">
-                {!fullTrip.rest && (
-                  <RestaurantForm
-                    key="hotelForm"
-                    setIndex={setActiveIndex}
-                    callBack={setRestParams}
-                    sidebarShow={setShowSideBar}
-                  />
-                )}
-                {fullTrip.rest && (
-                  <>
-                    <RestCard props={fullTrip} />
-                    <Button
-                      className="clear_button"
-                      onClick={ClearRestAndAccom}
-                    >
-                      אפס
-                    </Button>
-                  </>
-                )}
-              </div>
-            )}
-            <div className="new_search_form">
-              {!fullTrip.trip && (
-                <TripForm
-                  key="trip"
-                  setIndex={setActiveIndex}
-                  callBack={updateSearchParams}
-                  sidebarShow={setShowSideBar}
-                />
-              )}
-              {fullTrip.trip && (
-                <>
-                  <TripCard props={fullTrip} />
-                  <Button className="clear_button" onClick={ClearAll}>
-                    אפס הכל
-                  </Button>
-                </>
-              )}
-            </div>
-            <article></article>
-          </div>
+            </Grid.Row>
+          </Grid>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     </>

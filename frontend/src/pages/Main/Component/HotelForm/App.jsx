@@ -108,7 +108,10 @@ export const HotelForm = (props) => {
           primary
           circular={true}
           className="all_button"
-          onClick={() => props.sidebarShow(true)}
+          onClick={() => {
+            props.setIndex(2);
+            props.sidebarShow(true);
+          }}
         >
           {" "}
           הצג רשימה

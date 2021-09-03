@@ -106,7 +106,10 @@ export const RestaurantForm = (props) => {
           primary
           circular={true}
           className="all_button"
-          onClick={() => props.sidebarShow(true)}
+          onClick={() => {
+            props.setIndex(1);
+            props.sidebarShow(true);
+          }}
         >
           {" "}
           הצג רשימה

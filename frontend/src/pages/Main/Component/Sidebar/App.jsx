@@ -1,11 +1,15 @@
 import { Icon, Segment, Accordion } from "semantic-ui-react";
 import { Button, Divider } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles.css";
 
 export const SidebarComponent = (props) => {
-  const { sidebarData, setFullTrip, fullTrip, setShowSideBar } = props;
+  const { sidebarData, setFullTrip, setShowSideBar, index, fullTrip } = props;
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    setActiveIndex(index);
+  }, [index]);
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps;
@@ -22,10 +26,29 @@ export const SidebarComponent = (props) => {
     setShowSideBar(false);
   };
 
+  const updateRest = (rest) => {
+    setFullTrip({
+      trip: fullTrip.trip,
+      hotel: fullTrip.hotel,
+      rest,
+    });
+    setShowSideBar(false);
+  };
+
+  const updateHotel = (hotel) => {
+    setFullTrip({
+      trip: fullTrip.trip,
+      hotel,
+      rest: fullTrip.rest,
+    });
+    setShowSideBar(false);
+  };
+
   return (
     <div>
       <Accordion>
         <Accordion.Title
+          style={{ textAlign: "right", fontSize: "1.5em" }}
           active={activeIndex === 0}
           index={0}
           onClick={handleClick}
@@ -36,18 +59,32 @@ export const SidebarComponent = (props) => {
         <Accordion.Content active={activeIndex === 0}>
           {sidebarData.tripData.map((trip) => (
             <Segment>
-              <p>{trip.name}</p>
+              <p style={{ textAlign: "right" }}>{trip.name}</p>
               <Divider />
-              <p>{`${trip.shortDescription}`}</p>
+              <p style={{ textAlign: "right" }}>{`${trip.shortDescription}`}</p>
               <Divider />
-              <p>{trip.Product_url}</p>
+              <p style={{ textAlign: "right" }}>{trip.Product_url}</p>
               <Divider />
-              <Button onClick={() => updateTrip(trip)}>בחר מסלול והתקדם</Button>
+
+              <Button
+                style={{
+                  background: "#2185d0",
+                  color: "#fff",
+                  position: "inherit",
+                  borderRadius: "12px",
+                }}
+                circular={true}
+                className="all_button"
+                onClick={() => updateTrip(trip)}
+              >
+                בחר מסלול והתקדם
+              </Button>
             </Segment>
           ))}
         </Accordion.Content>
 
         <Accordion.Title
+          style={{ textAlign: "right", fontSize: "1.5em" }}
           active={activeIndex === 1}
           index={1}
           onClick={handleClick}
@@ -58,17 +95,31 @@ export const SidebarComponent = (props) => {
         <Accordion.Content active={activeIndex === 1}>
           {sidebarData.restData.map((rest) => (
             <Segment>
-              <p>{rest.name}</p>
+              <p style={{ textAlign: "right" }}>{rest.name}</p>
               <Divider />
-              <p>{`${rest.rating}`}</p>
+              <p style={{ textAlign: "right" }}>{`${rest.rating}`}</p>
               <Divider />
-              <p>{rest.vicinity}</p>
+              <p style={{ textAlign: "right" }}>{rest.vicinity}</p>
               <Divider />
+              <Button
+                style={{
+                  background: "#2185d0",
+                  color: "#fff",
+                  position: "inherit",
+                  borderRadius: "12px",
+                }}
+                circular={true}
+                className="all_button"
+                onClick={() => updateRest(rest)}
+              >
+                בחר מסעדה
+              </Button>
             </Segment>
           ))}
         </Accordion.Content>
 
         <Accordion.Title
+          style={{ textAlign: "right", fontSize: "1.5em" }}
           active={activeIndex === 2}
           index={2}
           onClick={handleClick}
@@ -79,12 +130,25 @@ export const SidebarComponent = (props) => {
         <Accordion.Content active={activeIndex === 2}>
           {sidebarData.hotelData.map((hotel) => (
             <Segment>
-              <p>{hotel.name}</p>
+              <p style={{ textAlign: "right" }}>{hotel.name}</p>
               <Divider />
-              <p>{`${hotel.rating}`}</p>
+              <p style={{ textAlign: "right" }}>{`${hotel.rating}`}</p>
               <Divider />
-              <p>{hotel.vicinity}</p>
+              <p style={{ textAlign: "right" }}>{hotel.vicinity}</p>
               <Divider />
+              <Button
+                style={{
+                  background: "#2185d0",
+                  color: "#fff",
+                  position: "inherit",
+                  borderRadius: "12px",
+                }}
+                circular={true}
+                className="all_button"
+                onClick={() => updateHotel(hotel)}
+              >
+                בחר מלון
+              </Button>
             </Segment>
           ))}
         </Accordion.Content>

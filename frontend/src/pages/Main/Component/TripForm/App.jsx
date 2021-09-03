@@ -12,6 +12,7 @@ import "../../../../styles/button.css";
 import { cloneDeep } from "lodash";
 import { tripLevel, options } from "./const";
 import axios from "axios";
+import { HotelForm } from "../HotelForm/App";
 
 let res = {
   free_text: "",
@@ -90,7 +91,10 @@ export const TripForm = (props) => {
           primary
           circular={true}
           className="all_button"
-          onClick={() => props.sidebarShow(true)}
+          onClick={() => {
+            props.setIndex(0);
+            props.sidebarShow(true);
+          }}
         >
           {" "}
           הצג רשימה

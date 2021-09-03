@@ -19,6 +19,7 @@ export const BuildTrip = () => {
     with_water: "לא",
     length: "הכל",
   });
+  const [activeIndex, setActiveIndex] = useState(0);
   const [restParams, setRestParams] = useState();
   const [hotelParams, setHotelParams] = useState(undefined);
   const [showSidebar, setShowSideBar] = useState(false);
@@ -68,6 +69,7 @@ export const BuildTrip = () => {
           width="very wide"
         >
           <SidebarComponent
+            index={activeIndex}
             sidebarData={sidebarData}
             setFullTrip={setFullTrip}
             fullTrip={fullTrip}
@@ -97,6 +99,7 @@ export const BuildTrip = () => {
                 {!fullTrip.hotel && (
                   <HotelForm
                     key="hotelForm"
+                    setIndex={setActiveIndex}
                     callBack={setHotelParams}
                     sidebarShow={setShowSideBar}
                   />
@@ -116,6 +119,7 @@ export const BuildTrip = () => {
                 {!fullTrip.rest && (
                   <RestaurantForm
                     key="hotelForm"
+                    setIndex={setActiveIndex}
                     callBack={setRestParams}
                     sidebarShow={setShowSideBar}
                   />
@@ -137,6 +141,7 @@ export const BuildTrip = () => {
               {!fullTrip.trip && (
                 <TripForm
                   key="trip"
+                  setIndex={setActiveIndex}
                   callBack={updateSearchParams}
                   sidebarShow={setShowSideBar}
                 />

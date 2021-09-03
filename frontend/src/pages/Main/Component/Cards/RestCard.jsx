@@ -26,7 +26,8 @@ export const RestCard = (props) => {
             </div>
             <div style={{ textAlign: "right" }}>
               {" "}
-              {rest.vicinity} <b>כתובת</b>{" "}
+              <b>:כתובת</b>
+              <p> {rest.vicinity}</p>
             </div>
           </Feed.Content>
         </Feed.Event>

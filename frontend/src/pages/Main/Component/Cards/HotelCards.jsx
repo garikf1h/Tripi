@@ -26,7 +26,8 @@ export const HotelCard = (props) => {
             </div>
             <div style={{ textAlign: "right" }}>
               {" "}
-              {hotel.vicinity} <b>כתובת</b>{" "}
+              <b>:כתובת</b>
+              <p> {hotel.vicinity}</p>
             </div>
           </Feed.Content>
         </Feed.Event>

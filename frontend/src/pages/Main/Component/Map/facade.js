@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { cloneDeep } from "lodash";
 import axios from "axios";
-import { Divider } from "@material-ui/core";
-import { Button } from "semantic-ui-react";
-import { Marker } from "react-google-maps";
-import Res from "./Markers/Res.svg";
 
 export const useMapFacade = (props) => {
   const {
     searchParams,
-    openSidebar,
-    setTripExtraData,
     restParams,
     fullTrip,
     setFullTrip,
     hotelParams,
     setSidebarData,
-    sidebarData,
   } = props;
   const [data, setData] = useState([]);
   const [restData, setRestData] = useState([]);
@@ -26,6 +19,10 @@ export const useMapFacade = (props) => {
   const [hotelToShow, setHotelToShow] = useState(undefined);
   const [selectedTrip, setSelectedTrip] = useState(undefined);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [mapCenter, setMapCenter] = useState({
+    lat: 32.062016,
+    lng: 34.824769,
+  });
 
   const addRest = (rest) => {
     const clone = cloneDeep(fullTrip);
@@ -38,6 +35,20 @@ export const useMapFacade = (props) => {
     clone.hotel = hotel;
     setFullTrip(clone);
   };
+
+  useEffect(() => {
+    if (selectedTrip !== undefined) {
+      setMapCenter({
+        lat: Number(selectedTrip.Starting_point_y),
+        lng: Number(selectedTrip.Starting_point_x),
+      });
+    } else {
+      setMapCenter({
+        lat: 32.062016,
+        lng: 34.824769,
+      });
+    }
+  }, [selectedTrip]);
 
   useEffect(() => {
     const clone = cloneDeep(fullTrip);
@@ -65,6 +76,7 @@ export const useMapFacade = (props) => {
 
   useEffect(() => {
     if (fullTrip.hotel) {
+      setHotelData([fullTrip.hotel]);
       setSidebarData({
         tripData: [],
         hotelData: [],
@@ -75,6 +87,7 @@ export const useMapFacade = (props) => {
 
   useEffect(() => {
     if (fullTrip.rest) {
+      setRestData([fullTrip.rest]);
       setSidebarData({
         tripData: [],
         hotelData: hotelData.length > 1 ? hotelData : [],
@@ -82,6 +95,21 @@ export const useMapFacade = (props) => {
       });
     }
   }, [fullTrip.rest]);
+
+  useEffect(() => {
+    if (
+      fullTrip.trip &&
+      (selectedTrip === undefined || fullTrip.trip.name !== selectedTrip.name)
+    ) {
+      setSelectedTrip(fullTrip.trip);
+      setData([fullTrip.trip]);
+      setSidebarData({
+        tripData: [],
+        hotelData: [],
+        restData: [],
+      });
+    }
+  }, [fullTrip.trip]);
 
   useEffect(() => {
     setHotelData([]);
@@ -113,6 +141,8 @@ export const useMapFacade = (props) => {
   }, [searchParams]);
 
   useEffect(() => {
+    console.log(`in rest`);
+    console.log(selectedTrip);
     if (selectedTrip !== undefined) {
       const dataTrip = {
         coordinates: {
@@ -171,6 +201,7 @@ export const useMapFacade = (props) => {
     setHotelData,
     addRest,
     addHotel,
+    mapCenter,
     tripToShow,
     setTripToShow,
     restToShow,

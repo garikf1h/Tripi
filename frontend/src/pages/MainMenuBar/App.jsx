@@ -14,7 +14,9 @@ const MainMenu = ({active_page}) => {
 
         <Menu.Item
           name='Home'
-           active={active_page === 'home'}
+          active={active_page === 'Home'}
+          href="/"
+          // onClick={this.handleItemClick}
         >
           Home
         </Menu.Item>

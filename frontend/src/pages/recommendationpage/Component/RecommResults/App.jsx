@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/recommend_page.css";
-import { Card, Feed } from "semantic-ui-react";
+import { Button, Card, Feed } from "semantic-ui-react";
 import PopUp from "../MapPopUp/App";
-const RecommResults = ({ save_results }) => {
+const RecommResults = ({
+  save_results,
+  setBackButtonDisabled,
+  backButtonDisabled,
+}) => {
   const [show_pop_up, setShowPopUp] = useState(false);
   const [current_trip, setCurrentTrip] = useState({});
 
   const togglePopUp = (trip) => {
     setShowPopUp(!show_pop_up);
+    setBackButtonDisabled(!backButtonDisabled);
     setCurrentTrip(save_results[trip]);
   };
   const map_colors = (score) => {

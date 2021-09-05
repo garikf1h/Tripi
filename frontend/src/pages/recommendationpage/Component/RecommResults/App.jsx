@@ -70,7 +70,7 @@ const RecommResults = ({
                     </div>
                     <div>
                       {" "}
-                      {full_trip.rest.rating} <b>:ציון המסעדה</b>{" "}
+                      {full_trip.rest.rating && <>{full_trip.rest.rating} <b>:ציון המסעדה</b>{" "}</>}
                     </div>
                   </Feed.Content>
                 </Feed.Event>
@@ -84,7 +84,7 @@ const RecommResults = ({
                       </div>
                       <div>
                         {" "}
-                        {full_trip.accom.rating} <b>:ציון המלון</b>{" "}
+                        {full_trip.accom.rating &&<> {full_trip.accom.rating} <b>:ציון המלון</b>{" "}</>}
                       </div>
                     </Feed.Content>
                   </Feed.Event>
@@ -102,13 +102,12 @@ const RecommResults = ({
               </div>
             </Card.Content>
           </Card>
-          {show_pop_up && (
+          {show_pop_up &&
             <PopUp
-              style={{ position: "absolute" }}
-              handleClose={togglePopUp}
-              places={current_trip}
-            ></PopUp>
-          )}
+    style={{position: "absolute"}}
+    handleClose={togglePopUp}
+    places={current_trip}/>
+          }
         </div>
       ))}{" "}
     </div>

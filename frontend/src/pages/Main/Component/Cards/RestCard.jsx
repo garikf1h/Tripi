@@ -22,7 +22,8 @@ export const RestCard = (props) => {
             </div>
             <div style={{ textAlign: "right" }}>
               {" "}
-              {rest.rating} <b>:ציון המסעדה</b>{" "}
+              {rest.rating && <>
+              {rest.rating} <b>:ציון המסעדה</b>{" "}</>}
             </div>
             <div style={{ textAlign: "right" }}>
               {" "}

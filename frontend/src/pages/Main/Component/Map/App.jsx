@@ -31,6 +31,8 @@ export const NewMap = (props) => {
     setHotelToShow,
     setTripToShow,
     tripToShow,
+    selectedTrip,
+    fullTrip
   } = useMapFacade(props.props.props);
 
   return (
@@ -96,14 +98,14 @@ export const NewMap = (props) => {
           }}
           onCloseClick={() => setTripToShow(undefined)}
         >
-          <div>
+          <div style={{textAlign:"right"}}>
             <p>{tripToShow.name}</p>
             <Divider />
             <p>{`${tripToShow.shortDescription}`}</p>
             <Divider />
             <p>{tripToShow.Product_url}</p>
             <Divider />
-            <Button
+            {!fullTrip.trip && <><Button
               primary
               onClick={() => {
                 setSelectedTrip(tripToShow);
@@ -113,7 +115,7 @@ export const NewMap = (props) => {
             >
               בחר את המסלול והתקדם
             </Button>
-            <Divider />
+            <Divider /></>}
           </div>
         </InfoWindow>
       )}
@@ -126,14 +128,15 @@ export const NewMap = (props) => {
           }}
           onCloseClick={() => setRestToShow(undefined)}
         >
-          <div>
+          <div style={{textAlign:"right"}}>
             <p>{restToShow.name}</p>
             <Divider />
-            <p>{`${restToShow.rating}`}</p>
-            <Divider />
+            {restToShow.rating!==undefined && <><p>{`${restToShow.rating} :ציון`}</p>
+            <Divider /></>}
             <p>{restToShow.vicinity}</p>
             <Divider />
-            <Button
+
+              {!fullTrip.rest&& <><Button
               primary
               onClick={() => {
                 setRestData([restToShow]);
@@ -143,7 +146,7 @@ export const NewMap = (props) => {
             >
               בחר את המסעדה
             </Button>
-            <Divider />
+            <Divider /></>}
           </div>
         </InfoWindow>
       )}
@@ -156,14 +159,15 @@ export const NewMap = (props) => {
           }}
           onCloseClick={() => setHotelToShow(undefined)}
         >
-          <div>
+          <div style={{textAlign:"right"}}>
             <p>{hotelToShow.name}</p>
             <Divider />
-            <p>{`${hotelToShow.rating}`}</p>
-            <Divider />
+            {hotelToShow.rating!==undefined && <><p>{`${hotelToShow.rating} :ציון `}</p>
+            <Divider /></>}
             <p>{hotelToShow.vicinity}</p>
             <Divider />
-            <Button
+             {!fullTrip.hotel&&
+            <><Button
               primary
               onClick={() => {
                 setHotelData([hotelToShow]);
@@ -173,7 +177,7 @@ export const NewMap = (props) => {
             >
               בחר את המסלול והתקדם
             </Button>
-            <Divider />
+            <Divider /></>}
           </div>
         </InfoWindow>
       )}

@@ -22,7 +22,9 @@ export const HotelCard = (props) => {
             </div>
             <div style={{ textAlign: "right" }}>
               {" "}
-              {hotel.rating} <b>:ציון המלון</b>{" "}
+              {hotel.rating &&
+             <>{hotel.rating} <b>:ציון המלון</b>{" "}</>
+              }
             </div>
             <div style={{ textAlign: "right" }}>
               {" "}

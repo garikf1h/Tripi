@@ -214,5 +214,6 @@ export const useMapFacade = (props) => {
     setSelectedTrip,
     setShowPopUp,
     showPopUp,
+    fullTrip
   };
 };
